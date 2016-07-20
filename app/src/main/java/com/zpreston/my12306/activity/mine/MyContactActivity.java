@@ -14,6 +14,5 @@ public class MyContactActivity extends AppCompatActivity {
 
 
 
-
     }
 }

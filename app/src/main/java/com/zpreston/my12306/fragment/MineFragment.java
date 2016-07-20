@@ -57,11 +57,13 @@ public class MineFragment extends Fragment {
                         startActivity(intent1);
                         Toast.makeText(getActivity(), "点击了我的联系人" + position, Toast.LENGTH_LONG).show();
                         break;
+
                     case 1:
                         Intent intent2=new Intent().setClass(getActivity(),MyAccountActivity.class);
                         startActivity(intent2);
                         Toast.makeText(getActivity(), "点击了我的账户" + position, Toast.LENGTH_LONG).show();
                         break;
+
                     case 2:
                         Intent intent3=new Intent().setClass(getActivity(),MyPasswordActivity.class);
                         startActivity(intent3);
