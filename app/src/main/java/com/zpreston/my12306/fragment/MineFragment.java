@@ -45,7 +45,7 @@ public class MineFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         lvSimple= (ListView) getActivity().findViewById(R.id.lvSimple);
 
-        simpleAdapter=new SimpleAdapter(getActivity(),mData,R.layout.listview_simple_mine,new String[]{"icon","title"},new int[]{R.id.simple_im,R.id.simple_tv});
+        simpleAdapter=new SimpleAdapter(getActivity(),mData,R.layout.mine_lvsimple_item,new String[]{"icon","title"},new int[]{R.id.simple_im,R.id.simple_tv});
         lvSimple.setAdapter(simpleAdapter);
         /* 响应条目的点击事件 */
         lvSimple.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -57,15 +57,17 @@ public class MineFragment extends Fragment {
                         startActivity(intent1);
                         Toast.makeText(getActivity(), "点击了我的联系人" + position, Toast.LENGTH_LONG).show();
                         break;
+
                     case 1:
                         Intent intent2=new Intent().setClass(getActivity(),MyAccountActivity.class);
                         startActivity(intent2);
                         Toast.makeText(getActivity(), "点击了我的账户" + position, Toast.LENGTH_LONG).show();
                         break;
+
                     case 2:
                         Intent intent3=new Intent().setClass(getActivity(),MyPasswordActivity.class);
                         startActivity(intent3);
-                        Toast.makeText(getActivity(), "点击了我的密码" + position, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "点击了修改密码" + position, Toast.LENGTH_LONG).show();
                         break;
                 }
             }
@@ -88,7 +90,7 @@ public class MineFragment extends Fragment {
 
         map=new HashMap<String,Object>();
         map.put("icon",R.drawable.my_password);
-        map.put("title","我的密码");
+        map.put("title","修改密码");
         data.add(map);
 
         return data;
