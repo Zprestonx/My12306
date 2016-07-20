@@ -1,8 +1,11 @@
 package com.zpreston.my12306;
 
 import android.app.Application;
+import android.database.sqlite.SQLiteDatabase;
 import android.test.ApplicationTestCase;
+import android.util.Log;
 
+import com.zpreston.my12306.daoImpl.UserDaoImpl;
 import com.zpreston.my12306.db.UserHelper;
 
 /**
@@ -20,4 +23,15 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         userHelper = new UserHelper(getContext());
         userHelper.getWritableDatabase();
     }
+
+    //测试UserDao中的loginVerify方法
+    public void testLoginVerify()
+    {
+        UserDaoImpl userDao = new UserDaoImpl(getContext());
+        String email = "775079852@qq.com";
+        String password = "123";
+        int code = userDao.loginVerify(email, password);
+        Log.i(" testLoginVerify", "************** testLoginVerify "+code);
+    }
+    //
 }

@@ -51,7 +51,14 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
+    /*
+    根据uid查找对密码,取出来和输入的oldPassword比较，如果相同，且两次输入的新密码一样，则修改旧密码,最后返回0
+    如果没找到密码，则oldPassword输入错误,返回0
+    如果两次输入的新密码不一样，则返回2
+    * */
     public int modifyPassword(int uid, String oldPassword, String newPassword, String checkNewPassword) {
+        //SQLiteDatabase db = userHelper
+
         return 0;
     }
 
