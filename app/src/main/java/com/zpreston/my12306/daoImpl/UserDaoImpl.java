@@ -133,4 +133,25 @@ public class UserDaoImpl implements UserDao {
         db.close();
         return user;
     }
+
+    /*
+    插入User记录
+    * */
+
+    @Override
+    public void insertUser(User user) {
+        SQLiteDatabase db = userHelper.getWritableDatabase();
+        String sql = "insert into User(email,password,userName,gender,idCard,phone,lastLoginTime,userStatus) values(?,?,?,?,?,?,?,?)";
+
+        String email = user.getEmail();
+        String password = user.getPassword();
+        String userName = user.getUserName();
+        int gender = user.getGender();
+        String idCard = user.getIdCard();
+        String phone = user.getPhone();
+        String lastLoginTime = user.getLastLoginTime();
+        int userStatus = user.getUserStatus();
+
+        db.execSQL(sql, new String[]{email, password, userName, String.valueOf(gender),idCard,phone,lastLoginTime,String.valueOf(userStatus)});
+    }
 }

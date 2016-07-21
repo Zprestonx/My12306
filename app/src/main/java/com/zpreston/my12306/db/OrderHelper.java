@@ -37,6 +37,6 @@ public class OrderHelper extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String sql = "drop table if exists OrderForm";
         db.execSQL(sql);
-
+        this.onCreate(db);
     }
 }

@@ -10,12 +10,12 @@ public class Contact {
     private String contactName;
     private String contactCardId;
     private String contactPhone;
-    private String contactState;
+    private int contactState;
 
     public Contact()
     {}
 
-    public Contact(int uid, int contactId, String contactName, String contactCardId, String contactPhone, String contactState) {
+    public Contact(int uid, int contactId, String contactName, String contactCardId, String contactPhone, int contactState) {
         this.uid = uid;
         this.contactId = contactId;
         this.contactName = contactName;
@@ -64,11 +64,11 @@ public class Contact {
         this.contactPhone = contactPhone;
     }
 
-    public String getContactState() {
+    public int getContactState() {
         return contactState;
     }
 
-    public void setContactState(String contactState) {
+    public void setContactState(int contactState) {
         this.contactState = contactState;
     }
 
@@ -80,7 +80,7 @@ public class Contact {
                 ", contactName='" + contactName + '\'' +
                 ", contactCardId='" + contactCardId + '\'' +
                 ", contactPhone='" + contactPhone + '\'' +
-                ", contactState='" + contactState + '\'' +
+                ", contactState=" + contactState +
                 '}';
     }
 }

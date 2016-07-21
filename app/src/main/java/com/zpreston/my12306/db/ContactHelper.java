@@ -3,6 +3,7 @@ package com.zpreston.my12306.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by preston on 2016/7/20.
@@ -19,14 +20,7 @@ public class ContactHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         //创建Contact表
-        String sql = "create table Contact(" +
-                "uid integer not null," +
-                "contactId integer not null," +
-                "contactName varchar(20) not null," +
-                "contactCardId varchar(20) not null," +
-                "contactPhone varchar(12)," +
-                "contactState integer" +
-                ")";
+        String sql = "create table Contact(uid integer not null, contactId integer not null,contactName varchar(20) not null,contactCardId varchar(20) not null,contactPhone varchar(12),contactState integer)";
         db.execSQL(sql);
 
     }
@@ -35,6 +29,6 @@ public class ContactHelper extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String sql = "drop table if exists Contact";
         db.execSQL(sql);
-
+        this.onCreate(db);
     }
 }

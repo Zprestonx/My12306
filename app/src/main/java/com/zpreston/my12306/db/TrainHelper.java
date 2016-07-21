@@ -38,5 +38,6 @@ public class TrainHelper extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String sql = "drop table if exists Train";
         db.execSQL(sql);
+        this.onCreate(db);
     }
 }

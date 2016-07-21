@@ -36,4 +36,11 @@ public interface UserDao {
     出参：User对象
     * */
     User getUserById(int uid);
+
+    /*
+    插入记录，暂用作测试
+    入参：User对象
+    出参:void
+    * */
+    void insertUser(User user);
 }
