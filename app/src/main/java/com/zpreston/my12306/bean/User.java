@@ -10,7 +10,7 @@ public class User {
     private String email;
     private String password;
     private String userName;
-    private String gender;
+    private int gender;
     private String idCard;
     private String phone;
     private String lastLoginTime;
@@ -22,7 +22,7 @@ public class User {
 
     }
 
-    public User(int uid, String email, String password, String userName, String gender, String idCard, String phone, String lastLoginTime, int userStatus) {
+    public User(int uid, String email, String password, String userName, int gender, String idCard, String phone, String lastLoginTime, int userStatus) {
         this.uid = uid;
         this.email = email;
         this.password = password;
@@ -66,11 +66,11 @@ public class User {
         this.userName = userName;
     }
 
-    public String getGender() {
+    public int getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 
@@ -113,7 +113,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", userName='" + userName + '\'' +
-                ", gender='" + gender + '\'' +
+                ", gender=" + gender +
                 ", idCard='" + idCard + '\'' +
                 ", phone='" + phone + '\'' +
                 ", lastLoginTime='" + lastLoginTime + '\'' +

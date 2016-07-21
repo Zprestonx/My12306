@@ -1,5 +1,7 @@
 package com.zpreston.my12306.dao;
 
+import com.zpreston.my12306.bean.User;
+
 /**
  * Created by user on 2016/7/20.
  *
@@ -17,7 +19,7 @@ public interface UserDao {
     /*
     修改密码
     入参：用户ID, 旧密码，新密码，第二次输入密码
-    出参:状态码，1表示修改成功
+    出参:状态码，0旧密码不正确,1表示修改成功, 2,两次输入的密码不一样
     * */
     int modifyPassword(int uid, String oldPassword, String newPassword, String checkNewPassword);
 
@@ -28,4 +30,10 @@ public interface UserDao {
     * */
     int logout(int uid);
 
+    /*
+    获取User表的某条记录，暂用作测试
+    入参：用户ID
+    出参：User对象
+    * */
+    User getUserById(int uid);
 }
