@@ -21,7 +21,13 @@
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.mine.MyContactActivity" />
         <activity android:name=".activity.mine.MyAccountActivity" />
-        <activity android:name=".activity.mine.MyPasswordActivity"></activity>
+        <activity android:name=".activity.mine.MyPasswordActivity" />
+        <activity
+            android:name=".activity.ticket.QueryActivity"
+            android:label="车票预订1/5" />
+        <activity
+            android:name=".activity.ticket.Ticket2Activity"
+            android:label="车票预订2/5"/>
     </application>
 
 </manifest>
