@@ -13,6 +13,7 @@ import com.zpreston.my12306.db.UserHelper;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
+ *
  */
 public class ApplicationTest extends ApplicationTestCase<Application> {
     private DbHelper dbHelper;

@@ -5,6 +5,7 @@ import com.zpreston.my12306.bean.User;
 /**
  * Created by user on 2016/7/20.
  *
+ *
  */
 
 public interface UserDao {

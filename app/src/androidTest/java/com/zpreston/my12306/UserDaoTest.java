@@ -11,6 +11,7 @@ package com.zpreston.my12306;
 
 /**
  * Created by user on 2016/7/21.
+ *
  */
 /*---------------------------------UserDao的测试-----------------------------------------------------------*/
 public class UserDaoTest extends ApplicationTestCase<Application>{

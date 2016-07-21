@@ -7,6 +7,7 @@ import java.util.List;
 /**
  * Created by user on 2016/7/20.
  * 2016-07-21 08:43
+ *
  */
 public interface ContactDao {
     /*
