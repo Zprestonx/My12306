@@ -1,12 +1,38 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.zpreston.my12306.fragment.OrderFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-
-
-
-
-</RelativeLayout>
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<TableLayout
+    android:layout_width="fill_parent"
+    android:gravity="center_horizontal"
+    android:layout_height="50dp">
+    <TableRow
+       >
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:text="待支付"
+        android:clickable="true"
+        android:gravity="center"
+        android:id="@+id/tv1"
+        android:background="@color/accent_material_dark"
+        android:onClick="unpayOrder"/>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:text="全部订单"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:id="@+id/tv2"
+        android:background="@color/accent_material_dark"
+        android:onClick="allOrder"/>
+</TableRow>
+</TableLayout>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lvOpt">
+    </ListView>
+</LinearLayout>

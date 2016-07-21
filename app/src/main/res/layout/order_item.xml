@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    >
+<TableLayout android:layout_width="0dp"
+               android:layout_height="wrap_content"
+    android:layout_weight="3">
+    <TableRow>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="orderNo"
+        android:layout_weight="1"
+
+        android:id="@+id/orderNo" />
+    <TextView
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:text="startDate"
+    android:layout_weight="1"
+    android:id="@+id/startDate" />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="orderState"
+        android:layout_weight="1"
+        android:id="@+id/orderState" />
+</TableRow>
+<TableRow>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="trainNo"
+        android:layout_weight="1"
+        android:id="@+id/trainNo" />
+    <TextView
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:text="trainMes"
+    android:layout_weight="1"
+    android:id="@+id/trainMes" />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="orderPrice"
+        android:layout_weight="1"
+        android:id="@+id/orderPrice" />
+    </TableRow>
+</TableLayout>
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/im" />
+</LinearLayout>
