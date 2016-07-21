@@ -22,16 +22,18 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     {
         userHelper = new UserHelper(getContext());
         userHelper.getWritableDatabase();
+        Log.e("testCreateUser", "**************testCreateUser");
     }
 
     //测试UserDao中的loginVerify方法
     public void testLoginVerify()
     {
+        Log.e("testLoginVerify", "**************testLoginVerify start");
         UserDaoImpl userDao = new UserDaoImpl(getContext());
         String email = "775079852@qq.com";
         String password = "123";
         int code = userDao.loginVerify(email, password);
-        Log.i(" testLoginVerify", "************** testLoginVerify "+code);
+        Log.e("testLoginVerify", "**************testLoginVerify "+code);
     }
     //
 }

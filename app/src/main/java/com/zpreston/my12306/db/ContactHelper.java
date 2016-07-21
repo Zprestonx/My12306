@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 /**
  * Created by preston on 2016/7/20.
+ *
  */
 public class ContactHelper extends SQLiteOpenHelper{
     private static final String DATABASENAME = "My12306.db";
