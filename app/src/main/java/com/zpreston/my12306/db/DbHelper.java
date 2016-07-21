@@ -71,6 +71,32 @@ public class DbHelper extends SQLiteOpenHelper{
                 "orderTime varchar(50) not null)";
         db.execSQL(sql);
 
+
+        //插入一些数据
+        //User表
+        sql = "insert into User values(1,'775079852@qq.com','123','xhs','1','440982199410082894','15627860619','2016-07-21 23:40', 1)";
+        db.execSQL(sql);
+        sql = "insert into User values(2,'15627860619@qq.com','666','zpx','1','440982199408218897','15627860613','2016-07-21 11:40', 2)";
+        db.execSQL(sql);
+
+        //Contact表
+        sql = "insert into Contact values(1,1,'xhs','440982199410082894','15627860619',1)";
+        db.execSQL(sql);
+        sql = "insert into Contact values(1,2,'rgl','440982199403216822','15627860614',2)";
+        db.execSQL(sql);
+
+        //Train表
+        sql = "insert into Train values(1,'G507','北京','广州','23:47','05:06','2016-08-21',51,255.5)";
+        db.execSQL(sql);
+        sql = "insert into Train values(2,'G2312','武汉','云南','12:07','08:21','2016-08-11',11,155.0)";
+        db.execSQL(sql);
+
+        //OrderForm
+        sql = "insert into OrderForm values(1,1,'201607212350',1,'G507',511,1,'2016-07-21 12:50')";
+        db.execSQL(sql);
+        sql = "insert into OrderForm values(2,2,'201607218129',1,'G507',217,1,'2016-07-31 11:32')";
+        db.execSQL(sql);
+
     }
 
     @Override

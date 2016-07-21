@@ -26,10 +26,11 @@ public interface ContactDao {
 
     /*
     删除联系人
-    入参：联系人ID
+    删除哪个用户的哪个联系人
+    入参：用户ID,联系人ID
     出参：状态码，1表示删除成功，0表示删除失败
     * */
-    int deleteContact(int contactId);
+    int deleteContact(int uid, int contactId);
 
     /*
     修改联系人
