@@ -18,11 +18,18 @@ public interface UserDao {
     int loginVerify(String email, String password);
 
     /*
-    修改密码
-    入参：用户ID, 旧密码，新密码，第二次输入密码
-    出参:状态码，0旧密码不正确,1表示修改成功, 2,两次输入的密码不一样
+    验证密码是否正确
+    入参：uid，密码
+    出参：1表示密码正确
     * */
-    int modifyPassword(int uid, String oldPassword, String newPassword, String checkNewPassword);
+    int verifyPassword(int uid, String oldPassword);
+
+    /*
+    修改密码
+    入参：用户ID, 新密码，第二次输入密码
+    出参:状态码，1表示修改成功, 2两次输入的密码不一样
+    * */
+    int modifyPassword(int uid, String newPassword, String checkNewPassword);
 
     /*
     退出登录

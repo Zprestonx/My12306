@@ -59,42 +59,49 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public int verifyPassword(int uid, String password) {
+        //获取可写的数据库对象
+        SQLiteDatabase db = userHelper.getReadableDatabase();
+
+        //加密密码，和数据库中加密的密码比较
+        String enPassword = Util.encryption(password);
+
+        //判断旧密码是否正确
+        String sql = "select uid from User where uid=? and password=?";
+        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(uid), enPassword});
+
+        if (cursor.moveToNext()) {
+            //旧密码正确，在数据库中更新
+            cursor.close();
+            db.close();
+            return 1;
+        } else {
+            //如果没找到密码，则oldPassword输入错误,返回0
+            cursor.close();
+            db.close();
+            return 0;
+        }
+    }
+
+    @Override
     /*
     根据uid查找对密码,取出来和输入的oldPassword比较，如果相同，且两次输入的新密码一样，则修改旧密码,最后返回0
     如果没找到密码，则oldPassword输入错误,返回0
     如果两次输入的新密码不一样，则返回2
     * */
-    public int modifyPassword(int uid, String oldPassword, String newPassword, String checkNewPassword) {
+    public int modifyPassword(int uid, String newPassword, String checkNewPassword) {
         if (!newPassword.equals(checkNewPassword)) {
             //如果两次输入的新密码不一样，则返回2
             return 2;
         } else {
-            //获取可写的数据库对象
-            SQLiteDatabase db = userHelper.getWritableDatabase();
-
             //加密旧密码，和数据库中加密的密码比较
-            String enPassword = Util.encryption(oldPassword);
-
-            //判断旧密码是否正确
-            String sql = "select uid from User where uid=? and password=?";
-            Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(uid), enPassword});
-
-            if (cursor.moveToNext()) {
-                //旧密码正确，在数据库中更新
-                enPassword = Util.encryption(newPassword);
-                sql = "UPDATE User SET password = ? WHERE uid = ?";
-                //这个会返回什么？如果更新不成功呢？
-                db.execSQL(sql, new String[]{enPassword, String.valueOf(uid)});
-
-                cursor.close();
-                db.close();
-                return 1;
-            } else {
-                //如果没找到密码，则oldPassword输入错误,返回0
-                cursor.close();
-                db.close();
-                return 0;
-            }
+            SQLiteDatabase db = userHelper.getWritableDatabase();
+            String enPassword = Util.encryption(newPassword);
+            String sql = "UPDATE User SET password = ? WHERE uid = ?";
+            //这个会返回什么？如果更新不成功呢？
+            db.execSQL(sql, new String[]{enPassword, String.valueOf(uid)});
+            db.close();
+            return 1;
         }
     }
 
@@ -157,7 +164,7 @@ public class UserDaoImpl implements UserDao {
         String lastLoginTime = user.getLastLoginTime();
         int userStatus = user.getUserStatus();
 
-        db.execSQL(sql, new String[]{email, password, userName, String.valueOf(gender), String.valueOf(certificateType),idCard,String.valueOf(passengerType), phone, lastLoginTime, String.valueOf(userStatus)});
+        db.execSQL(sql, new String[]{email, password, userName, String.valueOf(gender), String.valueOf(certificateType), idCard, String.valueOf(passengerType), phone, lastLoginTime, String.valueOf(userStatus)});
 
         //先获取uid，查询User表中最大的uid值
         sql = "select uid from User where email=?";
