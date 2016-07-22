@@ -22,6 +22,8 @@
         <activity android:name=".activity.mine.MyContactActivity" />
         <activity android:name=".activity.mine.MyAccountActivity" />
         <activity android:name=".activity.mine.MyPasswordActivity" />
+        <activity android:name=".activity.mine.ContactShowActivity" />
+        <activity android:name=".activity.mine.ContactAddActivity" />
         <activity
             android:name=".activity.ticket.Ticket1Activity"
             android:label="车票预订1/5" />
