@@ -19,7 +19,8 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:text="startDate"
-    android:layout_weight="1"
+    android:layout_weight="1.5"
+        android:textColor="@color/gray"
     android:id="@+id/startDate" />
     <TextView
         android:layout_width="0dp"
@@ -34,24 +35,29 @@
         android:layout_height="wrap_content"
         android:text="trainNo"
         android:layout_weight="1"
-        android:id="@+id/trainNo" />
+        android:id="@+id/trainNo"
+        android:textColor="@color/black"
+        android:textSize="30px"
+        android:gravity="center"/>
     <TextView
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:text="trainMes"
-    android:layout_weight="1"
+    android:layout_weight="1.5"
     android:id="@+id/trainMes" />
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="orderPrice"
         android:layout_weight="1"
-        android:id="@+id/orderPrice" />
+        android:id="@+id/orderPrice"
+        android:gravity="bottom"/>
     </TableRow>
 </TableLayout>
     <ImageView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="50dp"
+        android:layout_weight="0.5"
+        android:src="@drawable/order_tes"
         android:id="@+id/im" />
 </LinearLayout>

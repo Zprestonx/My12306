@@ -77,10 +77,13 @@ public class optAdapter extends BaseAdapter {
         viewHolder.orderNo.setText((String)mData.get(position).get("orderNo"));
         viewHolder.startDate.setText((String) mData.get(position).get("startDate"));
         viewHolder.trainNo.setText((String) mData.get(position).get("trainNo"));
-        viewHolder.orderState.setText((String) mData.get(position).get("orderState"));
         viewHolder.trainMes.setText((String) mData.get(position).get("trainMes"));
         viewHolder.orderPrice.setText((String) mData.get(position).get("orderPrice"));
-
+        if(((String)mData.get(position).get("orderState")).equals("0"))
+        {viewHolder.orderState.setText("未支付");
+        viewHolder.orderState.setTextColor(context.getResources().getColor(R.color.red));}
+        else {viewHolder.orderState.setText("已支付");
+        viewHolder.orderState.setTextColor(context.getResources().getColor(R.color.blue));}
         return convertView;
     }
     public void setmData(List<Map<String, Object>> mData){
