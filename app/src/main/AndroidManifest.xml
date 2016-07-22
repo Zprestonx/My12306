@@ -23,11 +23,12 @@
         <activity android:name=".activity.mine.MyAccountActivity" />
         <activity android:name=".activity.mine.MyPasswordActivity" />
         <activity
-            android:name=".activity.ticket.QueryActivity"
+            android:name=".activity.ticket.Ticket1Activity"
             android:label="车票预订1/5" />
         <activity
             android:name=".activity.ticket.Ticket2Activity"
-            android:label="车票预订2/5"/>
+            android:label="车票预订2/5" />
+        <activity android:name=".activity.ticket.Ticket3Activity"></activity>
     </application>
 
 </manifest>
