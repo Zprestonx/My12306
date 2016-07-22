@@ -23,7 +23,7 @@
             android:text="前一天"
             android:layout_weight="0.1"
             android:textSize="18sp"
-            android:background="@color/skyblue"
+            android:background="@color/cornflowerblue"
             android:textColor="@color/white"
             android:id="@+id/button" />
 
@@ -58,7 +58,7 @@
             android:text="后一天"
             android:textSize="18sp"
             android:layout_weight="0.1"
-            android:background="@color/skyblue"
+            android:background="@color/cornflowerblue"
             android:textColor="@color/white"
             android:id="@+id/button2" />
     </LinearLayout>
