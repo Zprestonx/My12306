@@ -92,9 +92,9 @@ public class DbHelper extends SQLiteOpenHelper{
         db.execSQL(sql);
 
         //OrderForm
-        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,1,'201607212350',1,'G507',511,1,'2016-07-21 12:50')";
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,'201607212350',1,'G507',511,1,'2016-07-21 12:50')";
         db.execSQL(sql);
-        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,2,'201607218129',1,'G507',217,1,'2016-07-31 11:32')";
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218129',1,'G507',217,1,'2016-07-31 11:32')";
         db.execSQL(sql);
 
     }

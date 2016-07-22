@@ -34,8 +34,8 @@ public class OrderDaoImpl implements OrderDao {
     出参：Order的List列表
     * */
     public List<Order> queryAllOrders(int uid) {
+        //接收数据的列表
         List<Order> orders = new ArrayList<>();
-
         //获取数据库对象
         SQLiteDatabase db = orderHelper.getReadableDatabase();
         //SQL语句
@@ -50,7 +50,7 @@ public class OrderDaoImpl implements OrderDao {
             int userId = cursor.getInt(cursor.getColumnIndex("uid"));
             String orderNo = cursor.getString(cursor.getColumnIndex("orderNo"));
             int contactId = cursor.getInt(cursor.getColumnIndex("contactId"));
-            String trainNo = cursor.getString(cursor.getColumnIndex("trainNO"));
+            String trainNo = cursor.getString(cursor.getColumnIndex("trainNo"));
             double orderPrice = cursor.getDouble(cursor.getColumnIndex("orderPrice"));
             int orderState = cursor.getInt(cursor.getColumnIndex("orderState"));
             String orderTime = cursor.getString(cursor.getColumnIndex("orderTime"));
@@ -85,7 +85,7 @@ public class OrderDaoImpl implements OrderDao {
             int userId = cursor.getInt(cursor.getColumnIndex("uid"));
             String orderNo = cursor.getString(cursor.getColumnIndex("orderNo"));
             int contactId = cursor.getInt(cursor.getColumnIndex("contactId"));
-            String trainNo = cursor.getString(cursor.getColumnIndex("trainNO"));
+            String trainNo = cursor.getString(cursor.getColumnIndex("trainNo"));
             double orderPrice = cursor.getDouble(cursor.getColumnIndex("orderPrice"));
             int orderState = cursor.getInt(cursor.getColumnIndex("orderState"));
             String orderTime = cursor.getString(cursor.getColumnIndex("orderTime"));
@@ -120,7 +120,7 @@ public class OrderDaoImpl implements OrderDao {
             int userId = cursor.getInt(cursor.getColumnIndex("uid"));
             String orderNo = cursor.getString(cursor.getColumnIndex("orderNo"));
             int contactId = cursor.getInt(cursor.getColumnIndex("contactId"));
-            String trainNo = cursor.getString(cursor.getColumnIndex("trainNO"));
+            String trainNo = cursor.getString(cursor.getColumnIndex("trainNo"));
             double orderPrice = cursor.getDouble(cursor.getColumnIndex("orderPrice"));
             int orderState = cursor.getInt(cursor.getColumnIndex("orderState"));
             String orderTime = cursor.getString(cursor.getColumnIndex("orderTime"));
@@ -137,7 +137,7 @@ public class OrderDaoImpl implements OrderDao {
     退票
     入参：用户ID，订单号orderNo，乘车人ID
     出参：状态码，1表示退票成功
-    把订单状态置为取消
+    把订单状态置为取消,2
     * */
     public int returnTicket(int uid, String orderNo, int contactId) {
         SQLiteDatabase db = orderHelper.getWritableDatabase();
@@ -164,16 +164,16 @@ public class OrderDaoImpl implements OrderDao {
     public String orderTickets(List<Contact> contactList, Train train) {
         //先取需要的数据
         String trainNo = train.getTrainNo();
-        double unitPrice = train.getPrice();
-        //乘车人数
-        int numOfPassengers = contactList.size();
-        //订单总价
-        double orderPrice = unitPrice * numOfPassengers;
+        //订单价格为票的单价
+        double orderPrice = train.getPrice();
         int orderState = 0;
-        //获取当前日期和时间，可能要修改为本地日期,这写对了吗？
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd hh:mm:ss");
-        String orderTime = simpleDateFormat.format(new java.util.Date());
-        String orderNo = orderTime;
+        //获取当前日期和时间，可能要修改为本地日期
+        SimpleDateFormat orderTimeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String orderTime = orderTimeFormat.format(new java.util.Date());
+        //订单号和日期时间的值一样，格式不同
+
+        SimpleDateFormat orderNoFormat = new SimpleDateFormat("yyyyMMddhhmmss");
+        String orderNo = orderNoFormat.format(new java.util.Date());
 
         //获取数据库对象
         SQLiteDatabase db = orderHelper.getWritableDatabase();
@@ -189,14 +189,17 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     /*
-    提交订单
+    支付订单
     入参：用户ID，orderNo 订单号
     出参：状态码，1表示提交成功
-    这是
+    把订单状态修改为1，表示已支付
     * */
     @Override
-    public int submitOrder(int uid, String orderNo) {
-
-        return 0;
+    public int payForOrder(int uid, String orderNo) {
+        SQLiteDatabase db = orderHelper.getWritableDatabase();
+        String sql = "update OrderForm set orderState=1 where uid=? and orderNo=?";
+        db.execSQL(sql, new String[]{String.valueOf(uid),orderNo});
+        db.close();
+        return 1;
     }
 }

@@ -48,9 +48,9 @@ public interface OrderDao {
     String orderTickets(List<Contact> contactList, Train train);
 
     /*
-    提交订单
+    支付订单
     入参：用户ID，orderNo 订单号
     出参：状态码，1表示提交成功
     * */
-    int submitOrder(int uid, String orderNo);
+    int payForOrder(int uid, String orderNo);
 }
