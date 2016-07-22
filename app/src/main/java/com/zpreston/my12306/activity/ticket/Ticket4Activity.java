@@ -1,5 +1,6 @@
 package com.zpreston.my12306.activity.ticket;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +25,11 @@ public class Ticket4Activity extends AppCompatActivity {
     public void no(View view) { //暂不支付按钮跳转
         Intent intent=new Intent(this,MainActivity.class);
         startActivity(intent);
+
+        for (Activity activity : TicketFragment.activityS) { //将车票预定1到3的Activity Finish掉
+            activity.finish();
+        }
+        finish();
     }
 
     public void yes(View view) { //确认支付按钮跳转
