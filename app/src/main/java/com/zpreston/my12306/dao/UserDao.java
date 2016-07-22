@@ -9,6 +9,12 @@ import com.zpreston.my12306.bean.User;
  */
 
 public interface UserDao {
+    /*
+    查询uid
+    入参：email
+    出参：uid ,如果uid为0说明没获取成功
+    * */
+    int queryUid(String email);
 
     /*
     登录验证
@@ -36,7 +42,7 @@ public interface UserDao {
      入参：用户ID
      出参：状态码，1表示退出成功
     * */
-    int logout(int uid);
+    int logout(String email);
 
     /*
     获取User表的某条记录，暂用作测试

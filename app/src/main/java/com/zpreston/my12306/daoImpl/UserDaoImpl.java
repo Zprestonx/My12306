@@ -24,6 +24,26 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public int queryUid(String email) {
+        SQLiteDatabase db = userHelper.getReadableDatabase();
+        String sql = "select uid from User where email = ?";
+        Cursor cursor = db.rawQuery(sql, new String[]{email});
+        if(cursor.moveToNext())
+        {
+            int uid = cursor.getInt(cursor.getColumnIndex("uid"));
+            cursor.close();
+            db.close();
+            return uid;
+        }
+        else
+        {
+            cursor.close();
+            db.close();
+            return 0;
+        }
+    }
+
+    @Override
     public int loginVerify(String email, String password) {
         //创建或打开一个只读数据库
         SQLiteDatabase db = userHelper.getReadableDatabase();
@@ -106,7 +126,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public int logout(int uid) {
+    public int logout(String email) {
         //暂时想不到要做什么
         return 1;
     }
