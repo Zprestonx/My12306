@@ -19,17 +19,17 @@ public interface UserDao {
 
     /*
     验证密码是否正确
-    入参：uid，密码
+    入参：email，密码
     出参：1表示密码正确
     * */
-    int verifyPassword(int uid, String oldPassword);
+    int verifyPassword(String email, String oldPassword);
 
     /*
     修改密码
-    入参：用户ID, 新密码，第二次输入密码
+    入参：用户email, 新密码，第二次输入密码
     出参:状态码，1表示修改成功, 2两次输入的密码不一样
     * */
-    int modifyPassword(int uid, String newPassword, String checkNewPassword);
+    int modifyPassword(String email, String newPassword, String checkNewPassword);
 
     /*
     退出登录

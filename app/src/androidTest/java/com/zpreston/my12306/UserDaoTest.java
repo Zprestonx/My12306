@@ -52,10 +52,10 @@ public class UserDaoTest extends ApplicationTestCase<Application> {
     * */
 
     public void testVerifyPassword() {
-        int uid = 1;
-        String password = "567";
+        String email = "775079852@qq.com";
+        String password = "234";
         UserDao userDao = new UserDaoImpl(getContext());
-        int code = userDao.verifyPassword(uid, password);
+        int code = userDao.verifyPassword(email, password);
         Util.myLog("testVerifyPassword",String.valueOf(code));
     }
 
@@ -63,12 +63,12 @@ public class UserDaoTest extends ApplicationTestCase<Application> {
     //测试通过
     public void testModifyPassword() {
         //输入 int uid, String oldPassword, String newPassword, String checkNewPassword
-        int uid = 1;
-        String newPassword = "234";
-        String checkNewPassword = "234";
+        String email = "775079852@qq.com";
+        String newPassword = "123";
+        String checkNewPassword = "123";
 
         UserDao userDao = new UserDaoImpl(getContext());
-        int code = userDao.modifyPassword(uid, newPassword, checkNewPassword);
+        int code = userDao.modifyPassword(email, newPassword, checkNewPassword);
         Util.myLog("testModifyPassword", String.valueOf(code));
     }
 
