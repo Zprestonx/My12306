@@ -26,7 +26,9 @@ public class DbHelper extends SQLiteOpenHelper{
                 "password varchar(50) not null,"+
                 "userName varchar(20) not null,"+
                 "gender integer not null,"+
+                "certificateType integer not null,"+
                 "idCard varchar(20) not null,"+
+                "passengerType integer not null,"+
                 "phone varchar(11) not null,"+
                 "lastLoginTime varchar(20),"+
                 "userStatus integer"+
@@ -74,9 +76,11 @@ public class DbHelper extends SQLiteOpenHelper{
 
         //插入一些数据
         //User表
-        sql = "insert into User(email,password,userName,gender,idCard,phone,lastLoginTime,userStatus) values('775079852@qq.com','123','xhs','1','440982199410082894','15627860619','2016-07-21 23:40', 1)";
+        sql = "insert into User(email,password,userName,gender,certificateType,idCard,passengerType,phone,lastLoginTime,userStatus) " +
+                "values('775079852@qq.com','123','xhs','1',0,'440982199410082894',0,'15627860619','2016-07-21 23:40', 1)";
         db.execSQL(sql);
-        sql = "insert into User(email,password,userName,gender,idCard,phone,lastLoginTime,userStatus) values('15627860619@qq.com','666','zpx','1','440982199408218897','15627860613','2016-07-21 11:40', 2)";
+        sql = "insert into User(email,password,userName,gender,certificateType,idCard,passengerType,phone,lastLoginTime,userStatus) values" +
+                "('15627860619@qq.com','666','zpx','1',0,'440982199408218897',0,'15627860613','2016-07-21 11:40', 2)";
         db.execSQL(sql);
 
         //Contact表

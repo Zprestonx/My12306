@@ -119,12 +119,14 @@ public class UserDaoImpl implements UserDao {
             String password = cursor.getString(cursor.getColumnIndex("password"));
             String userName = cursor.getString(cursor.getColumnIndex("userName"));
             int gender = cursor.getInt(cursor.getColumnIndex("gender"));
+            int certificateType = cursor.getInt(cursor.getColumnIndex("certificateType"));
             String idCard = cursor.getString(cursor.getColumnIndex("idCard"));
+            int passengerType = cursor.getInt(cursor.getColumnIndex("passengerType"));
             String phone = cursor.getString(cursor.getColumnIndex("phone"));
             String lastLoginTime = cursor.getString(cursor.getColumnIndex("lastLoginTime"));
             int userStatus = cursor.getInt(cursor.getColumnIndex("userStatus"));
 
-            user = new User(userId, email, password, userName, gender, idCard, phone, lastLoginTime, userStatus);
+            user = new User(userId, email, password, userName, gender, certificateType, idCard, passengerType, phone, lastLoginTime, userStatus);
 
 
         }
@@ -142,29 +144,31 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void insertUser(User user) {
         SQLiteDatabase db = userHelper.getWritableDatabase();
-        String sql = "insert into User(email,password,userName,gender,idCard,phone,lastLoginTime,userStatus) values(?,?,?,?,?,?,?,?)";
+        String sql = "insert into User(email,password,userName,gender,certificateType,idCard, passengerType,phone,lastLoginTime,userStatus) values(?,?,?,?,?,?,?,?,?,?)";
 
         String email = user.getEmail();
         String password = user.getPassword();
         String userName = user.getUserName();
         int gender = user.getGender();
+        int certificateType = user.getCertificateType();
         String idCard = user.getIdCard();
+        int passengerType = user.getPassengerType();
         String phone = user.getPhone();
         String lastLoginTime = user.getLastLoginTime();
         int userStatus = user.getUserStatus();
 
-        db.execSQL(sql, new String[]{email, password, userName, String.valueOf(gender), idCard, phone, lastLoginTime, String.valueOf(userStatus)});
+        db.execSQL(sql, new String[]{email, password, userName, String.valueOf(gender), String.valueOf(certificateType),idCard,String.valueOf(passengerType), phone, lastLoginTime, String.valueOf(userStatus)});
 
         //先获取uid，查询User表中最大的uid值
-        sql = "select max(uid) as maxUid from User";
-        Cursor cursor = db.rawQuery(sql, null);
+        sql = "select uid from User where email=?";
+        Cursor cursor = db.rawQuery(sql, new String[]{email});
         if (cursor.moveToNext()) {
-            int uid = cursor.getInt(cursor.getColumnIndex("maxUid"));
+            int uid = cursor.getInt(cursor.getColumnIndex("uid"));
             int contactId = 1;
             String contactName = userName;
             String contactCardId = idCard;
             String contactPhone = phone;
-            int contactState = 0; //先默认为成人
+            int contactState = passengerType;
             //插入Contact
             sql = "insert into Contact(uid,contactId,contactName,contactCardId,contactPhone,contactState) values(?,?,?,?,?,?)";
             db.execSQL(sql, new String[]{String.valueOf(uid), String.valueOf(contactId), contactName, contactCardId, contactPhone, String.valueOf(contactState)});

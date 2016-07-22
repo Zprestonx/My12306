@@ -69,15 +69,17 @@ public class UserDaoTest extends ApplicationTestCase<Application>{
     public void testInsertUser()
     {
         int uid = 1;
-        String email = "775079852@qq.com";
+        String email = "123499@qq.com";
         String password = "123";
-        String userName = "xhs";
+        String userName = "xxx";
         int gender = 1;
+        int certificateType = 0;
         String idCard = "440982199410082894";
+        int passengerType = 0;
         String phone = "15627860619";
         String lastLoginTime = "2016-07-21 17:09";
         int userStatus = 1;
-        User user = new User(uid,email,password,userName,gender,idCard,phone,lastLoginTime,userStatus);
+        User user = new User(uid,email,password,userName,gender,certificateType,idCard,passengerType,phone,lastLoginTime,userStatus);
 
         UserDao userDao = new UserDaoImpl(getContext());
         userDao.insertUser(user);

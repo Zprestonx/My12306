@@ -29,7 +29,9 @@ public class UserHelper extends SQLiteOpenHelper{
                 "password varchar(50) not null,"+
                 "userName varchar(20) not null,"+
                 "gender integer not null,"+
+                "certificateType integer not null,"+
                 "idCard varchar(20) not null,"+
+                "passengerType integer not null,"+
                 "phone varchar(11) not null,"+
                 "lastLoginTime varchar(20),"+
                 "userStatus integer"+

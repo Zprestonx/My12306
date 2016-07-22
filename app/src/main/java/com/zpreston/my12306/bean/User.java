@@ -12,7 +12,9 @@ public class User {
     private String password;
     private String userName;
     private int gender;
+    private int certificateType;
     private String idCard;
+    private int passengerType;
     private String phone;
     private String lastLoginTime;
     private int userStatus;
@@ -23,13 +25,15 @@ public class User {
 
     }
 
-    public User(int uid, String email, String password, String userName, int gender, String idCard, String phone, String lastLoginTime, int userStatus) {
+    public User(int uid, String email, String password, String userName, int gender, int certificateType, String idCard, int passengerType, String phone, String lastLoginTime, int userStatus) {
         this.uid = uid;
         this.email = email;
         this.password = password;
         this.userName = userName;
         this.gender = gender;
+        this.certificateType = certificateType;
         this.idCard = idCard;
+        this.passengerType = passengerType;
         this.phone = phone;
         this.lastLoginTime = lastLoginTime;
         this.userStatus = userStatus;
@@ -75,12 +79,28 @@ public class User {
         this.gender = gender;
     }
 
+    public int getCertificateType() {
+        return certificateType;
+    }
+
+    public void setCertificateType(int certificateType) {
+        this.certificateType = certificateType;
+    }
+
     public String getIdCard() {
         return idCard;
     }
 
     public void setIdCard(String idCard) {
         this.idCard = idCard;
+    }
+
+    public int getPassengerType() {
+        return passengerType;
+    }
+
+    public void setPassengerType(int passengerType) {
+        this.passengerType = passengerType;
     }
 
     public String getPhone() {
@@ -115,7 +135,9 @@ public class User {
                 ", password='" + password + '\'' +
                 ", userName='" + userName + '\'' +
                 ", gender=" + gender +
+                ", certificateType=" + certificateType +
                 ", idCard='" + idCard + '\'' +
+                ", passengerType=" + passengerType +
                 ", phone='" + phone + '\'' +
                 ", lastLoginTime='" + lastLoginTime + '\'' +
                 ", userStatus=" + userStatus +
