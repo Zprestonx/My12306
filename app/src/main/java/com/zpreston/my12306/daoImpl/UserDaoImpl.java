@@ -15,7 +15,6 @@ import javax.xml.transform.stream.StreamResult;
 
 /**
  * Created by preston on 2016/7/20.
- *
  */
 public class UserDaoImpl implements UserDao {
     private UserHelper userHelper;
@@ -137,6 +136,7 @@ public class UserDaoImpl implements UserDao {
 
     /*
     插入User记录
+    用户是第一个联系人，所以同时插入一条记录到Contact表
     * */
 
     @Override
@@ -153,6 +153,23 @@ public class UserDaoImpl implements UserDao {
         String lastLoginTime = user.getLastLoginTime();
         int userStatus = user.getUserStatus();
 
-        db.execSQL(sql, new String[]{email, password, userName, String.valueOf(gender),idCard,phone,lastLoginTime,String.valueOf(userStatus)});
+        db.execSQL(sql, new String[]{email, password, userName, String.valueOf(gender), idCard, phone, lastLoginTime, String.valueOf(userStatus)});
+
+        //先获取uid，查询User表中最大的uid值
+        sql = "select max(uid) as maxUid from User";
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor.moveToNext()) {
+            int uid = cursor.getInt(cursor.getColumnIndex("maxUid"));
+            int contactId = 1;
+            String contactName = userName;
+            String contactCardId = idCard;
+            String contactPhone = phone;
+            int contactState = 0; //先默认为成人
+            //插入Contact
+            sql = "insert into Contact(uid,contactId,contactName,contactCardId,contactPhone,contactState) values(?,?,?,?,?,?)";
+            db.execSQL(sql, new String[]{String.valueOf(uid), String.valueOf(contactId), contactName, contactCardId, contactPhone, String.valueOf(contactState)});
+        }
+        cursor.close();
+
     }
 }

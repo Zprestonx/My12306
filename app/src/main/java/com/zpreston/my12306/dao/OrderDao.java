@@ -19,7 +19,7 @@ public interface OrderDao {
     * */
     List<Order> queryAllOrders(int uid);
 
-    /*
+   /*
     查询未支付订单
     入参：uid用户ID
     出参：Order的List列表
@@ -41,7 +41,7 @@ public interface OrderDao {
     int returnTicket(int uid, String orderNo, int contactId);
 
     /*
-    车票预订
+    车票预订，执行后状态都为未支付
     入参：乘车人列表（可能有多个人乘同一列车）,车次Train对象
     出参：订单号，orderNo
     * */

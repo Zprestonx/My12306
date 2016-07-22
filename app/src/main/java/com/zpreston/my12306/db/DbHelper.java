@@ -47,7 +47,7 @@ public class DbHelper extends SQLiteOpenHelper{
         //创建Train表
         //有double类型吗？
         sql = "create table Train(" +
-                "id integer not null primary key," +
+                "id integer not null primary key autoincrement," +
                 "trainNo varchar(10) not null," +
                 "startStationName varchar(30) not null," +
                 "endStationName varchar(30) not null," +
@@ -61,7 +61,7 @@ public class DbHelper extends SQLiteOpenHelper{
 
         //创建OrderForm表
         sql = "create table OrderForm(" +
-                "id integer not null primary key, " +
+                "id integer not null primary key autoincrement, " +
                 "uid integer not null, " +
                 "orderNo varchar(20) not null, " +
                 "contactId integer not null, " +
@@ -74,27 +74,27 @@ public class DbHelper extends SQLiteOpenHelper{
 
         //插入一些数据
         //User表
-        sql = "insert into User values(1,'775079852@qq.com','123','xhs','1','440982199410082894','15627860619','2016-07-21 23:40', 1)";
+        sql = "insert into User(email,password,userName,gender,idCard,phone,lastLoginTime,userStatus) values('775079852@qq.com','123','xhs','1','440982199410082894','15627860619','2016-07-21 23:40', 1)";
         db.execSQL(sql);
-        sql = "insert into User values(2,'15627860619@qq.com','666','zpx','1','440982199408218897','15627860613','2016-07-21 11:40', 2)";
+        sql = "insert into User(email,password,userName,gender,idCard,phone,lastLoginTime,userStatus) values('15627860619@qq.com','666','zpx','1','440982199408218897','15627860613','2016-07-21 11:40', 2)";
         db.execSQL(sql);
 
         //Contact表
-        sql = "insert into Contact values(1,1,'xhs','440982199410082894','15627860619',1)";
+        sql = "insert into Contact(uid,contactId,contactName,contactCardId,contactPhone,contactState) values(1,1,'xhs','440982199410082894','15627860619',1)";
         db.execSQL(sql);
-        sql = "insert into Contact values(1,2,'rgl','440982199403216822','15627860614',2)";
+        sql = "insert into Contact(uid,contactId,contactName,contactCardId,contactPhone,contactState) values(1,2,'rgl','440982199403216822','15627860614',2)";
         db.execSQL(sql);
 
         //Train表
-        sql = "insert into Train values(1,'G507','北京','广州','23:47','05:06','2016-08-21',51,255.5)";
+        sql = "insert into Train(trainNo,startStationName,endStationName,startTime,arriveTime,startDate,seats,price) values('G507','北京','广州','23:47','05:06','2016-08-21',51,255.5)";
         db.execSQL(sql);
-        sql = "insert into Train values(2,'G2312','武汉','云南','12:07','08:21','2016-08-11',11,155.0)";
+        sql = "insert into Train(trainNo,startStationName,endStationName,startTime,arriveTime,startDate,seats,price) values('G2312','武汉','云南','12:07','08:21','2016-08-11',11,155.0)";
         db.execSQL(sql);
 
         //OrderForm
-        sql = "insert into OrderForm values(1,1,'201607212350',1,'G507',511,1,'2016-07-21 12:50')";
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,1,'201607212350',1,'G507',511,1,'2016-07-21 12:50')";
         db.execSQL(sql);
-        sql = "insert into OrderForm values(2,2,'201607218129',1,'G507',217,1,'2016-07-31 11:32')";
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,2,'201607218129',1,'G507',217,1,'2016-07-31 11:32')";
         db.execSQL(sql);
 
     }

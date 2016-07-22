@@ -30,7 +30,7 @@ public class UserDaoTest extends ApplicationTestCase<Application>{
     * */
     public void testLoginVerify()
     {
-        UserDaoImpl userDao = new UserDaoImpl(getContext());
+        UserDao userDao = new UserDaoImpl(getContext());
         String email = "775079852@qq.com";
         String password = "567";
         int code = userDao.loginVerify(email, password);
@@ -42,7 +42,7 @@ public class UserDaoTest extends ApplicationTestCase<Application>{
     //测试通过
     public void testGetUserById()
     {
-        UserDaoImpl userDao = new UserDaoImpl(getContext());
+        UserDao userDao = new UserDaoImpl(getContext());
         int uid = 1;
         User user = userDao.getUserById(uid);
         Log.e("testGetUserById", "**************"+user.toString());
@@ -58,7 +58,7 @@ public class UserDaoTest extends ApplicationTestCase<Application>{
         String newPassword = "567";
         String checkNewPassword = "567";
 
-        UserDaoImpl userDao = new UserDaoImpl(getContext());
+        UserDao userDao = new UserDaoImpl(getContext());
         int code = userDao.modifyPassword(uid, oldPassword, newPassword, checkNewPassword);
         Log.e("testModifyPassword", "**************testModifyPassword"+code);
     }
@@ -79,7 +79,7 @@ public class UserDaoTest extends ApplicationTestCase<Application>{
         int userStatus = 1;
         User user = new User(uid,email,password,userName,gender,idCard,phone,lastLoginTime,userStatus);
 
-        UserDaoImpl userDao = new UserDaoImpl(getContext());
+        UserDao userDao = new UserDaoImpl(getContext());
         userDao.insertUser(user);
     }
 }
