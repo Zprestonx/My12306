@@ -8,7 +8,7 @@ import com.zpreston.my12306.bean.Contact;
 import com.zpreston.my12306.bean.Order;
 import com.zpreston.my12306.bean.Train;
 import com.zpreston.my12306.dao.OrderDao;
-import com.zpreston.my12306.db.OrderHelper;
+import com.zpreston.my12306.db.DbHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,12 +20,12 @@ import java.util.List;
  *
  */
 public class OrderDaoImpl implements OrderDao {
-    private OrderHelper orderHelper;
+    private DbHelper dbHelper;
 
     //这是干什么用的？
     public OrderDaoImpl(Context context)
     {
-        orderHelper = new OrderHelper(context);
+        dbHelper = new DbHelper(context);
     }
     @Override
     /*
@@ -37,7 +37,7 @@ public class OrderDaoImpl implements OrderDao {
         //接收数据的列表
         List<Order> orders = new ArrayList<>();
         //获取数据库对象
-        SQLiteDatabase db = orderHelper.getReadableDatabase();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
         //SQL语句
         String sql = "select * from OrderForm where uid=?";
         Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(uid)});
@@ -72,7 +72,7 @@ public class OrderDaoImpl implements OrderDao {
         List<Order> orders = new ArrayList<>();
 
         //获取数据库对象
-        SQLiteDatabase db = orderHelper.getReadableDatabase();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
         //SQL语句
         String sql = "select * from OrderForm where uid=? and orderState=0";
         Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(uid)});
@@ -107,7 +107,7 @@ public class OrderDaoImpl implements OrderDao {
         List<Order> orders = new ArrayList<>();
 
         //获取数据库对象
-        SQLiteDatabase db = orderHelper.getReadableDatabase();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
         //SQL语句
         String sql = "select * from OrderForm where uid=? and orderState=1";
         Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(uid)});
@@ -140,7 +140,7 @@ public class OrderDaoImpl implements OrderDao {
     把订单状态置为取消,2
     * */
     public int returnTicket(int uid, String orderNo, int contactId) {
-        SQLiteDatabase db = orderHelper.getWritableDatabase();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         String sql = "update OrderForm set orderState=2 where uid=? and orderNo=? and contactId=?";
         db.execSQL(sql, new String[]{String.valueOf(uid),orderNo,String.valueOf(contactId)});
         db.close();
@@ -176,7 +176,7 @@ public class OrderDaoImpl implements OrderDao {
         String orderNo = orderNoFormat.format(new java.util.Date());
 
         //获取数据库对象
-        SQLiteDatabase db = orderHelper.getWritableDatabase();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         String sql = "insert into OrderForm(uid,orderNo,contactId,trainNo,orderPrice,orderState,orderTime) " +
                 "values(?,?,?,?,?,?,?)";
         for(Contact contact:contactList)
@@ -196,7 +196,7 @@ public class OrderDaoImpl implements OrderDao {
     * */
     @Override
     public int payForOrder(int uid, String orderNo) {
-        SQLiteDatabase db = orderHelper.getWritableDatabase();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         String sql = "update OrderForm set orderState=1 where uid=? and orderNo=?";
         db.execSQL(sql, new String[]{String.valueOf(uid),orderNo});
         db.close();

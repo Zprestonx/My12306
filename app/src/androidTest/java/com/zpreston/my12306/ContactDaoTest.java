@@ -7,7 +7,8 @@ import android.util.Log;
 import com.zpreston.my12306.bean.Contact;
 import com.zpreston.my12306.dao.ContactDao;
 import com.zpreston.my12306.daoImpl.ContactDaoImpl;
-import com.zpreston.my12306.db.ContactHelper;
+import com.zpreston.my12306.db.DbHelper;
+import com.zpreston.my12306.util.Util;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
  */
 /*---------------------------------ContactDao的测试-----------------------------------------------------------*/
 public class ContactDaoTest extends ApplicationTestCase<Application> {
-    private ContactHelper contactHelper;
+    private DbHelper dbHelper;
     public ContactDaoTest() {
         super(Application.class);
     }
@@ -44,12 +45,12 @@ public class ContactDaoTest extends ApplicationTestCase<Application> {
     测试显示所有联系人
     * */
     public void testQueryMyContacts() {
-        int uid = 1;
+        String email = "775079852@qq.com";
         ContactDao contactDao = new ContactDaoImpl(getContext());
-        List<Contact> contacts = contactDao.queryMyContacts(uid);
+        List<Contact> contacts = contactDao.queryMyContacts(email);
         for (Contact contact:contacts)
         {
-            Log.e("testQueryMyContacts","*************"+contact.toString()+"*************");
+            Util.myLog("testQueryMyContacts",contact.toString());
         }
 
     }
@@ -59,10 +60,11 @@ public class ContactDaoTest extends ApplicationTestCase<Application> {
     * */
     public void testDeleteContact()
     {
-        int uid = 1;
+        String email = "775079852@qq.com";
         int contactId = 2;
         ContactDao contactDao = new ContactDaoImpl(getContext());
-        contactDao.deleteContact(uid, contactId);
+        contactDao.deleteContact(email, contactId);
+        testQueryMyContacts();
     }
 
     /*

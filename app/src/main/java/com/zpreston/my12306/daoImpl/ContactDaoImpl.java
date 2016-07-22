@@ -6,7 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.zpreston.my12306.bean.Contact;
 import com.zpreston.my12306.dao.ContactDao;
-import com.zpreston.my12306.db.ContactHelper;
+import com.zpreston.my12306.dao.UserDao;
+import com.zpreston.my12306.db.DbHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,22 +18,22 @@ import java.util.List;
  *
  */
 public class ContactDaoImpl implements ContactDao {
-    private ContactHelper contactHelper;
+    private DbHelper dbHelper;
 
     public ContactDaoImpl(Context context) {
-        contactHelper = new ContactHelper(context);
+        dbHelper = new DbHelper(context);
     }
     @Override
     /*
-    根据uid查询所有联系人，要用cursor
+    根据email查询所有联系人，联表
     * */
-    public List<Contact> queryMyContacts(int uid) {
+    public List<Contact> queryMyContacts(String email) {
         List<Contact> contacts = new ArrayList<>();
         //获取只读数据库对象
-        SQLiteDatabase db = contactHelper.getReadableDatabase();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
         //SQL语句
-        String sql = "select * from Contact where uid = ?";
-        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(uid)});
+        String sql = "select * from User,Contact where User.email = ? and User.uid=Contact.uid";
+        Cursor cursor = db.rawQuery(sql, new String[]{email});
 
         while (cursor.moveToNext())
         {
@@ -66,7 +67,7 @@ public class ContactDaoImpl implements ContactDao {
         String contactPhone = contact.getContactPhone();
         int contactState = contact.getContactState();
 
-        SQLiteDatabase db = contactHelper.getWritableDatabase();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         String sql = "insert into Contact values(?,?,?,?,?,?)";
 
         //怎么判断执行错误？
@@ -75,10 +76,13 @@ public class ContactDaoImpl implements ContactDao {
     }
 
     @Override
-    public int deleteContact(int uid,int contactId) {
-        SQLiteDatabase db = contactHelper.getWritableDatabase();
-        String sql = "delete from Contact where uid=? and contactId=?";
-        db.execSQL(sql, new String[]{String.valueOf(uid), String.valueOf(contactId)});
+    public int deleteContact(String email,int contactId) {
+        //根据uid获取email
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        //String sql = "delete Contact from User,Contact where User.email=? and User.uid=Contact.uid and contactId=?";
+        String sql = "delete from Contact where contactId=? and uid=" +
+                "(select uid from User where email = ?)";
+        db.execSQL(sql, new String[]{String.valueOf(contactId),email});
         return 1;
     }
 
@@ -92,7 +96,7 @@ public class ContactDaoImpl implements ContactDao {
         String contactPhone = contact.getContactPhone();
         int contactState = contact.getContactState();
 
-        SQLiteDatabase db = contactHelper.getWritableDatabase();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         String sql = "update Contact set uid=?, contactId=?, contactName=?, contactCardId=?, contactPhone=?, contactState=? where uid=? and contactId=?";
         db.execSQL(sql, new String[]{String.valueOf(uid),String.valueOf(contactId),contactName,contactCardId,contactPhone,String.valueOf(contactState),String.valueOf(uid),String.valueOf(contactId)});
         return 1;

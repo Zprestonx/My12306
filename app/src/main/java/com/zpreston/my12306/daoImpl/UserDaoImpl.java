@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.zpreston.my12306.bean.User;
 import com.zpreston.my12306.dao.UserDao;
-import com.zpreston.my12306.db.UserHelper;
+import com.zpreston.my12306.db.DbHelper;
 import com.zpreston.my12306.util.Util;
 
 import javax.crypto.Cipher;
@@ -17,15 +17,15 @@ import javax.xml.transform.stream.StreamResult;
  * Created by preston on 2016/7/20.
  */
 public class UserDaoImpl implements UserDao {
-    private UserHelper userHelper;
+    private DbHelper dbHelper;
 
     public UserDaoImpl(Context context) {
-        userHelper = new UserHelper(context);
+        dbHelper = new DbHelper(context);
     }
 
     @Override
     public int queryUid(String email) {
-        SQLiteDatabase db = userHelper.getReadableDatabase();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
         String sql = "select uid from User where email = ?";
         Cursor cursor = db.rawQuery(sql, new String[]{email});
         if(cursor.moveToNext())
@@ -46,7 +46,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public int loginVerify(String email, String password) {
         //创建或打开一个只读数据库
-        SQLiteDatabase db = userHelper.getReadableDatabase();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
         String sql = "select uid from User where email=?";
         Cursor cursor = db.rawQuery(sql, new String[]{email});
         if (cursor.moveToNext()) {
@@ -57,7 +57,7 @@ public class UserDaoImpl implements UserDao {
             if (cursor.moveToFirst()) {
                 //验证通过
                 //把最近一次登录时间记录下来
-                db = userHelper.getWritableDatabase();
+                db = dbHelper.getWritableDatabase();
                 sql = "update User set lastLoginTime=datetime(CURRENT_TIMESTAMP, 'localtime') where email = ?";
                 db.execSQL(sql, new String[]{email});
 
@@ -81,7 +81,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public int verifyPassword(String email, String password) {
         //获取可写的数据库对象
-        SQLiteDatabase db = userHelper.getReadableDatabase();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         //加密密码，和数据库中加密的密码比较
         String enPassword = Util.encryption(password);
@@ -115,7 +115,7 @@ public class UserDaoImpl implements UserDao {
             return 2;
         } else {
             //加密旧密码，和数据库中加密的密码比较
-            SQLiteDatabase db = userHelper.getWritableDatabase();
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
             String enPassword = Util.encryption(newPassword);
             String sql = "UPDATE User SET password = ? WHERE email = ?";
             //这个会返回什么？如果更新不成功呢？
@@ -133,7 +133,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserById(int uid) {
-        SQLiteDatabase db = userHelper.getReadableDatabase();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
         User user = null;
 
         String sql = "select * from User where uid=?";
@@ -170,7 +170,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void insertUser(User user) {
-        SQLiteDatabase db = userHelper.getWritableDatabase();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         String sql = "insert into User(email,password,userName,gender,certificateType,idCard, passengerType,phone,lastLoginTime,userStatus) values(?,?,?,?,?,?,?,?,?,?)";
 
         String email = user.getEmail();

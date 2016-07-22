@@ -12,10 +12,10 @@ import java.util.List;
 public interface ContactDao {
     /*
     查询我的联系人
-    入参：用户ID
+    入参：用户邮箱
     出参：联系人List
     * */
-    List<Contact> queryMyContacts(int uid);
+    List<Contact> queryMyContacts(String email);
 
     /*
     添加联系人
@@ -27,10 +27,10 @@ public interface ContactDao {
     /*
     删除联系人
     删除哪个用户的哪个联系人
-    入参：用户ID,联系人ID
+    入参：用户邮箱,联系人ID
     出参：状态码，1表示删除成功，0表示删除失败
     * */
-    int deleteContact(int uid, int contactId);
+    int deleteContact(String email, int contactId);
 
     /*
     修改联系人

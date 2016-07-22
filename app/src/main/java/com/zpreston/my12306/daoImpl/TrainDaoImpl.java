@@ -6,7 +6,7 @@ import android.database.Cursor;
 import com.zpreston.my12306.bean.Contact;
 import com.zpreston.my12306.bean.Train;
 import com.zpreston.my12306.dao.TrainDao;
-import com.zpreston.my12306.db.TrainHelper;
+import com.zpreston.my12306.db.DbHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,30 +17,30 @@ import java.util.List;
  *
  */
 public class TrainDaoImpl implements TrainDao {
-    private TrainHelper trainHelper;
+    private DbHelper dbHelper;
 
     public TrainDaoImpl(Context context){
-        trainHelper=new TrainHelper(context);
+        dbHelper=new DbHelper(context);
     }
 
     @Override
     public List<String> queryCities() {
-        List<String> list=new ArrayList<String>();
+        List<String> list=new ArrayList<>();
         String sql="select distinct startStationName from Train";
-        Cursor cursor=trainHelper.getReadableDatabase().rawQuery(sql,null);
+        Cursor cursor=dbHelper.getReadableDatabase().rawQuery(sql,null);
         while(cursor.moveToNext()){
             list.add(cursor.getString(0));
         }
         cursor.close();
-        trainHelper.close();
+        dbHelper.close();
         return list;
     }
 
     @Override
     public List<Train> queryTrain(String startStationName, String endStationName, String startDate) {
-        List<Train> list=new ArrayList<Train>();
+        List<Train> list=new ArrayList<>();
         String sql="select * from Train where startStationName=? and endStationName=? and startDate=?";
-        Cursor cursor=trainHelper.getReadableDatabase().
+        Cursor cursor=dbHelper.getReadableDatabase().
                 rawQuery(sql,new String[]{startStationName,endStationName,startDate});
         while(cursor.moveToNext()){
             int id=cursor.getInt(0);
@@ -57,7 +57,7 @@ public class TrainDaoImpl implements TrainDao {
             list.add(train);
         }
         cursor.close();
-        trainHelper.close();
+        dbHelper.close();
         return list;
     }
 

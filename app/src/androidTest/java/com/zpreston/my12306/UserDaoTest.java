@@ -7,7 +7,7 @@ import android.util.Log;
 import com.zpreston.my12306.bean.User;
 import com.zpreston.my12306.dao.UserDao;
 import com.zpreston.my12306.daoImpl.UserDaoImpl;
-import com.zpreston.my12306.db.UserHelper;
+import com.zpreston.my12306.db.DbHelper;
 import com.zpreston.my12306.util.Util;
 
 /**
@@ -15,7 +15,7 @@ import com.zpreston.my12306.util.Util;
  */
 /*---------------------------------UserDao的测试-----------------------------------------------------------*/
 public class UserDaoTest extends ApplicationTestCase<Application> {
-    private UserHelper userHelper;
+    private DbHelper dbHelper;
 
     public UserDaoTest() {
         super(Application.class);

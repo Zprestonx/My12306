@@ -8,7 +8,7 @@ import android.util.Log;
 import com.zpreston.my12306.bean.Train;
 import com.zpreston.my12306.dao.TrainDao;
 import com.zpreston.my12306.daoImpl.TrainDaoImpl;
-import com.zpreston.my12306.db.TrainHelper;
+import com.zpreston.my12306.db.DbHelper;
 
 import java.util.List;
 
@@ -18,19 +18,19 @@ import java.util.List;
  */
 /*---------------------------------TrainDao的测试-----------------------------------------------------------*/
 public class TrainDaoTest extends ApplicationTestCase<Application>{
-    private TrainHelper trainHelper;
+    private DbHelper dbHelper;
     public TrainDaoTest() {
         super(Application.class);
     }
     public void testCreateTrain(){
         String sql="select * from Train";
-        trainHelper=new TrainHelper(getContext());
-        Cursor cursor=trainHelper.getWritableDatabase().rawQuery(sql,null);
+        dbHelper=new DbHelper(getContext());
+        Cursor cursor=dbHelper.getWritableDatabase().rawQuery(sql,null);
         while(cursor.moveToNext()){
             Log.e("Train",cursor.getString(1)+"--"+cursor.getString(2)+"--"+cursor.getString(3));
         }
         if(!cursor.isClosed()) cursor.close();
-        if(trainHelper!=null) trainHelper.close();
+        if(dbHelper!=null) dbHelper.close();
         Log.e("Train","************null");
     }
     public void testQueryCities(){

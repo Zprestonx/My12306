@@ -9,7 +9,7 @@ import com.zpreston.my12306.bean.Order;
 import com.zpreston.my12306.bean.Train;
 import com.zpreston.my12306.dao.OrderDao;
 import com.zpreston.my12306.daoImpl.OrderDaoImpl;
-import com.zpreston.my12306.db.OrderHelper;
+import com.zpreston.my12306.db.DbHelper;
 import com.zpreston.my12306.util.Util;
 
 import java.text.SimpleDateFormat;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 /*---------------------------------OrderDao的测试-----------------------------------------------------------*/
 public class OrderDaoTest extends ApplicationTestCase<Application> {
-    private OrderHelper orderHelper;
+    private DbHelper dbHelper;
 
     public OrderDaoTest() {
         super(Application.class);
