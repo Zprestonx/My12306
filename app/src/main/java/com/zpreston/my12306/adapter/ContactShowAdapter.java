@@ -57,6 +57,7 @@ public class ContactShowAdapter extends BaseAdapter {
             viewHolder.tvContactShow.setText(mData.get(position).get("label").toString());
             viewHolder.edtContactShow.setText(mData.get(position).get("content").toString());
 
+
             convertView.setTag(viewHolder);
         }else {
             viewHolder=(ViewHolder)convertView.getTag();
