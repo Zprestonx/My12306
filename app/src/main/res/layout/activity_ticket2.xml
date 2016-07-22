@@ -25,7 +25,7 @@
             android:textSize="18sp"
             android:background="@color/cornflowerblue"
             android:textColor="@color/white"
-            android:id="@+id/button" />
+            android:id="@+id/button3" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
                 android:gravity="center"
                 android:text="2016-7-21 周四"
                 android:textColor="@color/black"
-                android:textSize="20sp"/>
+                android:textSize="18sp"/>
 
             <TextView
                 android:layout_width="fill_parent"
@@ -60,7 +60,7 @@
             android:layout_weight="0.1"
             android:background="@color/cornflowerblue"
             android:textColor="@color/white"
-            android:id="@+id/button2" />
+            android:id="@+id/button4" />
     </LinearLayout>
 
     <LinearLayout

@@ -8,9 +8,21 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="com.zpreston.my12306.activity.ticket.Ticket3_AddActivity">
 
 
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView5"
+        android:layout_weight="1"/>
 
-
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="添加联系人"
+        android:background="@color/cornflowerblue"
+        android:textColor="@color/white"
+        android:id="@+id/button6" />
 </LinearLayout>

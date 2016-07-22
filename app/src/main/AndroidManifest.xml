@@ -30,8 +30,18 @@
         <activity
             android:name=".activity.ticket.Ticket2Activity"
             android:label="车票预订2/5" />
-        <activity android:name=".activity.ticket.Ticket3Activity" android:label="车票预订3/5"/>
-        <activity android:name=".activity.ticket.Ticket3_AddActivity" android:label="添加联系人"></activity>
+        <activity
+            android:name=".activity.ticket.Ticket3Activity"
+            android:label="车票预订3/5" />
+        <activity
+            android:name=".activity.ticket.Ticket3_AddActivity"
+            android:label="添加联系人" />
+        <activity
+            android:name=".activity.ticket.Ticket4Activity"
+            android:label="车票预订4/5" />
+        <activity
+            android:name=".activity.ticket.Ticket5Activity"
+            android:label="车票预订5/5"></activity>
     </application>
 
 </manifest>

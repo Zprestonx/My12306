@@ -1,6 +1,7 @@
 package com.zpreston.my12306.fragment;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,12 +13,16 @@ import android.widget.Button;
 
 import com.zpreston.my12306.R;
 import com.zpreston.my12306.activity.ticket.Ticket1Activity;
+import com.zpreston.my12306.activity.ticket.Ticket3_AddActivity;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class TicketFragment extends Fragment {
     private Button q;
+    public static ArrayList<Activity> activityS = new ArrayList<Activity>();
 
 
     public TicketFragment() {
@@ -53,6 +58,7 @@ public class TicketFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Ticket1Activity.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 
