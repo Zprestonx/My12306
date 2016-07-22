@@ -21,6 +21,20 @@ public class UserDaoTest extends ApplicationTestCase<Application> {
         super(Application.class);
     }
 
+    /*
+    测试queryUid
+    查询uid
+    入参：email
+    出参：uid ,如果uid为0说明没获取成功
+    * */
+    public void testQueryUid()
+    {
+        String email = "775079852@qq.com";
+        UserDao userDao = new UserDaoImpl(getContext());
+        int uid = userDao.queryUid(email);
+        Util.myLog("testQueryUid",String.valueOf(uid));
+    }
+
     //测试UserDao中的loginVerify接口
     /*
     测试结果
