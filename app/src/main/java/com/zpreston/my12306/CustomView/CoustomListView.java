@@ -11,6 +11,7 @@ import android.widget.ListView;
  * Created by preston on 2016/7/22.
  */
 public class CoustomListView extends ListView {
+
     private float minDis = 10;
     private float mLastMotionX;// 记住上次X触摸屏的位置
     private float mLastMotionY;// 记住上次Y触摸屏的位置

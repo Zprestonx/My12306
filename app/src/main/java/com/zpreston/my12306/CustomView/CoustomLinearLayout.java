@@ -12,6 +12,7 @@ import android.widget.Scroller;
  * Created by preston on 2016/7/22.
  */
 public class CoustomLinearLayout extends LinearLayout{
+
     private Scroller mScroller;// 滑动控制
     private float mLastMotionX;// 记住上次触摸屏的位置
     private int deltaX;
