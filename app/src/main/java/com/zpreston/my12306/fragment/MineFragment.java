@@ -1,12 +1,15 @@
 package com.zpreston.my12306.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -65,6 +68,7 @@ public class MineFragment extends Fragment {
                         break;
 
                     case 2:
+                        /*pwd_dialog();*/
                         Intent intent3=new Intent().setClass(getActivity(),MyPasswordActivity.class);
                         startActivity(intent3);
                         Toast.makeText(getActivity(), "点击了修改密码" + position, Toast.LENGTH_LONG).show();
