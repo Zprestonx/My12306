@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:paddingTop="7dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.04">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="seatMes"
+            android:layout_weight="1"
+            android:id="@+id/seatMes" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="seatNum"
+            android:layout_weight="1"
+            android:id="@+id/seatNum" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="seatPri"
+            android:textColor="@color/tomato"
+            android:layout_weight="1"
+            android:id="@+id/seatPri" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="预定"
+            android:background="@color/cornflowerblue"
+            android:textColor="@color/white"
+            android:layout_weight="1"
+            android:id="@+id/button10" />
+    </LinearLayout>
+</LinearLayout>
