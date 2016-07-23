@@ -14,10 +14,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zpreston.my12306.R;
 import com.zpreston.my12306.activity.ticket.QueryCity;
@@ -39,6 +41,10 @@ public class TicketFragment extends Fragment {
 
     private static final int BEGIN_CITY_CODE=1;
     private static final int END_CITY_CODE=2;
+
+    private int year=0;
+    private int month=0;
+    private int day=0;
 
     public static ArrayList<Activity> activityS=new ArrayList<Activity>();
 
@@ -83,16 +89,34 @@ public class TicketFragment extends Fragment {
             public void onClick(View v) {
                 //将查询城市加入查询历史中
                 addToHistory();
-                Intent intent = new Intent(getActivity(), Ticket1Activity.class);
-                intent.putExtra("beginCity",beginCity.getText().toString());
-                intent.putExtra("endCity",endCity.getText().toString());
-                startActivity(intent);
+                if(year==0 || month==0 || day==0){
+                    Toast.makeText(getActivity(),"请选择日期",Toast.LENGTH_SHORT).show();
+                }else{
+                    Intent intent = new Intent(getActivity(), Ticket1Activity.class);
+                    intent.putExtra("beginCity",beginCity.getText().toString());
+                    intent.putExtra("endCity",endCity.getText().toString());
+                    intent.putExtra("year",year);
+                    intent.putExtra("month",month);
+                    intent.putExtra("day",day);
+                    startActivity(intent);
+                }
             }
         });
         listView=(ListView) getActivity().findViewById(R.id.listView);
         listView.setDivider(null);
-        QueryHistoryAdapter adapter=new QueryHistoryAdapter(getActivity(),getData());
-        listView.setAdapter(adapter);
+        List<String> data=getData();
+        final QueryHistoryAdapter adapter=new QueryHistoryAdapter(getActivity(),data);
+        if(data!=null){
+            listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String cities[]=adapter.getItem(position).toString().split("-");
+                    beginCity.setText(cities[0]);
+                    endCity.setText(cities[1]);
+                }
+            });
+        }
     }
 
     @Override
@@ -113,18 +137,19 @@ public class TicketFragment extends Fragment {
         Calendar calendar=Calendar.getInstance(Locale.CHINA);
         Date nowDate=new Date();
         calendar.setTime(nowDate);
-        int year=calendar.get(Calendar.YEAR);
-        int month=calendar.get(Calendar.MONTH);
-        int day=calendar.get(Calendar.DAY_OF_MONTH);
+        int nowYear=calendar.get(Calendar.YEAR);
+        int nowMonth=calendar.get(Calendar.MONTH);
+        int nowDay=calendar.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog dialog=new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                int mMonth=monthOfYear+1;
-                int mDay=dayOfMonth;
-                time.setText(mMonth+"月"+mDay+"日");
+            public void onDateSet(DatePicker view, int mYear, int monthOfYear, int dayOfMonth) {
+                year=mYear;
+                month=monthOfYear+1;
+                day=dayOfMonth;
+                time.setText(month+"月"+day+"日");
                 time.setTextSize(25);
             }
-        },year,month,day);
+        },nowYear,nowMonth,nowDay);
         dialog.show();
     }
 
