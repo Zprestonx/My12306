@@ -28,17 +28,19 @@ public class ContactDaoTest extends ApplicationTestCase<Application> {
     修改用户的同时应更新Contact表，自己是自己的联系人
     * */
     public void testAddContact() {
+        String email = "775079852@qq.com";
         //设置成员的值
         int uid = 1;//属于1的联系人
         int contactId = 1;
-        String contactName = "xhs";
+        String contactName = "曾华生";
         String contactCardId = "440982199410082896";
-        String contactPhone = "15627860619";
+        String contactPhone = "15627860613";
         int contactState = 1;
 
         Contact contact = new Contact(uid,contactId,contactName,contactCardId,contactPhone,contactState);
         ContactDao contactDao = new ContactDaoImpl(getContext());
-        contactDao.addContact(contact);
+        contactDao.addContact(email,contact);
+        testQueryMyContacts();
     }
 
     /*
