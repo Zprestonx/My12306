@@ -19,10 +19,10 @@ public interface ContactDao {
 
     /*
     添加联系人
-    入参：Contact对象
+    入参：用户邮箱email, Contact对象，uid和contactId属性可为空值
     出参：状态码，1表示添加成功，0表示添加失败
     * */
-    int addContact(Contact contact);
+    int addContact(String email, Contact contact);
 
     /*
     删除联系人
@@ -38,4 +38,11 @@ public interface ContactDao {
     出参：状态码，1表示修改成功
     * */
     int updateContact(Contact contact);
+
+    /*
+    查询单个联系人
+    入参：email用户邮箱，contactId联系人id
+    出参：Contact 对象
+    * */
+    Contact querySingleContact(String email, int contactId);
 }

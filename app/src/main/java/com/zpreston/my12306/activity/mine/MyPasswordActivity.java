@@ -14,10 +14,11 @@ import android.widget.Toast;
 
 import com.zpreston.my12306.R;
 import com.zpreston.my12306.activity.MainActivity;
+import com.zpreston.my12306.bean.User;
+import com.zpreston.my12306.daoImpl.UserDaoImpl;
 import com.zpreston.my12306.fragment.MineFragment;
 
 public class MyPasswordActivity extends AppCompatActivity {
-    private EditText edtPwdO;
     private EditText edtPwdF;
     private EditText edtPwdS;
     private Button btnPst;
@@ -28,7 +29,6 @@ public class MyPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_password);
 
-        edtPwdO= (EditText) findViewById(R.id.edtPwdO);
         edtPwdF= (EditText) findViewById(R.id.edtPwdF);
         edtPwdS= (EditText) findViewById(R.id.edtPwdS);
         btnPst= (Button) findViewById(R.id.btnPst);
@@ -38,20 +38,15 @@ public class MyPasswordActivity extends AppCompatActivity {
         btnPst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String pwd=edtPwdO.getText().toString();
                 String pwd1=edtPwdF.getText().toString();
                 String pwd2=edtPwdS.getText().toString();
 
-                if(TextUtils.isEmpty(pwd)){
-                    edtPwdO.setError("密码不能空");
-                    edtPwdO.requestFocus();
-                }
-                else if(TextUtils.isEmpty(pwd1)){
-                    edtPwdF.setError("密码不能空");
+                if(TextUtils.isEmpty(pwd1)){
+                    edtPwdF.setError("密码不能为空");
                     edtPwdF.requestFocus();
                 }
                 else if(TextUtils.isEmpty(pwd2)){
-                    edtPwdS.setError("密码不能空");
+                    edtPwdS.setError("密码不能为空");
                     edtPwdS.requestFocus();
                 }
                 else if(!pwd1.equals(pwd2)){
@@ -60,6 +55,9 @@ public class MyPasswordActivity extends AppCompatActivity {
                 else if(pwd1.equals(pwd2)){
                     /* 如果密码相同，点击确定则保存密码 */
                     Toast.makeText(MyPasswordActivity.this,"保存新密码....",Toast.LENGTH_LONG).show();
+                    UserDaoImpl userDI=new UserDaoImpl(MyPasswordActivity.this);
+                    int rt=userDI.modifyPassword("775079852@qq.com",pwd1,pwd2);
+                    Toast.makeText(MyPasswordActivity.this,"保存新密码返回值为:"+rt,Toast.LENGTH_LONG).show();
                     finish();
                 }
             }

@@ -7,7 +7,9 @@ import android.util.Log;
 import com.zpreston.my12306.bean.Contact;
 import com.zpreston.my12306.bean.Order;
 import com.zpreston.my12306.bean.Train;
+import com.zpreston.my12306.dao.ContactDao;
 import com.zpreston.my12306.dao.OrderDao;
+import com.zpreston.my12306.daoImpl.ContactDaoImpl;
 import com.zpreston.my12306.daoImpl.OrderDaoImpl;
 import com.zpreston.my12306.db.DbHelper;
 import com.zpreston.my12306.util.Util;
@@ -32,17 +34,16 @@ public class OrderDaoTest extends ApplicationTestCase<Application> {
     * */
     /*
     查询全部订单
-    入参：uid用户ID
+    入参：email，用户邮箱
     出参：Order的List列表
     * */
     public void testQueryAllOrders() {
-        int uid = 1;
+        String email = "775079852@qq.com";
         OrderDao orderDao = new OrderDaoImpl(getContext());
-        List<Order> orders = orderDao.queryAllOrders(uid);
+        List<Order> orders = orderDao.queryAllOrders(email);
         for (Order order : orders) {
-            Log.e("testQueryAllOrders", "********testQueryAllOrders***********" + order.toString());
+            Util.myLog("testQueryAllOrders", order.toString());
         }
-
     }
 
     /*
@@ -50,45 +51,45 @@ public class OrderDaoTest extends ApplicationTestCase<Application> {
     * */
     /*
      未支付订单
-     入参：uid用户ID
+    入参：email，用户邮箱
      出参：Order的List列表
      * */
     public void testQueryNotPaidOrders() {
-        int uid = 1;
+        String email = "775079852@qq.com";
         OrderDao orderDao = new OrderDaoImpl(getContext());
-        List<Order> orders = orderDao.queryAllOrders(uid);
+        List<Order> orders = orderDao.queryNotPaidOrders(email);
         for (Order order : orders) {
-            Log.e("testQueryAllOrders", "********testQueryAllOrders***********" + order.toString());
+            Util.myLog("testQueryNotPaidOrders", order.toString());
         }
     }
 
     /*
     测试
     查询已支付订单
-    入参：uid用户ID
+    入参：email，用户邮箱
     出参：Order的List列表
     * */
     public void testQueryAlreadyPaidOrders() {
-        int uid = 1;
+        String email = "775079852@qq.com";
         OrderDao orderDao = new OrderDaoImpl(getContext());
-        List<Order> orders = orderDao.queryAllOrders(uid);
+        List<Order> orders = orderDao.queryAlreadyPaidOrders(email);
         for (Order order : orders) {
-            Log.e("testQueryAllOrders", "********testQueryAllOrders***********" + order.toString());
+            Util.myLog("testQueryAlreadyPaidOrders", order.toString());
         }
     }
 
     /*
     测试
     退票
-    入参：用户ID，订单号orderNo，乘车人ID
+    入参：email，用户邮箱,订单号orderNo，乘车人ID
     出参：状态码，1表示退票成功
     * */
     public void testReturnTicket() {
-        int uid = 1;
+        String email = "775079852@qq.com";
         String orderNo = "201607212350";
         int contactId = 1;
         OrderDao orderDao = new OrderDaoImpl(getContext());
-        orderDao.returnTicket(uid, orderNo, contactId);
+        orderDao.returnTicket(email, orderNo, contactId);
         //查看订单状状态是否变为2了
         //直接调用测试的方法显示表的信息
         testQueryAllOrders();
@@ -103,8 +104,8 @@ public class OrderDaoTest extends ApplicationTestCase<Application> {
         //构造contactList
         List<Contact> contactList = new ArrayList<>();
         int uid = 1;
-        int contactId = 2;
-        String contactName = "mlh";
+        int contactId = 3;
+        String contactName = "玛丽好";
         String contactCardId = "440982199407152896";
         String contactPhone = "15627860608";
         int contactState = 0;
@@ -112,8 +113,8 @@ public class OrderDaoTest extends ApplicationTestCase<Application> {
         contactList.add(contact1);
 
         uid = 1;
-        contactId = 3;
-        contactName = "zpx";
+        contactId = 4;
+        contactName = "曾培兴";
         contactCardId = "440982199403216829";
         contactPhone = "15627860601";
         contactState = 0;
@@ -150,22 +151,44 @@ public class OrderDaoTest extends ApplicationTestCase<Application> {
     * */
     public void testPayForOrder()
     {
-        int uid = 1;
-        String orderNo = "20160722033207";
+        String email = "775079852@qq.com";
+        String orderNo = "20160723125622";
         OrderDao orderDao = new OrderDaoImpl(getContext());
-        orderDao.payForOrder(uid, orderNo);
+        orderDao.payForOrder(email, orderNo);
         testQueryAlreadyPaidOrders();
     }
 
 
     /*
-    生成本地日期和时间的字符串
-    获取当前日期和时间，可能要修改为本地日期
+    取消订单
+    入参：email，用户邮箱,订单号orderNo
+    出参：状态码，1表示退票成功
     * */
-    public void testCreateDateAndTime()
+    public void testCancelOrder()
     {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
-        String orderTime = simpleDateFormat.format(new java.util.Date());
-        Util.myLog("testCreateDateAndTime",orderTime);
+        String email = "775079852@qq.com";
+        String orderNo = "20160723084613";
+        OrderDao orderDao = new OrderDaoImpl(getContext());
+        orderDao.cancelOrder(email, orderNo);
     }
+
+
+    /*
+    获取同一订单的联系人
+    入参：email，用户邮箱,订单号orderNo
+    出参：List<Contact> contacts， 联系人列表
+    * */
+    public void testGetSameOrderContacts()
+    {
+        String email = "775079852@qq.com";
+        String orderNo = "20160723011523";
+        OrderDao orderDao = new OrderDaoImpl(getContext());
+        List<Contact> contacts = orderDao.getSameOrderContacts(email, orderNo);
+        for (Contact contact:contacts)
+        {
+            Util.myLog("testGetSameOrderContacts", contact.toString());
+        }
+    }
+
+
 }

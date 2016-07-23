@@ -106,4 +106,17 @@ public class UserDaoTest extends ApplicationTestCase<Application> {
         UserDao userDao = new UserDaoImpl(getContext());
         userDao.insertUser(user);
     }
+
+    /*
+    获取用户信息
+    入参：email，用户邮箱
+    出参：User对象
+    * */
+    public void testGetUserInfo()
+    {
+        String email = "775079852@qq.com";
+        UserDao userDao = new UserDaoImpl(getContext());
+        User user = userDao.getUserInfo(email);
+        Util.myLog("testGetUserInfo", user.toString());
+    }
 }

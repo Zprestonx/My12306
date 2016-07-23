@@ -24,8 +24,8 @@ public class MyContactAdapter extends BaseAdapter {
         this.mData=mData;
     }
     private class ViewHolder{
-        public TextView tvUser;
-        public TextView tvId;
+        public TextView tvContactName;
+        public TextView tvIdCard;
         public TextView tvPhone;
         public ImageView imForward;
 
@@ -52,14 +52,14 @@ public class MyContactAdapter extends BaseAdapter {
             viewHolder=new ViewHolder();
             convertView=View.inflate(context, R.layout.contact_lvmain_item,null);
 
-            viewHolder.tvUser=(TextView)convertView.findViewById(R.id.tvUser);
-            viewHolder.tvId=(TextView)convertView.findViewById(R.id.tvId);
+            viewHolder.tvContactName=(TextView)convertView.findViewById(R.id.tvContactName);
+            viewHolder.tvIdCard=(TextView)convertView.findViewById(R.id.tvIdCard);
             viewHolder.tvPhone=(TextView)convertView.findViewById(R.id.tvPhone);
             viewHolder.imForward=(ImageView) convertView.findViewById(R.id.imForward);
 
 
-            viewHolder.tvUser.setText(mData.get(position).get("tvUser").toString());
-            viewHolder.tvId.setText(mData.get(position).get("tvId").toString());
+            viewHolder.tvContactName.setText(mData.get(position).get("tvContactName").toString());
+            viewHolder.tvIdCard.setText(mData.get(position).get("tvIdCard").toString());
             viewHolder.tvPhone.setText(mData.get(position).get("tvPhone").toString());
             viewHolder.imForward.setImageResource((Integer) mData.get(position).get("imForward"));
 

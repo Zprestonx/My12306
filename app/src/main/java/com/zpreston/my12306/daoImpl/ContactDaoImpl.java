@@ -55,24 +55,40 @@ public class ContactDaoImpl implements ContactDao {
     @Override
     /*
     添加联系人
-    入参：Contact对象
+    入参：邮箱email,Contact对象
     出参：状态码，1表示添加成功，0表示添加失败
+    uid和contactId不会传过来，要自动获取
+    uid的话就根据邮箱查，contactId就设为自动增长
     * */
-    public int addContact(Contact contact) {
+    public int addContact(String email,Contact contact) {
         //获取成员的值
-        int uid = contact.getUid();
-        int contactId = contact.getContactId();
+        //int uid = contact.getUid();
+        //int contactId = contact.getContactId();
         String contactName = contact.getContactName();
         String contactCardId = contact.getContactCardId();
         String contactPhone = contact.getContactPhone();
         int contactState = contact.getContactState();
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String sql = "insert into Contact values(?,?,?,?,?,?)";
+        String sql = "select User.uid,max(contactId) as maxContactId from User,Contact where email=? and Contact.uid = User.uid";
+        Cursor cursor = db.rawQuery(sql, new String[]{email});
+        if(cursor.moveToNext())
+        {
+            int uid = cursor.getInt(cursor.getColumnIndex("uid"));
+            int contactId = cursor.getInt(cursor.getColumnIndex("maxContactId"));
+            int newContactId = contactId + 1;
 
-        //怎么判断执行错误？
-        db.execSQL(sql, new String[]{String.valueOf(uid),String.valueOf(contactId),contactName,contactCardId,contactPhone,String.valueOf(contactState)});
-        return 1;
+            sql = "insert into Contact(uid,contactId,contactName,contactCardId,contactPhone,contactState) values(?,?,?,?,?,?)";
+
+            db.execSQL(sql, new String[]{String.valueOf(uid),String.valueOf(newContactId),contactName,contactCardId,contactPhone,String.valueOf(contactState)});
+            cursor.close();
+            return 1;
+        }
+        else
+        {
+            cursor.close();
+            return 0;
+        }
     }
 
     @Override
@@ -100,5 +116,40 @@ public class ContactDaoImpl implements ContactDao {
         String sql = "update Contact set uid=?, contactId=?, contactName=?, contactCardId=?, contactPhone=?, contactState=? where uid=? and contactId=?";
         db.execSQL(sql, new String[]{String.valueOf(uid),String.valueOf(contactId),contactName,contactCardId,contactPhone,String.valueOf(contactState),String.valueOf(uid),String.valueOf(contactId)});
         return 1;
+    }
+
+    @Override
+    /*
+    查询单个联系人
+    入参：email用户邮箱，contactId联系人id
+    出参：Contact 对象
+    * */
+    public Contact querySingleContact(String email, int contactId) {
+        //获取只读数据库对象
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        //SQL语句
+        String sql = "select * from Contact where contactId=? and uid = " +
+                "(select uid from User where email = ?)";
+        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(contactId), email});
+
+        if(cursor.moveToNext())
+        {
+            //Contact bean 的结构
+            int userId = cursor.getInt(cursor.getColumnIndex("uid"));
+            int newContactId = cursor.getInt(cursor.getColumnIndex("contactId"));
+            String contactName = cursor.getString(cursor.getColumnIndex("contactName"));
+            String contactCardId = cursor.getString(cursor.getColumnIndex("contactCardId"));
+            String contactPhone = cursor.getString(cursor.getColumnIndex("contactPhone"));
+            int contactState = cursor.getInt(cursor.getColumnIndex("contactState"));
+
+            Contact contact = new Contact(userId, newContactId, contactName, contactCardId, contactPhone, contactState);
+            cursor.close();
+            return contact;
+        }
+        else
+        {
+            cursor.close();
+            return null;
+        }
     }
 }

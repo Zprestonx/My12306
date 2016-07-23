@@ -26,10 +26,10 @@
             android:text="trainNo" />
 
         <TextView
-            android:id="@+id/startDate"
+            android:id="@+id/orderTime"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:text="startDate" />
+            android:text="orderTime" />
     </LinearLayout>
 
     <TextView

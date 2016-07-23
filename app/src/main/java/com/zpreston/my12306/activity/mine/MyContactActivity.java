@@ -14,6 +14,12 @@ import android.widget.Toast;
 import com.zpreston.my12306.R;
 import com.zpreston.my12306.adapter.MyAccountAdapter;
 import com.zpreston.my12306.adapter.MyContactAdapter;
+import com.zpreston.my12306.bean.Contact;
+import com.zpreston.my12306.bean.User;
+import com.zpreston.my12306.dao.ContactDao;
+import com.zpreston.my12306.dao.UserDao;
+import com.zpreston.my12306.daoImpl.ContactDaoImpl;
+import com.zpreston.my12306.daoImpl.UserDaoImpl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +39,6 @@ public class MyContactActivity extends AppCompatActivity {
         lvContact = (ListView) findViewById(R.id.lvContact);
         lvContact.setAdapter(new MyContactAdapter(this,mData));
 
-
         lvContact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -41,6 +46,9 @@ public class MyContactActivity extends AppCompatActivity {
                     case 0:
                         Toast.makeText(MyContactActivity.this, "点击了联系人" + position, Toast.LENGTH_LONG).show();
                         Intent intent1=new Intent().setClass(MyContactActivity.this,ContactShowActivity.class);
+                        /*Bundle bundle=new Bundle();
+                        bundle.p*/
+
                         startActivity(intent1);
                         break;
 
@@ -52,8 +60,6 @@ public class MyContactActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     private List<Map<String,Object>> getData(){
@@ -61,19 +67,24 @@ public class MyContactActivity extends AppCompatActivity {
         List<Map<String,Object>> data=new ArrayList<Map<String, Object>>();
         Map<String,Object> map=new HashMap<String,Object>();
 
-        map.put("tvUser","陈伟飞（成人）");
-        map.put("tvId","身份证：123456");
-        map.put("tvPhone","12345");
-        map.put("imForward",R.drawable.forward_icon);
-        data.add(map);
+        ContactDao contactDao=new ContactDaoImpl(MyContactActivity.this);
+        List<Contact> contactList=contactDao.queryMyContacts("775079852@qq.com");
 
-        map=new HashMap<String,Object>();
-        map.put("tvUser","艾米米");
-        map.put("tvId","1234567");
-        map.put("tvPhone","123456");
-        map.put("imForward",R.drawable.forward_icon);
-        data.add(map);
+        String contactType = null;
 
+        for(Contact contact:contactList){
+            if(contact.getContactState()==0){
+                contactType = "成人";
+            }else if(contact.getContactState()==1){
+                contactType = "学生";
+            }
+
+            map.put("tvContactName",contact.getContactName()+"("+contactType+")");
+            map.put("tvIdCard","身份证："+contact.getContactCardId());
+            map.put("tvPhone","电话："+contact.getContactPhone());
+            map.put("imForward",R.drawable.forward_icon);
+            data.add(map);
+        }
         return data;
     }
 
@@ -87,15 +98,12 @@ public class MyContactActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         /* 菜单栏选项点击事件 */
+
         switch (item.getItemId()){
-            case R.id.home:
-                Toast.makeText(MyContactActivity.this,"you clicked Return", Toast.LENGTH_SHORT).show();
-                finish();
-                break;
             case R.id.add_item:
-                Toast.makeText(MyContactActivity.this,"you clicked Add", Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent().setClass(MyContactActivity.this,ContactAddActivity.class);
+                Intent intent=new Intent(MyContactActivity.this,ContactAddActivity.class);
                 startActivity(intent);
+                Toast.makeText(MyContactActivity.this,"you clicked Add", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 Toast.makeText(MyContactActivity.this,"Error!", Toast.LENGTH_SHORT).show();

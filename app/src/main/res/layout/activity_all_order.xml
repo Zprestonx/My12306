@@ -13,7 +13,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="您的订单编号为："
-                android:background="@color/darkkhaki"
+                android:background="@color/lightpink"
                 android:gravity="center"/>
             <TextView
                 android:layout_width="0dp"
@@ -22,7 +22,7 @@
                 android:layout_height="50dp"
                 android:gravity="center"
                 android:id="@+id/orderNo"
-                android:background="@color/darkcyan" />
+                android:background="@color/lightpink" />
         </TableRow>
         <TableRow>
             <TextView
@@ -51,7 +51,7 @@
             android:text="查看二维码"
             android:id="@+id/bar_code"
             android:clickable="true"
-            android:background="@color/darkkhaki"
+            android:background="@color/lightgray"
             android:gravity="center"/>
 
     </LinearLayout>

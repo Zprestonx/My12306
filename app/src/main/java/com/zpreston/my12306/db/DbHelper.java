@@ -100,7 +100,16 @@ public class DbHelper extends SQLiteOpenHelper{
         db.execSQL(sql);
         sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218129',1,'G507',217,1,'2016-07-31 11:32')";
         db.execSQL(sql);
-
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218129',2,'G507',217,1,'2016-07-31 11:32')";
+        db.execSQL(sql);
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218130',3,'G507',250,0,'2016-07-31 11:32')";
+        db.execSQL(sql);
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218131',5,'G508',150,0,'2016-07-30 10:32')";
+        db.execSQL(sql);
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218131',6,'G508',150,0,'2016-07-30 10:32')";
+        db.execSQL(sql);
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218132',4,'G505',300,1,'2016-07-31 11:32')";
+        db.execSQL(sql);
     }
 
     @Override

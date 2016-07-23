@@ -23,10 +23,11 @@ public class optAdapter extends BaseAdapter {
         public ImageView im;
         public TextView orderNo;
         public TextView trainNo;
-        public TextView startDate;
+        public TextView orderTime;
         public TextView orderState;
         public TextView trainMes;
         public TextView orderPrice;
+        public TextView contactNum;
 
     }
     public optAdapter(List<Map<String, Object>> mData,Context context){
@@ -61,11 +62,12 @@ public class optAdapter extends BaseAdapter {
             //通过convertView对象来获得控件，将其保存到ViewHolder中
             viewHolder.im= (ImageView) convertView.findViewById(R.id.im);
             viewHolder.orderNo= (TextView) convertView.findViewById(R.id.orderNo);
-            viewHolder.startDate= (TextView) convertView.findViewById(R.id.startDate);
+            viewHolder.orderTime= (TextView) convertView.findViewById(R.id.orderTime);
             viewHolder.orderState= (TextView) convertView.findViewById(R.id.orderState);
             viewHolder.trainNo= (TextView) convertView.findViewById(R.id.trainNo);
             viewHolder.trainMes= (TextView) convertView.findViewById(R.id.trainMes);
             viewHolder.orderPrice= (TextView) convertView.findViewById(R.id.orderPrice);
+            viewHolder.contactNum= (TextView) convertView.findViewById(R.id.contactNum);
             //设置标志
             convertView.setTag(viewHolder);
         }else{
@@ -75,11 +77,12 @@ public class optAdapter extends BaseAdapter {
         //为控件设置值
         viewHolder.im.setImageResource((Integer) mData.get(position).get("im"));
         viewHolder.orderNo.setText((String)mData.get(position).get("orderNo"));
-        viewHolder.startDate.setText((String) mData.get(position).get("startDate"));
+        viewHolder.orderTime.setText((String) mData.get(position).get("orderTime"));
         viewHolder.trainNo.setText((String) mData.get(position).get("trainNo"));
         viewHolder.trainMes.setText((String) mData.get(position).get("trainMes"));
-        viewHolder.orderPrice.setText((String) mData.get(position).get("orderPrice"));
-        if(((String)mData.get(position).get("orderState")).equals("0"))
+        viewHolder.orderPrice.setText(String.valueOf(mData.get(position).get("orderPrice")));
+        viewHolder.contactNum.setText(String.valueOf(mData.get(position).get("contactNum")));
+        if((Integer)((mData.get(position).get("orderState")))==0)
         {viewHolder.orderState.setText("未支付");
         viewHolder.orderState.setTextColor(context.getResources().getColor(R.color.red));}
         else {viewHolder.orderState.setText("已支付");

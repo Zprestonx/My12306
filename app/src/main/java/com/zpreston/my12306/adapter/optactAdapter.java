@@ -17,7 +17,7 @@ public class optactAdapter extends BaseAdapter {
         private List<Map<String, Object>> mData;
         private Context context;
         public class ViewHolder {
-            public TextView startDate;
+            public TextView orderTime;
             public TextView trainNo;
             public TextView contactId;
             public TextView orderSeat;
@@ -55,7 +55,7 @@ public class optactAdapter extends BaseAdapter {
         //将转换的view对象存入到缓存中
         convertView = View.inflate(context, R.layout.order_contact_item, null);
         //通过convertView对象来获得控件，将其保存到ViewHolder中
-        viewHolder.startDate = (TextView) convertView.findViewById(R.id.startDate);
+        viewHolder.orderTime = (TextView) convertView.findViewById(R.id.orderTime);
         viewHolder.trainNo = (TextView) convertView.findViewById(R.id.trainNo);
         viewHolder.orderSeat = (TextView) convertView.findViewById(R.id.orderSeat);
         viewHolder.contactId = (TextView) convertView.findViewById(R.id.contactId);
@@ -68,9 +68,9 @@ public class optactAdapter extends BaseAdapter {
         viewHolder = (ViewHolder) convertView.getTag();
     }
     //为控件设置值
-    viewHolder.startDate.setText((String)mData.get(position).get("startDate"));
+    viewHolder.orderTime.setText((String)mData.get(position).get("orderTime"));
     viewHolder.trainNo.setText((String)mData.get(position).get("trainNo"));
-    viewHolder.contactId.setText((String)mData.get(position).get("contactId"));
+    viewHolder.contactId.setText((String.valueOf(mData.get(position).get("contactId"))));
     viewHolder.orderSeat.setText((String)mData.get(position).get("orderSeat"));
     return convertView;
 }
