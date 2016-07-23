@@ -19,6 +19,7 @@ import com.zpreston.my12306.adapter.MyContactAdapter;
 import com.zpreston.my12306.bean.Contact;
 import com.zpreston.my12306.dao.ContactDao;
 import com.zpreston.my12306.daoImpl.ContactDaoImpl;
+import com.zpreston.my12306.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,16 +32,13 @@ public class ContactShowActivity extends AppCompatActivity {
     private ContactShowAdapter adapter;
     private Button btnSaveContact;
 
-    ContactDao contactDao=new ContactDaoImpl(ContactShowActivity.this);
-    List<Contact> contactList=contactDao.queryMyContacts("775079852@qq.com");
-    ////////////////////////
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_show);
 
-        mData=getData();
         lvContactShow = (ListView) findViewById(R.id.lvContactShow);
         btnSaveContact = (Button) findViewById(R.id.btnSaveContact);
         lvContactShow.setDivider(null);
@@ -50,6 +48,7 @@ public class ContactShowActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(ContactShowActivity.this, "正在保存....", Toast.LENGTH_LONG).show();
                 Intent intent=new Intent().setClass(ContactShowActivity.this,MyContactActivity.class);
+
                 startActivity(intent);
             }
         });
@@ -62,30 +61,42 @@ public class ContactShowActivity extends AppCompatActivity {
         List<Map<String,Object>> data=new ArrayList<Map<String, Object>>();
         Map<String,Object> map=new HashMap<String,Object>();
 
-        map=new HashMap<String,Object>();
-        map.put("label","姓名");
-        map.put("content","马丽豪");
-        data.add(map);
+        ContactDao contactDao=new ContactDaoImpl(ContactShowActivity.this);
+        List<Contact> contactList=contactDao.queryMyContacts("775079852@qq.com");
+        String contactType=null;
 
-        map=new HashMap<String,Object>();
-        map.put("label","证件类型");
-        map.put("content","身份证");
-        data.add(map);
+        for(Contact contact:contactList){
+            if(contact.getContactState()==0){
+                contactType="成人";
+            }else if(contact.getContactState()==0){
+                contactType="学生";
+            }
 
-        map=new HashMap<String,Object>();
-        map.put("label","证件号码");
-        map.put("content","123456");
-        data.add(map);
+            map=new HashMap<String,Object>();
+            map.put("label","姓名");
+            map.put("content",contact.getContactName());
+            data.add(map);
 
-        map=new HashMap<String,Object>();
-        map.put("label","乘客类型");
-        map.put("content","学生");
-        data.add(map);
+            map=new HashMap<String,Object>();
+            map.put("label","证件类型");
+            map.put("content","身份证");
+            data.add(map);
 
-        map=new HashMap<String,Object>();
-        map.put("label","电话");
-        map.put("content","123456");
-        data.add(map);
+            map=new HashMap<String,Object>();
+            map.put("label","证件号码");
+            map.put("content",contact.getContactCardId());
+            data.add(map);
+
+            map=new HashMap<String,Object>();
+            map.put("label","乘客类型");
+            map.put("content","学生");
+            data.add(map);
+
+            map=new HashMap<String,Object>();
+            map.put("label","电话");
+            map.put("content",contact.getContactPhone());
+            data.add(map);
+        }
 
         return data;
     }

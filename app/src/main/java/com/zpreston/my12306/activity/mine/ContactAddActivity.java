@@ -1,6 +1,7 @@
 package com.zpreston.my12306.activity.mine;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -45,6 +46,11 @@ public class ContactAddActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                /*AlertDialog dialog=new AlertDialog()*/
+
+                Intent intent=new Intent(ContactAddActivity.this,MyContactActivity.class);
+                startActivity(intent);
+
 
 /*
                 Contact contact=new Contact();
@@ -55,7 +61,6 @@ public class ContactAddActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
     private List<Map<String,Object>> getData(){//实现Map的数据构造

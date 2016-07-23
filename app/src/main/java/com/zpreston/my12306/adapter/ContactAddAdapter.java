@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.zpreston.my12306.R;
+import com.zpreston.my12306.bean.Contact;
+import com.zpreston.my12306.dao.ContactDao;
+import com.zpreston.my12306.daoImpl.ContactDaoImpl;
 
 import java.util.List;
 import java.util.Map;
@@ -24,6 +27,7 @@ public class ContactAddAdapter extends BaseAdapter{
         this.context = context;
         this.mData = mData;
     }
+
 
     private class ViewHolder{
         public TextView tvContactAdd;
@@ -50,9 +54,13 @@ public class ContactAddAdapter extends BaseAdapter{
         return position;
     }
 
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder viewHolder;
+
+        Contact contact=new Contact();
+
         if(convertView==null){
             viewHolder=new ViewHolder();
             convertView=View.inflate(context, R.layout.contact_lvadd_item,null);
@@ -64,7 +72,10 @@ public class ContactAddAdapter extends BaseAdapter{
             viewHolder.edtContactAdd.setText(mData.get(position).get("content").toString());
 
             /* 用户名，乘客类型，电话可编辑 */
-            if(position==1){
+            if(position==0){
+                contact.setContactName(viewHolder.edtContactAdd.getText().toString());
+            }
+            else if(position==1){
                 viewHolder.edtContactAdd.setEnabled(true);
                 viewHolder.edtContactAdd.setFocusable(false);
                 viewHolder.edtContactAdd.setFocusableInTouchMode(false);
@@ -84,7 +95,15 @@ public class ContactAddAdapter extends BaseAdapter{
                         builder.create().show();
                     }
                 });
+
+                //////////////////////
+                contact.setContactState(0);
             }
+
+            else if(position==2){
+                contact.setContactCardId(viewHolder.edtContactAdd.getText().toString());
+            }
+
             else if(position==3){
                 viewHolder.edtContactAdd.setEnabled(true);
                 viewHolder.edtContactAdd.setFocusable(false);
@@ -93,7 +112,6 @@ public class ContactAddAdapter extends BaseAdapter{
                 viewHolder.edtContactAdd.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                            /* 证件类型 final String items[]={"二代身份证","港澳通行证","台湾通行证","护照"}; */
                         final String items[]={"成人","儿童","学生","伤残军人"};
                         AlertDialog.Builder builder=new AlertDialog.Builder(context);
                         builder.setTitle("请选择旅客类型");
@@ -106,11 +124,19 @@ public class ContactAddAdapter extends BaseAdapter{
                         builder.create().show();
                     }
                 });
+
+                contact.setContactState(0);
             }
+
+            else if(position==4){
+                contact.setContactPhone(viewHolder.edtContactAdd.getText().toString());
+            }
+
             convertView.setTag(viewHolder);
         }else {
             viewHolder=(ViewHolder)convertView.getTag();
         }
+
         return convertView;
     }
 }

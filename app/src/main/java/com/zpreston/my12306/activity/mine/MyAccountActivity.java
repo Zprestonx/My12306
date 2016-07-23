@@ -32,12 +32,11 @@ import java.util.Map;
 public class MyAccountActivity extends AppCompatActivity {
     private ListView lvAccount;
     private Button btnExitAccount;
+    private Button btnSaveAccount;
     List<Map<String, Object>> mData;
     private MyAccountAdapter adapter;
 
 
-    UserDao userDao=new UserDaoImpl(MyAccountActivity.this);
-    User user=userDao.getUserInfo("775079852@qq.com");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +46,21 @@ public class MyAccountActivity extends AppCompatActivity {
         mData=getData();
         lvAccount = (ListView) findViewById(R.id.lvAccount);
         btnExitAccount= (Button) findViewById(R.id.btnExitAccount);
+        btnSaveAccount= (Button) findViewById(R.id.btnSaveAccount);
 
         lvAccount.setDivider(null);
         adapter=new MyAccountAdapter(this,mData);
         lvAccount.setAdapter(adapter);
+
+        btnSaveAccount= (Button) findViewById(R.id.btnSaveAccount);
+        btnSaveAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MyAccountActivity.this,"请点击右上角进行修改",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
         btnExitAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +77,16 @@ public class MyAccountActivity extends AppCompatActivity {
         List<Map<String,Object>> data=new ArrayList<Map<String, Object>>();
         Map<String,Object> map=new HashMap<String,Object>();
 
+        String userType = null;
+        UserDao userDao=new UserDaoImpl(MyAccountActivity.this);
+        User user=userDao.getUserInfo("775079852@qq.com");
+
+        if(user.getPassengerType()==0){
+            userType="成人";
+        }else if(user.getPassengerType()==1){
+            userType="学生";
+        }
+
         map.put("label","用户名");
         map.put("content",user.getUid());
         data.add(map);
@@ -78,7 +98,7 @@ public class MyAccountActivity extends AppCompatActivity {
 
         map=new HashMap<String,Object>();
         map.put("label","证件类型");
-        map.put("content",user.getCertificateType());
+        map.put("content","身份证");
         data.add(map);
 
         map=new HashMap<String,Object>();
@@ -88,7 +108,7 @@ public class MyAccountActivity extends AppCompatActivity {
 
         map=new HashMap<String,Object>();
         map.put("label","乘客类型");
-        map.put("content",user.getPassengerType());
+        map.put("content",userType);
         data.add(map);
 
         map=new HashMap<String,Object>();
@@ -114,7 +134,15 @@ public class MyAccountActivity extends AppCompatActivity {
                 adapter.setEditFlag(true);
                 adapter.setData(getData());
                 adapter.notifyDataSetChanged();
-                Toast.makeText(this,"you clicked Account Change",Toast.LENGTH_SHORT).show();
+
+                btnSaveAccount= (Button) findViewById(R.id.btnSaveAccount);
+                btnSaveAccount.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(MyAccountActivity.this,"保存修改....",Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                });
                 break;
             default:
                 Toast.makeText(MyAccountActivity.this, "Error!", Toast.LENGTH_SHORT).show();

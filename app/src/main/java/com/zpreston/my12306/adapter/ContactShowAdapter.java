@@ -66,7 +66,6 @@ public class ContactShowAdapter extends BaseAdapter {
             viewHolder=new ViewHolder();
             convertView=View.inflate(context, R.layout.contact_lvshow_item,null);
 
-
             viewHolder.tvContactShow=(TextView)convertView.findViewById(R.id.tvContactShow);
             viewHolder.edtContactShow=(EditText)convertView.findViewById(R.id.edtContactShow);
 
@@ -79,7 +78,6 @@ public class ContactShowAdapter extends BaseAdapter {
             convertView.setTag(viewHolder);
         }else {
             viewHolder=(ViewHolder)convertView.getTag();
-
 
             /* 用户名，乘客类型，电话可编辑 */
             if(editFlag && (position==0 || position==3 || position==4)){
