@@ -16,7 +16,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:textSize="17sp"
-        android:text="您的订单20143Yt支付成功，可以凭此二维码办理取票业务，也可以在订单中查看相关信息及二维码。" />
+        android:text="您的订单支付成功，可以凭此二维码办理取票业务，也可以在订单中查看相关信息及二维码。" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="返回"
-        android:id="@+id/button9"
+        android:id="@+id/cancel"
         android:textSize="18sp"
         android:onClick="back"
         android:background="@color/cornflowerblue"

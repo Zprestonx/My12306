@@ -18,10 +18,10 @@
     <TextView
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:text="startDate"
+    android:text="orderTime"
     android:layout_weight="1.5"
         android:textColor="@color/gray"
-    android:id="@+id/startDate" />
+    android:id="@+id/orderTime" />
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -39,12 +39,24 @@
         android:textColor="@color/black"
         android:textSize="30px"
         android:gravity="center"/>
+    <LinearLayout
+        android:layout_weight="1.5"
+        android:orientation="horizontal">
+
     <TextView
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:text="trainMes"
     android:layout_weight="1.5"
     android:id="@+id/trainMes" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:id="@+id/contactNum"
+            android:text="contactNum"/>
+
+    </LinearLayout>
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
