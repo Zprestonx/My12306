@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,11 @@ import com.zpreston.my12306.R;
 import com.zpreston.my12306.activity.mine.MyAccountActivity;
 import com.zpreston.my12306.activity.mine.MyContactActivity;
 import com.zpreston.my12306.activity.mine.MyPasswordActivity;
+import com.zpreston.my12306.bean.User;
+import com.zpreston.my12306.dao.UserDao;
+import com.zpreston.my12306.daoImpl.UserDaoImpl;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,20 +63,15 @@ public class MineFragment extends Fragment {
                     case 0:
                         Intent intent1=new Intent().setClass(getActivity(),MyContactActivity.class);
                         startActivity(intent1);
-                        Toast.makeText(getActivity(), "点击了我的联系人" + position, Toast.LENGTH_LONG).show();
                         break;
 
                     case 1:
                         Intent intent2=new Intent().setClass(getActivity(),MyAccountActivity.class);
                         startActivity(intent2);
-                        Toast.makeText(getActivity(), "点击了我的账户" + position, Toast.LENGTH_LONG).show();
                         break;
 
                     case 2:
-                        /*pwd_dialog();*/
-                        Intent intent3=new Intent().setClass(getActivity(),MyPasswordActivity.class);
-                        startActivity(intent3);
-                        Toast.makeText(getActivity(), "点击了修改密码" + position, Toast.LENGTH_LONG).show();
+                        pwd_dialog();
                         break;
                 }
             }
@@ -98,5 +98,61 @@ public class MineFragment extends Fragment {
         data.add(map);
 
         return data;
+    }
+
+    private void pwd_dialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("请输入原密码");
+        builder.setIcon(android.R.drawable.btn_star);
+
+        final EditText edtPwdO=new EditText(getActivity());
+        final UserDao pwdDialog=new UserDaoImpl(getActivity());
+
+        builder.setView(edtPwdO);
+
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String pwd=edtPwdO.getText().toString().trim();
+                int rt = pwdDialog.verifyPassword("775079852@qq.com", pwd);
+
+                /* 输入原密码正确，进入修改密码页面 */
+                /*if(TextUtils.isEmpty(pwd)){
+                    edtPwdO.requestFocus();
+                    edtPwdO.setError("密码不能为空！");
+
+                }else{*/
+                    Toast.makeText(getActivity(), "返回值为:" + rt, Toast.LENGTH_SHORT).show();
+                    if (rt == 1) {
+                    /*try {*/
+                        Toast.makeText(getActivity(), "返回值为:" + rt, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getActivity(), MyPasswordActivity.class);
+                        startActivity(intent);
+                        dialog.dismiss();
+                  /*  } catch (Exception e) {
+                        e.printStackTrace();
+                    }*/
+                }
+                else if(rt==0){
+                    try {
+                        /*Toast.makeText(getActivity(),"-------",Toast.LENGTH_SHORT).show();*/
+                        edtPwdO.setError("原密码输入不正确，请重新输入！");
+                        edtPwdO.requestFocus();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                /* 点击取消，返回当前页面 */
+                dialog.dismiss();
+            }
+        });
+
+        builder.create().show();
+
     }
 }

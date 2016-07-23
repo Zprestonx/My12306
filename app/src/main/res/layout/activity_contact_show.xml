@@ -14,7 +14,7 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="10"
+        android:layout_weight="25"
         android:id="@+id/lvContactShow" />
 
     <Button
@@ -23,7 +23,7 @@
         android:layout_weight="1"
         android:layout_marginBottom="50dp"
         android:text="保存"
-        android:id="@+id/saveContact" />
+        android:id="@+id/btnSaveContact" />
 
 
 </LinearLayout>

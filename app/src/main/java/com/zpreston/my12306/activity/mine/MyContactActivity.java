@@ -14,6 +14,9 @@ import android.widget.Toast;
 import com.zpreston.my12306.R;
 import com.zpreston.my12306.adapter.MyAccountAdapter;
 import com.zpreston.my12306.adapter.MyContactAdapter;
+import com.zpreston.my12306.bean.User;
+import com.zpreston.my12306.dao.UserDao;
+import com.zpreston.my12306.daoImpl.UserDaoImpl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +37,7 @@ public class MyContactActivity extends AppCompatActivity {
         lvContact.setAdapter(new MyContactAdapter(this,mData));
 
 
+
         lvContact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -52,8 +56,6 @@ public class MyContactActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     private List<Map<String,Object>> getData(){
@@ -63,14 +65,14 @@ public class MyContactActivity extends AppCompatActivity {
 
         map.put("tvUser","陈伟飞（成人）");
         map.put("tvId","身份证：123456");
-        map.put("tvPhone","12345");
+        map.put("tvPhone","电话：12345");
         map.put("imForward",R.drawable.forward_icon);
         data.add(map);
 
         map=new HashMap<String,Object>();
         map.put("tvUser","艾米米");
-        map.put("tvId","1234567");
-        map.put("tvPhone","123456");
+        map.put("tvId","身份证：1234567");
+        map.put("tvPhone","电话：123456");
         map.put("imForward",R.drawable.forward_icon);
         data.add(map);
 
@@ -87,15 +89,13 @@ public class MyContactActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         /* 菜单栏选项点击事件 */
+
         switch (item.getItemId()){
-            case R.id.home:
-                Toast.makeText(MyContactActivity.this,"you clicked Return", Toast.LENGTH_SHORT).show();
-                finish();
-                break;
             case R.id.add_item:
-                Toast.makeText(MyContactActivity.this,"you clicked Add", Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent().setClass(MyContactActivity.this,ContactAddActivity.class);
+
+                Intent intent=new Intent(MyContactActivity.this,ContactAddActivity.class);
                 startActivity(intent);
+                Toast.makeText(MyContactActivity.this,"you clicked Add", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 Toast.makeText(MyContactActivity.this,"Error!", Toast.LENGTH_SHORT).show();

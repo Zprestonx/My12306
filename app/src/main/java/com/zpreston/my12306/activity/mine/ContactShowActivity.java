@@ -5,11 +5,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zpreston.my12306.R;
+import com.zpreston.my12306.adapter.ContactShowAdapter;
 import com.zpreston.my12306.adapter.MyAccountAdapter;
+import com.zpreston.my12306.adapter.MyContactAdapter;
+import com.zpreston.my12306.bean.Contact;
+import com.zpreston.my12306.dao.ContactDao;
+import com.zpreston.my12306.daoImpl.ContactDaoImpl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +28,12 @@ import java.util.Map;
 public class ContactShowActivity extends AppCompatActivity {
     private ListView lvContactShow;
     List<Map<String, Object>> mData;
+    private ContactShowAdapter adapter;
+    private Button btnSaveContact;
+
+    ContactDao contactDao=new ContactDaoImpl(ContactShowActivity.this);
+    List<Contact> contactList=contactDao.queryMyContacts("775079852@qq.com");
+    ////////////////////////
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +42,20 @@ public class ContactShowActivity extends AppCompatActivity {
 
         mData=getData();
         lvContactShow = (ListView) findViewById(R.id.lvContactShow);
+        btnSaveContact = (Button) findViewById(R.id.btnSaveContact);
         lvContactShow.setDivider(null);
-        lvContactShow.setAdapter(new MyAccountAdapter(this,mData));
+
+        btnSaveContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ContactShowActivity.this, "正在保存....", Toast.LENGTH_LONG).show();
+                Intent intent=new Intent().setClass(ContactShowActivity.this,MyContactActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        adapter=new ContactShowAdapter(this,mData);
+        lvContactShow.setAdapter(adapter);
     }
 
     private List<Map<String,Object>> getData(){//实现Map的数据构造
@@ -75,15 +102,17 @@ public class ContactShowActivity extends AppCompatActivity {
         /* 菜单栏选项点击事件 */
         switch(item.getItemId()){
             case R.id.edit_item:
+                adapter.setEditFlag(true);
+                adapter.setData(getData());
+                adapter.notifyDataSetChanged();
                 Toast.makeText(this,"you clicked Edit", Toast.LENGTH_SHORT).show();
-                /* 编辑联系人——原先的编辑框均变为可编辑 */
-
                 break;
             case R.id.remove_item:
                 Toast.makeText(this,"you clicked Remove",Toast.LENGTH_SHORT).show();
                 /* 删除联系人——从数据库删除并更新联系人列表 */
+                /*
                 Intent intent=new Intent().setClass(ContactShowActivity.this,ContactAddActivity.class);
-                startActivity(intent);
+                startActivity(intent);*/
                 break;
             default:
                 Toast.makeText(ContactShowActivity.this, "Error!", Toast.LENGTH_SHORT).show();
