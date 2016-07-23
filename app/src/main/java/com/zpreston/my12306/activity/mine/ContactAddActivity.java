@@ -46,10 +46,10 @@ public class ContactAddActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-
+/*
                 Contact contact=new Contact();
                 ContactDao contactDao=new ContactDaoImpl(ContactAddActivity.this);
-                contactDao.addContact(contact);
+                contactDao.addContact(contact);*/
 
 
             }
