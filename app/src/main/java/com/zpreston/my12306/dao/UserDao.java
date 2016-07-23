@@ -57,4 +57,12 @@ public interface UserDao {
     出参:void
     * */
     void insertUser(User user);
+
+
+    /*
+    获取用户信息
+    入参：email，用户邮箱
+    出参：User对象
+    * */
+    User getUserInfo(String email);
 }
