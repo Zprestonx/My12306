@@ -45,7 +45,8 @@
             android:label="车票预订4/5" />
         <activity
             android:name=".activity.ticket.Ticket5Activity"
-            android:label="车票预订5/5"></activity>
+            android:label="车票预订5/5" />
+        <activity android:name=".activity.ticket.QueryCity"></activity>
     </application>
 
 </manifest>
