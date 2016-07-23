@@ -54,8 +54,6 @@ public class ContactAddActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
 
 
