@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zpreston.my12306.R;
 import com.zpreston.my12306.adapter.Ticket1Adapter;
@@ -28,56 +29,125 @@ public class Ticket2Activity extends AppCompatActivity {
     private List<Map<String, Object>> mData;
     private Button q;
 
+    private TextView t1;
+    private TextView t2;
+    public Button pre_day;
+    public Button next_day;
+    String startTime;
+    String startCity;
+    String endCity;
+    int year;
+    int month;
+    int day;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket2);
         TicketFragment.activityS.add(this); //加入到Activity队列中
 
-        Intent intent = getIntent();
+        t1 = (TextView) this.findViewById(R.id.date2);
+        t2 = (TextView) this.findViewById(R.id.textView2_3);
+        pre_day = (Button) this.findViewById(R.id.button3);
+        next_day = (Button) this.findViewById(R.id.button4);
+
+        final Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("ticket1");
-        String trainNo_ = bundle.getString("trainNo");
+        startCity = bundle.getString("beginCity");
+        endCity = bundle.getString("endCity");
+        year = bundle.getInt("year", 0);
+        month = bundle.getInt("month", 0);
+        day = bundle.getInt("day", 0);
+        if (month < 10) {
+            startTime = String.valueOf(year) + "-0" + String.valueOf(month) + "-" + String.valueOf(day); //记录规格化日期
+        } else {
+            startTime = String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(day); //记录规格化日期
+        }
+        t1.setText(startTime);                       //传日期
+        t2.setText(startCity + "->" + endCity);
+
+        String trainNo_ = bundle.getString("trainNo");  //设置对应车次信息
         String startTime_ = bundle.getString("startTime");
         String arriveTime_ = bundle.getString("arriveTime");
 
         trainNo = (TextView) findViewById(R.id.textView4);
         Time = (TextView) findViewById(R.id.textView5);
-        cTime = (TextView) findViewById(R.id.textView6);
         lvOpt = (ListView) findViewById(R.id.listView3);
 
         trainNo.setText(trainNo_);
-        Time.setText(startTime_ + "-" + arriveTime_);
+        Time.setText("出发时间:"+startTime_ + ",到达时间:" + arriveTime_);
 
-        Log.e("***","2");
 
         lvOpt= (ListView) this.findViewById(R.id.listView3);
         //获得数据
         mData = getData(intent);
-        lvOpt.setAdapter(new Ticket2Adapter(mData,Ticket2Activity.this));
-        Log.e("***","1");
-        //响应条目的点击事件
-        lvOpt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //将bundle存放到意图并跳转
-                putData(position);
-            }
-        });
-
-/*
-        mData = getData();
-        lvOpt.setAdapter(new Ticket1Adapter(getData(),Ticket2Activity.this));*/
+        final Ticket2Adapter ticket2Adapter = new Ticket2Adapter(getData(intent), Ticket2Activity.this);
+        lvOpt.setAdapter(ticket2Adapter);
+        ticket2Adapter.setYear(year);
+        ticket2Adapter.setMonth(month);
+        ticket2Adapter.setDay(day);
+        ticket2Adapter.setTrainNo(trainNo_);
+        ticket2Adapter.setBeginCity(startCity);
+        ticket2Adapter.setEndCity(endCity);
+        ticket2Adapter.setStartTime(startTime_);
+        ticket2Adapter.setArriveTime(arriveTime_);
 
 
 
-        /*q = (Button) this.findViewById(R.id.button4); //按钮跳转
-        q.setOnClickListener(new View.OnClickListener() {
+        //前一天与后一天按钮功能实现
+        pre_day.setOnClickListener(new View.OnClickListener() {  //前一天
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Ticket2Activity.this, Ticket3Activity.class);
-                startActivity(intent);
+                Toast.makeText(Ticket2Activity.this, "click 前一天", Toast.LENGTH_LONG).show();
+                day = day - 1;
+                if (month < 10) {
+                    startTime = String.valueOf(year) + "-0" + String.valueOf(month) + "-" + String.valueOf(day); //记录规格化日期
+                } else {
+                    startTime = String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(day); //记录规格化日期
+                }
+                t1.setText(startTime);                       //传日期
+                mData = getData(intent);
+                ticket2Adapter.setmData(mData);
+                ticket2Adapter.notifyDataSetChanged();
+            }
+        });
+        next_day.setOnClickListener(new View.OnClickListener() {  //后一天
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Ticket2Activity.this, "click 后一天", Toast.LENGTH_LONG).show();
+                day = day + 1;
+                if (month < 10) {
+                    startTime = String.valueOf(year) + "-0" + String.valueOf(month) + "-" + String.valueOf(day); //记录规格化日期
+                } else {
+                    startTime = String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(day); //记录规格化日期
+                }
+                t1.setText(startTime);                       //传日期
+                mData = getData(intent);
+                ticket2Adapter.setmData(mData);
+                ticket2Adapter.notifyDataSetChanged();
+            }
+        });
+        //响应条目的点击事件
+        /*lvOpt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        Toast.makeText(Ticket2Activity.this, "点击了我的账户" + position, Toast.LENGTH_LONG).show();
+                        break;
+                    case 1:
+                        Toast.makeText(Ticket2Activity.this,"点击了我的联系人"+position,Toast.LENGTH_LONG).show();
+                        break;
+                    case 2:
+                        Toast.makeText(Ticket2Activity.this,"点击了我的密码"+position,Toast.LENGTH_LONG).show();
+                        break;
+                }
+                //将bundle存放到意图并跳转
+                putData();
             }
         });*/
+        //将bundle存放到意图并跳转
+        putData();
     }
 
     private List<Map<String, Object>> getData(Intent intent) {//实现Map的数据构造
@@ -117,19 +187,19 @@ public class Ticket2Activity extends AppCompatActivity {
         map.put("seatNum",seatNum3_);
         map.put("seatPri","￥269.0");
         data.add(map);
-/*
+
         //第四个条目
         map=new HashMap<String,Object>();
         map.put("seatMes",seatMes4_);
         map.put("seatNum",seatNum4_);
         map.put("seatPri","￥215.0");
-        data.add(map);*/
+        data.add(map);
         return data;
     }
 
-    private void putData(int position) {
-        Bundle bundle=new Bundle();
-        bundle.putString("trainNo",(String)mData.get(position).get("trainNo"));
+    private void putData() {
+        /*Bundle bundle=new Bundle();
+        *//*bundle.putString("trainNo",(String)mData.get(position).get("trainNo"));
         bundle.putString("startTime",(String)mData.get(position).get("startTime"));
         bundle.putString("arriveTime",(String)mData.get(position).get("arriveTime"));
         bundle.putString("seatMes1",(String)mData.get(position).get("seatMes1"));
@@ -143,11 +213,16 @@ public class Ticket2Activity extends AppCompatActivity {
         bundle.putString("seatPri3",(String)mData.get(position).get("seatPri3"));
         bundle.putString("seatMes4",(String)mData.get(position).get("seatMes4"));
         bundle.putString("seatNum4",(String)mData.get(position).get("seatNum4"));
-        bundle.putString("seatPri4",(String)mData.get(position).get("seatPri4"));
+        bundle.putString("seatPri4",(String)mData.get(position).get("seatPri4"));*//*
+
+        bundle.putString("beginCity",startCity);
+        bundle.putString("endCity",endCity);
+        bundle.putInt("year",year);
+        bundle.putInt("month",month);
+        bundle.putInt("day",day);
+
         Intent intent = new Intent(Ticket2Activity.this, Ticket3Activity.class);
         intent.putExtra("ticket1", bundle);
-
-
-        startActivity(intent);
+        //startActivity(intent);*/
     }
 }

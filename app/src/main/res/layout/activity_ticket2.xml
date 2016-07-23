@@ -39,6 +39,7 @@
                 android:layout_height="38sp"
                 android:gravity="center"
                 android:text="2016-7-21 周四"
+                android:id="@+id/date2"
                 android:textColor="@color/black"
                 android:textSize="18sp"/>
 
@@ -49,7 +50,7 @@
                 android:text="北京->大连"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                android:id="@+id/textView3"/>
+                android:id="@+id/textView2_3"/>
         </LinearLayout>
 
         <Button
@@ -90,14 +91,6 @@
             android:textSize="15sp"
             android:id="@+id/textView5"
             android:layout_weight="0.15" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=",历时4小时50分"
-            android:textSize="15sp"
-            android:id="@+id/textView6"
-            android:layout_weight="1" />
     </LinearLayout>
 
     <ListView

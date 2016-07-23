@@ -22,8 +22,17 @@ import java.util.Map;
  * Created by Administrator on 16-7-23.
  */
 public class Ticket2Adapter extends BaseAdapter{
+    int year;
+    int month;
+    int day;
+    String endCity;
+    String beginCity;
+    String trainNo;
+    String startTime;
+    String arriveTime;
     private List<Map<String, Object>> mData;
     private Context context;
+
     public class ViewHolder {
         public Button button10;
         public TextView seatMes;
@@ -42,6 +51,32 @@ public class Ticket2Adapter extends BaseAdapter{
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
     }*/
+    public void setYear(int year) {
+        this.year=year;
+    }
+    public void setMonth(int month) {
+        this.month=month;
+    }
+    public void setDay(int day) {
+        this.day=day;
+    }
+    public void setTrainNo(String trainNo) {
+        this.trainNo=trainNo;
+    }
+    public void setStartTime(String startTime) {
+        this.startTime=startTime;
+    }
+    public void setArriveTime(String arriveTime) {
+        this.arriveTime=arriveTime;
+    }
+    public void setBeginCity(String beginCity) {
+        this.beginCity=beginCity;
+    }
+    public void setEndCity(String endCity) {
+        this.endCity=endCity;
+    }
+
+
     @Override
     public int getCount() {
         return mData.size();
@@ -84,27 +119,6 @@ public class Ticket2Adapter extends BaseAdapter{
         viewHolder.button10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Bundle bundle=new Bundle();
-                bundle.putString("trainNo",(String)mData.get(position).get("trainNo"));
-                bundle.putString("startTime",(String)mData.get(position).get("startTime"));
-                bundle.putString("arriveTime",(String)mData.get(position).get("arriveTime"));
-                bundle.putString("seatMes1",(String)mData.get(position).get("seatMes1"));
-                bundle.putString("seatNum1",(String)mData.get(position).get("seatNum1"));
-                bundle.putString("seatPri1",(String)mData.get(position).get("seatPri1"));
-                bundle.putString("seatMes2",(String)mData.get(position).get("seatMes2"));
-                bundle.putString("seatNum2",(String)mData.get(position).get("seatNum2"));
-                bundle.putString("seatPri2",(String)mData.get(position).get("seatPri2"));
-                bundle.putString("seatMes3",(String)mData.get(position).get("seatMes3"));
-                bundle.putString("seatNum3",(String)mData.get(position).get("seatNum3"));
-                bundle.putString("seatPri3",(String)mData.get(position).get("seatPri3"));
-                bundle.putString("seatMes4",(String)mData.get(position).get("seatMes4"));
-                bundle.putString("seatNum4",(String)mData.get(position).get("seatNum4"));
-                bundle.putString("seatPri4",(String)mData.get(position).get("seatPri4"));
-                Intent intent = new Intent(context, Ticket3Activity.class);
-                intent.putExtra("ticket1", bundle);
-
-
-                startActivity(intent);*/
                 turn(position); //跳转
             }
         });
@@ -115,12 +129,24 @@ public class Ticket2Adapter extends BaseAdapter{
 
     private void turn(int position) {
         Bundle bundle=new Bundle();
-        bundle.putString("trainNo",(String)mData.get(position).get("trainNo"));
-        bundle.putString("startTime",(String)mData.get(position).get("startTime"));
-        bundle.putString("arriveTime",(String)mData.get(position).get("arriveTime"));
-        bundle.putString("seatMes1",(String)mData.get(position).get("seatMes1"));
-        bundle.putString("seatNum1",(String)mData.get(position).get("seatNum1"));
-        bundle.putString("seatPri1",(String)mData.get(position).get("seatPri1"));
+
+
+        bundle.putString("seatMes",(String)mData.get(position).get("seatMes"));
+        bundle.putString("seatNum",(String)mData.get(position).get("seatNum"));
+        bundle.putString("seatPri",(String)mData.get(position).get("seatPri"));
+
+        bundle.putString("trainNo",trainNo);
+        bundle.putString("startTime",startTime);
+        bundle.putString("arriveTime",arriveTime);
+        bundle.putString("beginCity",beginCity);
+        bundle.putString("endCity",endCity);
+        bundle.putInt("year",year);
+        bundle.putInt("month",month);
+        bundle.putInt("day",day);
+
+        /*bundle.putString("seatMes",(String)mData.get(position).get("seatMes1"));
+        bundle.putString("seatNum",(String)mData.get(position).get("seatNum1"));
+        bundle.putString("seatPri",(String)mData.get(position).get("seatPri1"));
         bundle.putString("seatMes2",(String)mData.get(position).get("seatMes2"));
         bundle.putString("seatNum2",(String)mData.get(position).get("seatNum2"));
         bundle.putString("seatPri2",(String)mData.get(position).get("seatPri2"));
@@ -129,7 +155,7 @@ public class Ticket2Adapter extends BaseAdapter{
         bundle.putString("seatPri3",(String)mData.get(position).get("seatPri3"));
         bundle.putString("seatMes4",(String)mData.get(position).get("seatMes4"));
         bundle.putString("seatNum4",(String)mData.get(position).get("seatNum4"));
-        bundle.putString("seatPri4",(String)mData.get(position).get("seatPri4"));
+        bundle.putString("seatPri4",(String)mData.get(position).get("seatPri4"));*/
         Intent intent = new Intent(context, Ticket3Activity.class);
         intent.putExtra("ticket1", bundle);
 
