@@ -30,17 +30,18 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     /*
     查询全部订单
-    入参：uid用户ID
+    入参：email，用户邮箱
     出参：Order的List列表
     * */
-    public List<Order> queryAllOrders(int uid) {
+    public List<Order> queryAllOrders(String email) {
         //接收数据的列表
         List<Order> orders = new ArrayList<>();
         //获取数据库对象
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         //SQL语句
-        String sql = "select * from OrderForm where uid=?";
-        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(uid)});
+        String sql = "select * from OrderForm where uid=" +
+                "(select uid from User where email=?)";
+        Cursor cursor = db.rawQuery(sql, new String[]{email});
 
         //循环读取
         while (cursor.moveToNext())
@@ -65,17 +66,18 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     /*
     查询未支付订单,orderState = 0
-    入参：uid用户ID
+    入参：email，用户邮箱
     出参：Order的List列表
     * */
-    public List<Order> queryNotPaidOrders(int uid) {
+    public List<Order> queryNotPaidOrders(String email) {
         List<Order> orders = new ArrayList<>();
 
         //获取数据库对象
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         //SQL语句
-        String sql = "select * from OrderForm where uid=? and orderState=0";
-        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(uid)});
+        String sql = "select * from OrderForm where orderState=0 and uid=" +
+                "(select uid from User where email=?)";
+        Cursor cursor = db.rawQuery(sql, new String[]{email});
 
         //循环读取
         while (cursor.moveToNext())
@@ -100,17 +102,18 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     /*
     查询已支付订单,orderState=1
-    入参：uid用户ID
+    入参：email，用户邮箱
     出参：Order的List列表
     * */
-    public List<Order> queryAlreadyPaidOrders(int uid) {
+    public List<Order> queryAlreadyPaidOrders(String email) {
         List<Order> orders = new ArrayList<>();
 
         //获取数据库对象
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         //SQL语句
-        String sql = "select * from OrderForm where uid=? and orderState=1";
-        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(uid)});
+        String sql = "select * from OrderForm where orderState=1 and uid=" +
+                "(select uid from User where email=?)";
+        Cursor cursor = db.rawQuery(sql, new String[]{email});
 
         //循环读取
         while (cursor.moveToNext())
@@ -135,14 +138,15 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     /*
     退票
-    入参：用户ID，订单号orderNo，乘车人ID
+    入参：email，用户邮箱, 订单号orderNo，乘车人ID
     出参：状态码，1表示退票成功
     把订单状态置为取消,2
     * */
-    public int returnTicket(int uid, String orderNo, int contactId) {
+    public int returnTicket(String email, String orderNo, int contactId) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String sql = "update OrderForm set orderState=2 where uid=? and orderNo=? and contactId=?";
-        db.execSQL(sql, new String[]{String.valueOf(uid),orderNo,String.valueOf(contactId)});
+        String sql = "update OrderForm set orderState=2 where orderNo=? and contactId=? and uid= " +
+                "(select uid from User where email=?)";
+        db.execSQL(sql, new String[]{orderNo,String.valueOf(contactId),email});
         db.close();
         return 1;
     }
@@ -190,16 +194,64 @@ public class OrderDaoImpl implements OrderDao {
 
     /*
     支付订单
-    入参：用户ID，orderNo 订单号
+    入参：email，用户邮箱,orderNo 订单号
     出参：状态码，1表示提交成功
     把订单状态修改为1，表示已支付
     * */
     @Override
-    public int payForOrder(int uid, String orderNo) {
+    public int payForOrder(String email, String orderNo) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String sql = "update OrderForm set orderState=1 where uid=? and orderNo=?";
-        db.execSQL(sql, new String[]{String.valueOf(uid),orderNo});
+        String sql = "update OrderForm set orderState=1 where orderNo=? and uid=" +
+                "(select uid from User where email=?)";
+        db.execSQL(sql, new String[]{orderNo, email});
         db.close();
         return 1;
+    }
+
+    @Override
+    /*
+    取消订单
+    入参：email，用户邮箱,订单号orderNo
+    出参：状态码，1表示退票成功
+    * */
+    public int cancelOrder(String email, String orderNo) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String sql = "update OrderForm set orderState=2 where orderNo=? and uid= " +
+                "(select uid from User where email=?)";
+        db.execSQL(sql, new String[]{orderNo,email});
+        db.close();
+        return 1;
+    }
+
+    @Override
+    /*
+    获取同一订单的联系人
+    入参：email，用户邮箱,订单号orderNo
+    出参：List<Contact> contacts， 联系人列表
+    * */
+    public List<Contact> getSameOrderContacts(String email, String orderNo) {
+        List<Contact> contacts = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String sql = "select * from Contact where uid=" +
+                "(select uid from User where email=?) " +
+                "and contactId in" +
+                "(select contactId from OrderForm where orderNo=? and uid=" +
+                "(select uid from User where email=?))";
+        Cursor cursor = db.rawQuery(sql, new String[]{email,orderNo,email});
+        while (cursor.moveToNext())
+        {
+            //Contact bean 的结构
+            int userId = cursor.getInt(cursor.getColumnIndex("uid"));
+            int contactId = cursor.getInt(cursor.getColumnIndex("contactId"));
+            String contactName = cursor.getString(cursor.getColumnIndex("contactName"));
+            String contactCardId = cursor.getString(cursor.getColumnIndex("contactCardId"));
+            String contactPhone = cursor.getString(cursor.getColumnIndex("contactPhone"));
+            int contactState = cursor.getInt(cursor.getColumnIndex("contactState"));
+
+            Contact contact = new Contact(userId, contactId, contactName, contactCardId, contactPhone, contactState);
+            contacts.add(contact);
+        }
+        cursor.close();
+        return contacts;
     }
 }
