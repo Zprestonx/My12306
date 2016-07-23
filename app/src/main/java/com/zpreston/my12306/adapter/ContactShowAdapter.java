@@ -3,6 +3,7 @@ package com.zpreston.my12306.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -69,11 +70,10 @@ public class ContactShowAdapter extends BaseAdapter {
             viewHolder.tvContactShow=(TextView)convertView.findViewById(R.id.tvContactShow);
             viewHolder.edtContactShow=(EditText)convertView.findViewById(R.id.edtContactShow);
 
-            viewHolder.edtContactShow.setClickable(false);
-            viewHolder.edtContactShow.setEnabled(false);
-
             viewHolder.tvContactShow.setText(mData.get(position).get("label").toString());
             viewHolder.edtContactShow.setText(mData.get(position).get("content").toString());
+            viewHolder.edtContactShow.setClickable(false);
+            viewHolder.edtContactShow.setEnabled(false);
 
             convertView.setTag(viewHolder);
         }else {

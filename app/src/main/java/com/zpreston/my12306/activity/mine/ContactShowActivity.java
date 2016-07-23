@@ -3,6 +3,7 @@ package com.zpreston.my12306.activity.mine;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,10 +35,13 @@ public class ContactShowActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.e("TAG","show");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_show);
+        Log.e("TAG","show-after");
 
         lvContactShow = (ListView) findViewById(R.id.lvContactShow);
         btnSaveContact = (Button) findViewById(R.id.btnSaveContact);
@@ -52,7 +56,7 @@ public class ContactShowActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        mData=getData();
         adapter=new ContactShowAdapter(this,mData);
         lvContactShow.setAdapter(adapter);
     }
@@ -61,42 +65,36 @@ public class ContactShowActivity extends AppCompatActivity {
         List<Map<String,Object>> data=new ArrayList<Map<String, Object>>();
         Map<String,Object> map=new HashMap<String,Object>();
 
-        ContactDao contactDao=new ContactDaoImpl(ContactShowActivity.this);
-        List<Contact> contactList=contactDao.queryMyContacts("775079852@qq.com");
-        String contactType=null;
+        Intent intent=getIntent();
 
-        for(Contact contact:contactList){
-            if(contact.getContactState()==0){
-                contactType="成人";
-            }else if(contact.getContactState()==0){
-                contactType="学生";
-            }
+        map.put("label","姓名");
+        map.put("content",intent.getStringExtra("contactName"));
 
-            map=new HashMap<String,Object>();
-            map.put("label","姓名");
-            map.put("content",contact.getContactName());
-            data.add(map);
+        data.add(map);
 
-            map=new HashMap<String,Object>();
-            map.put("label","证件类型");
-            map.put("content","身份证");
-            data.add(map);
+        map=new HashMap<String,Object>();
+        map.put("label","证件类型");
+        map.put("content",intent.getStringExtra("idType"));
 
-            map=new HashMap<String,Object>();
-            map.put("label","证件号码");
-            map.put("content",contact.getContactCardId());
-            data.add(map);
+        data.add(map);
 
-            map=new HashMap<String,Object>();
-            map.put("label","乘客类型");
-            map.put("content","学生");
-            data.add(map);
+        map=new HashMap<String,Object>();
+        map.put("label","证件号码");
+        map.put("content",intent.getStringExtra("contactCardId"));
 
-            map=new HashMap<String,Object>();
-            map.put("label","电话");
-            map.put("content",contact.getContactPhone());
-            data.add(map);
-        }
+        data.add(map);
+
+        map=new HashMap<String,Object>();
+        map.put("label","乘客类型");
+        map.put("content",intent.getStringExtra("contactType"));
+
+        data.add(map);
+
+        map=new HashMap<String,Object>();
+        map.put("label","电话");
+        map.put("content",intent.getStringExtra("contactPhone"));
+
+        data.add(map);
 
         return data;
     }
@@ -111,6 +109,10 @@ public class ContactShowActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         /* 菜单栏选项点击事件 */
+
+        ////////////////////
+        ContactDao contactDao=new ContactDaoImpl(ContactShowActivity.this);
+
         switch(item.getItemId()){
             case R.id.edit_item:
                 adapter.setEditFlag(true);
@@ -120,6 +122,7 @@ public class ContactShowActivity extends AppCompatActivity {
                 break;
             case R.id.remove_item:
                 Toast.makeText(this,"you clicked Remove",Toast.LENGTH_SHORT).show();
+                /*contactDao.deleteContact()*/
                 /* 删除联系人——从数据库删除并更新联系人列表 */
                 /*
                 Intent intent=new Intent().setClass(ContactShowActivity.this,ContactAddActivity.class);

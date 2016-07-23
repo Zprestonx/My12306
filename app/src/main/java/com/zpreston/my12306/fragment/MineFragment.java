@@ -114,25 +114,18 @@ public class MineFragment extends Fragment {
                 int rt = pwdDialog.verifyPassword("775079852@qq.com", pwd);
 
                 /* 输入原密码正确，进入修改密码页面 */
-                /*if(TextUtils.isEmpty(pwd)){
-                    edtPwdO.requestFocus();
-                    edtPwdO.setError("密码不能为空！");
-
-                }else{*/
-                    Toast.makeText(getActivity(), "返回值为:" + rt, Toast.LENGTH_SHORT).show();
-                    if (rt == 1) {
-                    /*try {*/
-                        Toast.makeText(getActivity(), "返回值为:" + rt, Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getActivity(), MyPasswordActivity.class);
-                        startActivity(intent);
-                        dialog.dismiss();
-                  /*  } catch (Exception e) {
-                        e.printStackTrace();
-                    }*/
-                }
-                else if(rt==0){
+                Toast.makeText(getActivity(), "返回值为:" + rt, Toast.LENGTH_SHORT).show();
+                if (rt == 1) {
                     try {
-                        /*Toast.makeText(getActivity(),"-------",Toast.LENGTH_SHORT).show();*/
+                    Toast.makeText(getActivity(), "返回值为:" + rt, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), MyPasswordActivity.class);
+                    startActivity(intent);
+                    dialog.dismiss();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else if (rt == 0) {
+                    try {
                         edtPwdO.setError("原密码输入不正确，请重新输入！");
                         edtPwdO.requestFocus();
                     } catch (Exception e) {
