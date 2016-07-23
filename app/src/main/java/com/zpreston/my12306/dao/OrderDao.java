@@ -14,31 +14,31 @@ import java.util.List;
 public interface OrderDao {
     /*
     查询全部订单
-    入参：uid用户ID
+    入参：email，用户邮箱
     出参：Order的List列表
     * */
-    List<Order> queryAllOrders(int uid);
+    List<Order> queryAllOrders(String email);
 
    /*
     查询未支付订单
-    入参：uid用户ID
+    入参：email，用户邮箱
     出参：Order的List列表
     * */
-    List<Order> queryNotPaidOrders(int uid);
+    List<Order> queryNotPaidOrders(String email);
 
     /*
     查询已支付订单
-    入参：uid用户ID
+    入参：email，用户邮箱
     出参：Order的List列表
     * */
-    List<Order> queryAlreadyPaidOrders(int uid);
+    List<Order> queryAlreadyPaidOrders(String email);
 
     /*
     退票
-    入参：用户ID，订单号orderNo，乘车人ID
+    入参：email，用户邮箱,订单号orderNo，乘车人ID
     出参：状态码，1表示退票成功
     * */
-    int returnTicket(int uid, String orderNo, int contactId);
+    int returnTicket(String email, String orderNo, int contactId);
 
     /*
     车票预订，执行后状态都为未支付
@@ -49,8 +49,22 @@ public interface OrderDao {
 
     /*
     支付订单
-    入参：用户ID，orderNo 订单号
+    入参：email，用户邮箱，orderNo 订单号
     出参：状态码，1表示提交成功
     * */
-    int payForOrder(int uid, String orderNo);
+    int payForOrder(String email, String orderNo);
+
+    /*
+    取消订单
+    入参：email，用户邮箱,订单号orderNo
+    出参：状态码，1表示退票成功
+    * */
+    int cancelOrder(String email, String orderNo);
+
+    /*
+    获取同一订单的联系人
+    入参：email，用户邮箱,订单号orderNo
+    出参：List<Contact> contacts， 联系人列表
+    * */
+    List<Contact> getSameOrderContacts(String email, String orderNo);
 }
