@@ -203,4 +203,39 @@ public class UserDaoImpl implements UserDao {
         cursor.close();
 
     }
+
+    @Override
+    /*
+    获取用户信息
+    入参：email，用户邮箱
+    出参：User对象
+    * */
+    public User getUserInfo(String email) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        User user = null;
+
+        String sql = "select * from User where email=?";
+        Cursor cursor = db.rawQuery(sql, new String[]{email});
+        if (cursor.moveToNext()) {
+            //User(int uid, String email, String password, String userName,
+            //String gender, String idCard, String phone, String lastLoginTime, int userStatus) {
+            int userId = cursor.getInt(cursor.getColumnIndex("uid"));
+            String userEmail = cursor.getString(cursor.getColumnIndex("email"));
+            String password = cursor.getString(cursor.getColumnIndex("password"));
+            String userName = cursor.getString(cursor.getColumnIndex("userName"));
+            int gender = cursor.getInt(cursor.getColumnIndex("gender"));
+            int certificateType = cursor.getInt(cursor.getColumnIndex("certificateType"));
+            String idCard = cursor.getString(cursor.getColumnIndex("idCard"));
+            int passengerType = cursor.getInt(cursor.getColumnIndex("passengerType"));
+            String phone = cursor.getString(cursor.getColumnIndex("phone"));
+            String lastLoginTime = cursor.getString(cursor.getColumnIndex("lastLoginTime"));
+            int userStatus = cursor.getInt(cursor.getColumnIndex("userStatus"));
+
+            user = new User(userId, userEmail, password, userName, gender, certificateType, idCard, passengerType, phone, lastLoginTime, userStatus);
+        }
+
+        cursor.close();
+        db.close();
+        return user;
+    }
 }
