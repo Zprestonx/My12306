@@ -86,4 +86,19 @@ public class ContactDaoTest extends ApplicationTestCase<Application> {
         ContactDao contactDao = new ContactDaoImpl(getContext());
         contactDao.updateContact(contact);
     }
+
+
+    /*
+    查询单个联系人
+    入参：email用户邮箱，contactId联系人id
+    出参：Contact 对象
+    * */
+    public void testQuerySingleContact()
+    {
+        String email = "775079852@qq.com";
+        int contactId = 2;
+        ContactDao contactDao = new ContactDaoImpl(getContext());
+        Contact contact =  contactDao.querySingleContact(email, contactId);
+        Util.myLog("testQuerySingleContact", contact.toString());
+    }
 }

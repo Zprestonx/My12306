@@ -38,4 +38,11 @@ public interface ContactDao {
     出参：状态码，1表示修改成功
     * */
     int updateContact(Contact contact);
+
+    /*
+    查询单个联系人
+    入参：email用户邮箱，contactId联系人id
+    出参：Contact 对象
+    * */
+    Contact querySingleContact(String email, int contactId);
 }

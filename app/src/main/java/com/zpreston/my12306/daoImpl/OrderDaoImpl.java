@@ -140,11 +140,11 @@ public class OrderDaoImpl implements OrderDao {
     退票
     入参：email，用户邮箱, 订单号orderNo，乘车人ID
     出参：状态码，1表示退票成功
-    把订单状态置为取消,2
+    把订单记录删除
     * */
     public int returnTicket(String email, String orderNo, int contactId) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String sql = "update OrderForm set orderState=2 where orderNo=? and contactId=? and uid= " +
+        String sql = "delete from OrderForm where orderNo=? and contactId=? and uid= " +
                 "(select uid from User where email=?)";
         db.execSQL(sql, new String[]{orderNo,String.valueOf(contactId),email});
         db.close();
@@ -213,10 +213,11 @@ public class OrderDaoImpl implements OrderDao {
     取消订单
     入参：email，用户邮箱,订单号orderNo
     出参：状态码，1表示退票成功
+    删除订票记录
     * */
     public int cancelOrder(String email, String orderNo) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String sql = "update OrderForm set orderState=2 where orderNo=? and uid= " +
+        String sql = "delete from OrderForm where orderNo=? and uid= " +
                 "(select uid from User where email=?)";
         db.execSQL(sql, new String[]{orderNo,email});
         db.close();

@@ -167,7 +167,7 @@ public class OrderDaoTest extends ApplicationTestCase<Application> {
     public void testCancelOrder()
     {
         String email = "775079852@qq.com";
-        String orderNo = "20160723011523";
+        String orderNo = "20160723084613";
         OrderDao orderDao = new OrderDaoImpl(getContext());
         orderDao.cancelOrder(email, orderNo);
     }
