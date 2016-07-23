@@ -10,7 +10,6 @@ import android.os.Bundle;
 import com.zpreston.my12306.R;
 
 public class SplashActivity extends Activity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

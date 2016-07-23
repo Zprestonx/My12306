@@ -11,6 +11,7 @@ import java.util.List;
  * Created by Administrator on 2016/7/20.
  */
 public class ViewPagerAdapter extends PagerAdapter {
+
     private List<View> views;
 
     public ViewPagerAdapter(List<View> views){

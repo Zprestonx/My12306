@@ -17,6 +17,7 @@ import com.zpreston.my12306.adapter.ViewPagerAdapter;
 import java.util.ArrayList;
 
 public class GuideActivity extends Activity implements View.OnClickListener, ViewPager.OnPageChangeListener {
+
     //ViewPager用来显示每张图片
     private ViewPagerAdapter viewPagerAdapter;
     private ViewPager viewPager;
