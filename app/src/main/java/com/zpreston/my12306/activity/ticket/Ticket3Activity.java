@@ -14,8 +14,13 @@ import com.zpreston.my12306.R;
 import com.zpreston.my12306.adapter.Ticket3Adapter;
 import com.zpreston.my12306.bean.Contact;
 import com.zpreston.my12306.bean.Passenger;
+import com.zpreston.my12306.bean.Train;
 import com.zpreston.my12306.dao.ContactDao;
+import com.zpreston.my12306.dao.OrderDao;
+import com.zpreston.my12306.dao.TrainDao;
 import com.zpreston.my12306.daoImpl.ContactDaoImpl;
+import com.zpreston.my12306.daoImpl.OrderDaoImpl;
+import com.zpreston.my12306.daoImpl.TrainDaoImpl;
 import com.zpreston.my12306.fragment.TicketFragment;
 
 import java.util.ArrayList;
@@ -29,6 +34,7 @@ public class Ticket3Activity extends AppCompatActivity {
     private ListView lvContact;
     List<Map<String, Object>> mData;
 
+    Bundle bundle_;
     private TextView q;
     private Button w;
 
@@ -40,13 +46,16 @@ public class Ticket3Activity extends AppCompatActivity {
     private TextView t2;
     private TextView c1;
     private TextView c2;
+    private TextView Price;
     String seatMes;
     String seatNum;
     String startTime;
     String startCity;
     String endCity;
     String trainNo_;
-    int seatPrice;
+    String seatPrice;
+    String orderNo;
+    int money;
     int year;
     int month;
     int day;
@@ -66,12 +75,14 @@ public class Ticket3Activity extends AppCompatActivity {
         title = (TextView) this.findViewById(R.id.textView10);
         seat = (TextView) this.findViewById(R.id.textView9);
         seatPri = (TextView) this.findViewById(R.id.textView14);
+        Price = (TextView) this.findViewById(R.id.textView16);
 
         final Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("ticket1");
         seatMes = bundle.getString("seatMes");
         seatNum = bundle.getString("seatNum");
-        seatPrice= bundle.getInt("seatPri");
+        seatPrice = bundle.getString("seatPri");
+        money = Integer.valueOf(seatPrice).intValue();
         startCity = bundle.getString("beginCity");
         endCity = bundle.getString("endCity");
         trainNo_ = bundle.getString("trainNo");  //设置对应车次信息
@@ -91,8 +102,9 @@ public class Ticket3Activity extends AppCompatActivity {
         t1.setText(startTime_);
         t2.setText(arriveTime_);
         title.setText(trainNo_);
-        seatPri.setText("seatPrice");
+        seatPri.setText(seatPrice);
         seat.setText(seatMes + "(" + seatNum + "张)");
+
 
         q = (TextView) this.findViewById(R.id.textView15);
         // w = (Button) this.findViewById(R.id.button5);
@@ -110,7 +122,9 @@ public class Ticket3Activity extends AppCompatActivity {
     }
 
     public void submit(View view) { //提交按钮跳转
+
         Intent intent = new Intent(this, Ticket4Activity.class);
+        intent.putExtra("ticket", bundle_);
         startActivity(intent);
     }
 
@@ -140,18 +154,14 @@ public class Ticket3Activity extends AppCompatActivity {
         return data;
     }
 
-    /*public void simplelist(View view) { //删除按钮跳转
-        Intent intent=new Intent(this,SListViewActivity.class);
-        startActivity(intent);
-    }*/
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {       //点击添加联系人后放入ListView中
         switch (requestCode) {
             case 1:
                 if (resultCode == RESULT_OK) {
                     Bundle bundle = data.getBundleExtra("ticket");
-                    Log.e("*add", "11");
+                    Bundle bundle1 = new Bundle();
                     int size = bundle.getInt("size", 0);
                     List<Map<String, Object>> data1 = new ArrayList<Map<String, Object>>();
                     if (size != 0) {
@@ -163,12 +173,35 @@ public class Ticket3Activity extends AppCompatActivity {
                             map.put("tvPhone", "电话：" + passenger.getTvPhone());
 
                             data1.add(map);
-
+                            bundle1.putSerializable("j", passenger);
                         }
+                        /*bundle1.putString("trainNo",trainNo_);
+                        bundle1.putString("startTime",startTime);
+                        data.putExtra("ticket", bundle1);*/
+
                         ticket3Adapter = new Ticket3Adapter(this, data1, lvContact);
                         lvContact.setAdapter(ticket3Adapter);
+
+                        Price.setText("订单总额:￥" + String.valueOf((money * size) / 2) + ".0元");
                     }
-                    //Log.d("FirstActivity", returnedData);
+
+                    Train train = new Train();                                       //插入未支付订单列表
+                    train.setTrainNo(trainNo_);
+                    train.setPrice(money);
+                    ContactDao contactDao = new ContactDaoImpl(this);
+                    OrderDao orderDao = new OrderDaoImpl(this);
+                    List<Contact> contact = new ArrayList<Contact>();
+                    int size1 = bundle.getInt("size", 0);
+                    for (int j = 0; j < size1; j++) {
+                        Passenger passenger = (Passenger) bundle.getSerializable(String.valueOf(j));
+                        String name[] = passenger.getTvContactName().split("\\(");
+                        Contact contact1 = contactDao.querySingleContact("775079852@qq.com", name[0]);
+                        contact.add(contact1);
+                    }
+                    orderNo = orderDao.orderTickets(contact, train);
+                    bundle_=new Bundle();
+                    bundle_.putString("orderNo",orderNo);
+
                 }
                 break;
             default:

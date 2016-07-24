@@ -99,7 +99,7 @@ public class Train {
     }
 
     public void setPrice(double price) {
-        this.price = price;
+        this.price = price/2;
     }
 
     @Override
