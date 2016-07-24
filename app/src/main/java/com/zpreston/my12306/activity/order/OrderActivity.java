@@ -29,7 +29,7 @@ public class OrderActivity extends AppCompatActivity {
         List<Map<String, Object>> data=new ArrayList<Map<String, Object>>();
         //创建Map来存放数据
         OrderDao orderDao = new OrderDaoImpl(this);
-        List<Order> list = orderDao.queryNotPaidOrders("15627860619@qq.com");//查询未支付订单
+        List<Order> list = orderDao.queryNotPaidOrders("775079852@qq.com");//查询未支付订单
         Log.e("Tag-list size",String.valueOf(list.size()));
         for (Order order : list) {
             if (order.getOrderNo().equals(orderNo)) {//通过从点击条目获取的orderNo匹配list中的信息
@@ -66,23 +66,33 @@ public class OrderActivity extends AppCompatActivity {
             lvOpt= (ListView) this.findViewById(R.id.lvOpt);
         Intent intent =getIntent();
         orderNo=intent.getStringExtra("orderNo");
+        TextView orderNo1=(TextView)this.findViewById(R.id.orderNo);
+        orderNo1.setText(orderNo);
         final TextView cancelOrder=(TextView)this.findViewById(R.id.cancelOrder);
         final TextView con_firmOrder=(TextView)this.findViewById(R.id.con_firmOrder);
+        final OrderDao orderDao = new OrderDaoImpl(OrderActivity.this);
         //获得数据
         mData = getData();
         lvOpt.setAdapter(new optactAdapter(getData(),this));
+
         cancelOrder.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {//点击取消订单,订单状态改成2，已取消,finish
+            public void onClick(View v) {//点击取消订单,从数据库删除订单
+                orderDao.cancelOrder("775079852@qq.com",orderNo);
                 cancelOrder.setBackgroundColor(OrderActivity.this.getResources().getColor(R.color.lightblue));
-            finish();
+                Intent intent = new Intent();
+                OrderActivity.this.setResult(RESULT_OK,intent);
+                OrderActivity.this.finish();
             }
         });
         con_firmOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//点击确认订单，订单状态改成1，已支付，finish
+                orderDao.payForOrder("775079852@qq.com",orderNo);
                 con_firmOrder.setBackgroundColor(OrderActivity.this.getResources().getColor(R.color.lightblue));
-                finish();
+                Intent intent = new Intent();
+                OrderActivity.this.setResult(RESULT_OK,intent);
+                OrderActivity.this.finish();
             }
         });
     }

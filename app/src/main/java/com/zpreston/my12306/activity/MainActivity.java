@@ -6,15 +6,12 @@ import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zpreston.my12306.R;
 import com.zpreston.my12306.adapter.MainFragmentAdapter;
@@ -31,10 +28,11 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     private FragmentTabHost mTabHost;
     private LayoutInflater layoutInflater;
     private Class fragmentArray[]={TicketFragment.class, OrderFragment.class, MineFragment.class};
-    private int imageViewArray[]={R.drawable.find_user_25,R.drawable.lock_25,R.drawable.remove_user_25};
+    private int imageViewArray[]={R.drawable.find_user_25,R.drawable.login_pwd,R.drawable.remove_user_25};
     private String textViewArray[]={"火车票","车票预定","我的12306"};
     private List<Fragment> list=new ArrayList<Fragment>();
     private ViewPager viewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,4 +103,5 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         int position=mTabHost.getCurrentTab();
         viewPager.setCurrentItem(position);
     }
+
 }

@@ -65,4 +65,12 @@ public interface UserDao {
     出参：User对象
     * */
     User getUserInfo(String email);
+
+    /*
+    注册
+    入参：User对象
+    出参:状态码，code，1为成功
+    * */
+    int register(User user);
+
 }

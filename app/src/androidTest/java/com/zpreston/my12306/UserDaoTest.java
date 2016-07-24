@@ -114,9 +114,34 @@ public class UserDaoTest extends ApplicationTestCase<Application> {
     * */
     public void testGetUserInfo()
     {
-        String email = "775079852@qq.com";
+        String email = "222@qq.com";
         UserDao userDao = new UserDaoImpl(getContext());
         User user = userDao.getUserInfo(email);
         Util.myLog("testGetUserInfo", user.toString());
+    }
+
+    /*
+    注册
+    入参：User对象
+    出参:状态码，code，1为成功
+    * */
+    public void testRegister()
+    {
+        int uid = 1;
+        String email = "222@qq.com";
+        String password = "777";
+        String userName = "神兽使";
+        int gender = 1;
+        int certificateType = 0;
+        String idCard = "440982199410092899";
+        int passengerType = 0;
+        String phone = "15627860611";
+        String lastLoginTime = "";
+        int userStatus = 1;
+        User user = new User(uid, email, password, userName, gender, certificateType, idCard, passengerType, phone, lastLoginTime, userStatus);
+
+        UserDao userDao = new UserDaoImpl(getContext());
+        userDao.register(user);
+        testGetUserInfo();
     }
 }

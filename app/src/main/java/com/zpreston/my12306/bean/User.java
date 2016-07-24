@@ -11,10 +11,10 @@ public class User {
     private String email;
     private String password;
     private String userName;
-    private int gender;
-    private int certificateType;
+    private int gender; //0为女，1为男
+    private int certificateType; //0为身份证，1为护照
     private String idCard;
-    private int passengerType;
+    private int passengerType; //0为成人，1为学生
     private String phone;
     private String lastLoginTime;
     private int userStatus;

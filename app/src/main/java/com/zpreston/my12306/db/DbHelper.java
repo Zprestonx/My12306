@@ -77,10 +77,10 @@ public class DbHelper extends SQLiteOpenHelper{
         //插入一些数据
         //User表
         sql = "insert into User(email,password,userName,gender,certificateType,idCard,passengerType,phone,lastLoginTime,userStatus) " +
-                "values('775079852@qq.com','123','曾华生','1',0,'440982199410082894',0,'15627860619','2016-07-21 23:40', 1)";
+                "values('775079852@qq.com','123','曾华生',1,0,'440982199410082894',0,'15627860619','2016-07-21 23:40', 1)";
         db.execSQL(sql);
         sql = "insert into User(email,password,userName,gender,certificateType,idCard,passengerType,phone,lastLoginTime,userStatus) values" +
-                "('Zprestonx@gmail.com','666','郑佩鑫','1',0,'440982199408218897',0,'15627863613','2016-07-21 11:40', 2)";
+                "('Zprestonx@gmail.com','666','郑佩鑫',1,0,'440982199408218897',0,'15627863613','2016-07-21 11:40', 2)";
         db.execSQL(sql);
 
         //Contact表

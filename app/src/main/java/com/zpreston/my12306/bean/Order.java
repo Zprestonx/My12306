@@ -12,7 +12,7 @@ public class Order {
     private int contactId;
     private String trainNo;
     private double orderPrice; //订单总价
-    private int orderState; //订单状态 0未支付，1已支付，2已取消
+    private int orderState; //订单状态 0未支付，1已支付
     private String orderTime; //
 
     public Order(){}

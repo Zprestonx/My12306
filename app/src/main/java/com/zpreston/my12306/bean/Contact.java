@@ -11,7 +11,7 @@ public class Contact {
     private String contactName;
     private String contactCardId;
     private String contactPhone;
-    private int contactState;
+    private int contactState;//0为成人，1为学生
 
     public Contact()
     {}

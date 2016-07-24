@@ -1,30 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="60dp"
     android:orientation="horizontal"
     >
 <TableLayout android:layout_width="0dp"
-               android:layout_height="wrap_content"
+               android:layout_height="60dp"
     android:layout_weight="3">
     <TableRow>
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="orderNo"
-        android:layout_weight="1"
-
+        android:layout_weight="2"
         android:id="@+id/orderNo" />
-    <TextView
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:text="orderTime"
-    android:layout_weight="1.5"
-        android:textColor="@color/gray"
-    android:id="@+id/orderTime" />
+        <LinearLayout
+            android:layout_weight="1.5"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:text="trainMes"
+                android:layout_weight="1.5"
+                android:id="@+id/trainMes" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.5"
+                android:id="@+id/contactNum"
+                android:gravity="center"
+                android:text="contactNum"/>
+
+        </LinearLayout>
+
     <TextView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:text="orderState"
         android:layout_weight="1"
         android:id="@+id/orderState" />
@@ -32,44 +44,35 @@
 <TableRow>
     <TextView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:text="trainNo"
         android:layout_weight="1"
         android:id="@+id/trainNo"
         android:textColor="@color/black"
+        android:layout_gravity="center"
         android:textSize="30px"
         android:gravity="center"/>
-    <LinearLayout
-        android:layout_weight="1.5"
-        android:orientation="horizontal">
-
-    <TextView
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:text="trainMes"
-    android:layout_weight="1.5"
-    android:id="@+id/trainMes" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:id="@+id/contactNum"
-            android:text="contactNum"/>
-
-    </LinearLayout>
     <TextView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:text="orderTime"
+        android:layout_weight="1.5"
+        android:textColor="@color/gray"
+        android:id="@+id/orderTime" />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="40dp"
         android:text="orderPrice"
         android:layout_weight="1"
         android:id="@+id/orderPrice"
-        android:gravity="bottom"/>
+        android:gravity="center"/>
     </TableRow>
 </TableLayout>
     <ImageView
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_weight="0.5"
+        android:layout_gravity="center"
         android:src="@drawable/order_tes"
         android:id="@+id/im" />
 </LinearLayout>

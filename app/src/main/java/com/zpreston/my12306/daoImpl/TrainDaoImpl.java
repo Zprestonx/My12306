@@ -2,6 +2,7 @@ package com.zpreston.my12306.daoImpl;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.zpreston.my12306.bean.Contact;
 import com.zpreston.my12306.bean.Train;
@@ -61,4 +62,28 @@ public class TrainDaoImpl implements TrainDao {
         return list;
     }
 
+    @Override
+    /*
+    根据车次号查询始发站和终点站
+    入参：车次号
+    出参：List<String> 第一个为始发站，第二个为终点站
+    * */
+    public List<String> getStartEndStationByTrainNo(String trainNo) {
+        List<String> stationList = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String sql = "select startStationName,endStationName from Train where trainNo=?";
+        Cursor cursor = db.rawQuery(sql, new String[]{trainNo});
+        if(cursor.moveToNext())
+        {
+            String startStaion = cursor.getString(cursor.getColumnIndex("startStationName"));
+            String endStation = cursor.getString(cursor.getColumnIndex("endStationName"));
+            stationList.add(startStaion);
+            stationList.add(endStation);
+            return stationList;
+        }
+        else
+        {
+            return null;
+        }
+    }
 }

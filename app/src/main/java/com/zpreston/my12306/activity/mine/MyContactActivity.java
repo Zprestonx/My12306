@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,10 +26,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class MyContactActivity extends AppCompatActivity {
     private ListView lvContact;
     List<Map<String, Object>> mData;
+
+    int count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,28 +40,38 @@ public class MyContactActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_contact);
 
         mData=getData();
+
         lvContact = (ListView) findViewById(R.id.lvContact);
-        lvContact.setAdapter(new MyContactAdapter(this,mData));
+        final MyContactAdapter myContactAdapter=new MyContactAdapter(this,mData);
+        lvContact.setAdapter(myContactAdapter);
+
 
         lvContact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
-                        Toast.makeText(MyContactActivity.this, "点击了联系人" + position, Toast.LENGTH_LONG).show();
-                        Intent intent1=new Intent().setClass(MyContactActivity.this,ContactShowActivity.class);
-                        /*Bundle bundle=new Bundle();
-                        bundle.p*/
 
-                        startActivity(intent1);
-                        break;
+                ContactDao contactDao=new ContactDaoImpl(MyContactActivity.this);
+                Toast.makeText(MyContactActivity.this, "点击了联系人" + position, Toast.LENGTH_SHORT).show();
 
-                    case 1:
-                        Intent intent2=new Intent().setClass(MyContactActivity.this,ContactShowActivity.class);
-                        startActivity(intent2);
-                        Toast.makeText(MyContactActivity.this, "点击了联系人" + position, Toast.LENGTH_LONG).show();
-                        break;
+                Contact contact=contactDao.querySingleContact("775079852@qq.com",2);
+                Log.e("tag",contact.toString());
+                String contactType=null;
+                Log.e("TAG",String.valueOf(contact.getContactState()));
+
+                if(contact.getContactState()==1){
+                    contactType="成人";
+                }else if(contact.getContactState()==2){
+                    contactType="学生";
                 }
+
+                Intent intent=new Intent(MyContactActivity.this,ContactShowActivity.class);
+                intent.putExtra("contactName",contact.getContactName());
+                intent.putExtra("idType","二代身份证");
+                intent.putExtra("contactCardId",contact.getContactCardId());
+                intent.putExtra("contactType",contactType);
+                intent.putExtra("contactPhone",contact.getContactPhone());
+                startActivity(intent);
+
             }
         });
     }
@@ -92,7 +106,8 @@ public class MyContactActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         /* 使用inflate方法把布局文件中定义的菜单加载给第二个参数对应的menu对象 */
         getMenuInflater().inflate(R.menu.mine_contact_menu1,menu);
-        return true;
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

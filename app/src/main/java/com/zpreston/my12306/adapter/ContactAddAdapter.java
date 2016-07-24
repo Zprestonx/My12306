@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import com.zpreston.my12306.R;
 import com.zpreston.my12306.bean.Contact;
-import com.zpreston.my12306.dao.ContactDao;
-import com.zpreston.my12306.daoImpl.ContactDaoImpl;
 
 import java.util.List;
 import java.util.Map;
