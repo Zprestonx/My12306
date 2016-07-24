@@ -88,7 +88,7 @@ public class MyAccountActivity extends AppCompatActivity {
         }
 
         map.put("label","用户名");
-        map.put("content",user.getUid());
+        map.put("content",user.getEmail());
         data.add(map);
 
         map=new HashMap<String,Object>();

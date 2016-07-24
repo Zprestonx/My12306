@@ -50,6 +50,7 @@
             android:label="订单管理" />
         <activity android:name=".activity.order.QRCodeActivity"
             android:label="订单管理"/>
+        <activity android:name=".activity.ticket.QueryCity"/>
     </application>
 
 </manifest>

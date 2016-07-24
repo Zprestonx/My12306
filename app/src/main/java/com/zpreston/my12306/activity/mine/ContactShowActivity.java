@@ -44,28 +44,39 @@ public class ContactShowActivity extends AppCompatActivity {
         Log.e("TAG","show-after");
 
         lvContactShow = (ListView) findViewById(R.id.lvContactShow);
-        btnSaveContact = (Button) findViewById(R.id.btnSaveContact);
         lvContactShow.setDivider(null);
 
+        mData=getData(getIntent());
+        adapter=new ContactShowAdapter(this,mData);
+        lvContactShow.setAdapter(adapter);
+
+        btnSaveContact = (Button) findViewById(R.id.btnSaveContact);
         btnSaveContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ContactShowActivity.this, "正在保存....", Toast.LENGTH_LONG).show();
-                Intent intent=new Intent().setClass(ContactShowActivity.this,MyContactActivity.class);
-
+                Map<String,Object> map=adapter.getMap();
+                String contactName=map.get("0").toString();
+                Log.e("Map",contactName);
+                String contactType=map.get("3").toString();
+                Log.e("Map",contactType);
+                int i=0;
+                if(contactType.equals("学生")) i=1;
+                String contactPhone=map.get("4").toString();
+                Log.e("Map",contactPhone);
+                ContactDao contactDao=new ContactDaoImpl(ContactShowActivity.this);
+                contactDao.updateContact(contactName,i,contactPhone);
+                Intent intent=new Intent(ContactShowActivity.this,MyContactActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
-        mData=getData();
-        adapter=new ContactShowAdapter(this,mData);
-        lvContactShow.setAdapter(adapter);
+
     }
 
-    private List<Map<String,Object>> getData(){//实现Map的数据构造
+    private List<Map<String,Object>> getData(Intent intent){//实现Map的数据构造
         List<Map<String,Object>> data=new ArrayList<Map<String, Object>>();
         Map<String,Object> map=new HashMap<String,Object>();
-
-        Intent intent=getIntent();
 
         map.put("label","姓名");
         map.put("content",intent.getStringExtra("contactName"));
@@ -116,17 +127,18 @@ public class ContactShowActivity extends AppCompatActivity {
         switch(item.getItemId()){
             case R.id.edit_item:
                 adapter.setEditFlag(true);
-                adapter.setData(getData());
+                adapter.setData(getData(getIntent()));
                 adapter.notifyDataSetChanged();
+                btnSaveContact.setVisibility(View.VISIBLE);
                 Toast.makeText(this,"you clicked Edit", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.remove_item:
                 Toast.makeText(this,"you clicked Remove",Toast.LENGTH_SHORT).show();
-                /*contactDao.deleteContact()*/
-                /* 删除联系人——从数据库删除并更新联系人列表 */
-                /*
-                Intent intent=new Intent().setClass(ContactShowActivity.this,ContactAddActivity.class);
-                startActivity(intent);*/
+                Map<String,Object> map=adapter.getMap();
+                contactDao.deleteContact("775079852@qq.com",map.get("0").toString());
+                Intent intent=new Intent(ContactShowActivity.this,MyContactActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             default:
                 Toast.makeText(ContactShowActivity.this, "Error!", Toast.LENGTH_SHORT).show();

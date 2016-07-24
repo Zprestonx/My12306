@@ -30,6 +30,11 @@ public class MyContactAdapter extends BaseAdapter {
         public ImageView imForward;
 
     }
+
+    public String getContactName(int position){
+        return mData.get(position).get("tvContactName").toString();
+    }
+
     @Override
     public int getCount() {
         return mData.size();
@@ -58,7 +63,8 @@ public class MyContactAdapter extends BaseAdapter {
             viewHolder.imForward=(ImageView) convertView.findViewById(R.id.imForward);
 
 
-            viewHolder.tvContactName.setText(mData.get(position).get("tvContactName").toString());
+            viewHolder.tvContactName.setText(mData.get(position).get("tvContactName").toString()+
+            "("+mData.get(position).get("contactType").toString()+")");
             viewHolder.tvIdCard.setText(mData.get(position).get("tvIdCard").toString());
             viewHolder.tvPhone.setText(mData.get(position).get("tvPhone").toString());
             viewHolder.imForward.setImageResource((Integer) mData.get(position).get("imForward"));
