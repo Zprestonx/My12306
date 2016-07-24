@@ -10,6 +10,8 @@ import com.zpreston.my12306.dao.UserDao;
 import com.zpreston.my12306.db.DbHelper;
 import com.zpreston.my12306.util.Util;
 
+import java.text.SimpleDateFormat;
+
 import javax.crypto.Cipher;
 import javax.xml.transform.stream.StreamResult;
 
@@ -237,5 +239,52 @@ public class UserDaoImpl implements UserDao {
         cursor.close();
         db.close();
         return user;
+    }
+
+
+    /*
+    注册
+    入参：User对象
+    出参:状态码，code，1为成功
+    * */
+    @Override
+    public int register(User user) {
+
+        //获取User对象属性
+        String email = user.getEmail();
+        String password = user.getPassword();
+        String userName = user.getUserName();
+        int gender = user.getGender();
+        int certificateType = user.getCertificateType();
+        String idCard = user.getIdCard();
+        int passengerType = user.getPassengerType();
+        String phone = user.getPhone();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String lastLoginTime= simpleDateFormat.format(new java.util.Date());
+
+        int userStatus = 1; //默认为1，可订票状态
+
+        //插入
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String sql = "insert into User(email,password,userName,gender,certificateType,idCard, passengerType,phone,lastLoginTime,userStatus) values(?,?,?,?,?,?,?,?,?,?)";
+        db.execSQL(sql, new String[]{email, password, userName, String.valueOf(gender), String.valueOf(certificateType), idCard, String.valueOf(passengerType), phone, lastLoginTime, String.valueOf(userStatus)});
+        //在Contact表同时添加一条记录
+        //先获取uid
+        sql = "select uid from User where email=?";
+        Cursor cursor = db.rawQuery(sql, new String[]{email});
+        if (cursor.moveToNext()) {
+            int uid = cursor.getInt(cursor.getColumnIndex("uid"));
+            int contactId = 1;
+            String contactName = userName;
+            String contactCardId = idCard;
+            String contactPhone = phone;
+            int contactState = passengerType;
+            //插入Contact
+            sql = "insert into Contact(uid,contactId,contactName,contactCardId,contactPhone,contactState) values(?,?,?,?,?,?)";
+            db.execSQL(sql, new String[]{String.valueOf(uid), String.valueOf(contactId), contactName, contactCardId, contactPhone, String.valueOf(contactState)});
+        }
+        cursor.close();
+        return 1;
     }
 }
