@@ -27,5 +27,12 @@ public interface TrainDao {
     * */
     List<Train> queryTrain(String startStationName, String endStationName, String startDate);
 
+    /*
+    根据车次号查询始发站和终点站
+    入参：车次号
+    出参：List<String> 第一个为始发站，第二个为终点站
+    * */
+    List<String> getStartEndStationByTrainNo(String trainNo);
+
 }
 
