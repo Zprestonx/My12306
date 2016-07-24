@@ -138,29 +138,29 @@ public class DbHelper extends SQLiteOpenHelper{
 
 
         //OrderForm
-        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,'201607212350',1,'G507',255.5,0,'2016-07-21 12:50')";
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,'201607212351',1,'G507',255.5,0,'2016-07-21 12:50')";
         db.execSQL(sql);
-        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218129',1,'G507',255.5,1,'2016-07-31 11:32')";
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218129',3,'G507',255.5,1,'2016-07-31 11:32')";
         db.execSQL(sql);
         sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218129',2,'G507',255.5,1,'2016-07-31 11:32')";
         db.execSQL(sql);
         sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,'201607218130',3,'G507',255.5,0,'2016-07-31 11:32')";
         db.execSQL(sql);
-        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218131',5,'G2312',155.0,0,'2016-07-30 10:32')";
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218131',5,'G2322',155.0,0,'2016-07-30 10:32')";
         db.execSQL(sql);
-        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218131',6,'G2312',155.0,0,'2016-07-30 10:32')";
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218131',6,'G2322',155.0,0,'2016-07-30 10:32')";
         db.execSQL(sql);
         sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,'201607218132',4,'K666',355.0,1,'2016-07-31 11:32')";
         db.execSQL(sql);
         sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,'201607222350',1,'G507',235.5,0,'2016-07-22 12:50')";
         db.execSQL(sql);
-        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,'201607222350',2,'G2312',256,1,'2016-07-24 10:12')";
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,'201607222350',2,'G2312',256,0,'2016-07-24 10:12')";
         db.execSQL(sql);
-        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,'201607222350',3,'K666',288,0,'2016-07-21 12:10')";
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,'201607222350',3,'G2312',256,0,'2016-07-21 12:10')";
         db.execSQL(sql);
-        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,'201607222350',4,'G71',221,1,'2016-07-22 12:50')";
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,'201607222350',4,'G2312',256,0,'2016-07-22 12:50')";
         db.execSQL(sql);
-        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,'201607222350',5,'G72',289,0,'2016-07-21 12:38')";
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,'201607222350',5,'G2312',256,0,'2016-07-21 12:38')";
         db.execSQL(sql);
 
     }

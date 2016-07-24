@@ -39,7 +39,9 @@ public class Util {
         SharedPreferences sp = context.getSharedPreferences("user", Context.MODE_PRIVATE);
         //第二个参数是缺省值，找不到的时候用这个
         String email = sp.getString("name", "");
+        Log.e("Tag",email);
         return email;
+
     }
 
     /*
