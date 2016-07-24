@@ -171,28 +171,28 @@ public class Ticket2Activity extends AppCompatActivity {
         Map<String, Object> map=new HashMap<String,Object>();
         map.put("seatMes",seatMes1_);
         map.put("seatNum",seatNum1_);
-        map.put("seatPri","￥154.0");
+        map.put("seatPri","154");
         data.add(map);
 
         //第二个条目
         map=new HashMap<String,Object>();
         map.put("seatMes",seatMes2_);
         map.put("seatNum",seatNum2_);
-        map.put("seatPri","￥152.0");
+        map.put("seatPri","152");
         data.add(map);
 
         //第三个条目
         map=new HashMap<String,Object>();
         map.put("seatMes",seatMes3_);
         map.put("seatNum",seatNum3_);
-        map.put("seatPri","￥269.0");
+        map.put("seatPri","268");
         data.add(map);
 
         //第四个条目
         map=new HashMap<String,Object>();
         map.put("seatMes",seatMes4_);
         map.put("seatNum",seatNum4_);
-        map.put("seatPri","￥215.0");
+        map.put("seatPri","216");
         data.add(map);
         return data;
     }

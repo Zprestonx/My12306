@@ -1,50 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:weightSum="1">
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:paddingTop="7dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.04">
+        android:layout_weight="0.04"
+        android:orientation="horizontal"
+        android:paddingTop="7dp">
 
         <TextView
+            android:id="@+id/seatMes"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:gravity="center"
-            android:text="seatMes"
             android:layout_weight="1"
-            android:id="@+id/seatMes" />
+            android:gravity="center"
+            android:text="seatMes" />
 
         <TextView
+            android:id="@+id/seatNum"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:gravity="center"
-            android:text="seatNum"
             android:layout_weight="1"
-            android:id="@+id/seatNum" />
+            android:gravity="center"
+            android:text="seatNum" />
 
-        <TextView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:gravity="center"
-            android:text="seatPri"
-            android:textColor="@color/tomato"
-            android:layout_weight="1"
-            android:id="@+id/seatPri" />
+            android:layout_weight="0.5"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.7"
+                android:gravity="right|center"
+                android:text="￥"
+                android:textColor="@color/tomato" />
+
+            <TextView
+                android:id="@+id/seatPri"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5"
+                android:gravity="left|center"
+                android:text="seatPri"
+                android:textColor="@color/tomato"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5"
+                android:gravity="left|center"
+                android:text=".0"
+                android:textColor="@color/tomato" />
+
+        </LinearLayout>
 
         <Button
+            android:id="@+id/button10"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/cornflowerblue"
             android:gravity="center"
             android:text="预定"
-            android:background="@color/cornflowerblue"
-            android:textColor="@color/white"
-            android:layout_weight="1"
-            android:id="@+id/button10" />
+            android:textColor="@color/white" />
     </LinearLayout>
 </LinearLayout>

@@ -99,6 +99,7 @@ public class TicketFragment extends Fragment {
                     intent.putExtra("month",month);
                     intent.putExtra("day",day);
                     startActivity(intent);
+                    getActivity().finish();
                 }
             }
         });

@@ -130,11 +130,6 @@ public class Ticket2Adapter extends BaseAdapter{
     private void turn(int position) {
         Bundle bundle=new Bundle();
 
-
-        bundle.putString("seatMes",(String)mData.get(position).get("seatMes"));
-        bundle.putString("seatNum",(String)mData.get(position).get("seatNum"));
-        bundle.putString("seatPri",(String)mData.get(position).get("seatPri"));
-
         bundle.putString("trainNo",trainNo);
         bundle.putString("startTime",startTime);
         bundle.putString("arriveTime",arriveTime);
@@ -143,6 +138,10 @@ public class Ticket2Adapter extends BaseAdapter{
         bundle.putInt("year",year);
         bundle.putInt("month",month);
         bundle.putInt("day",day);
+
+        bundle.putString("seatMes",(String)mData.get(position).get("seatMes"));
+        bundle.putString("seatNum",(String)mData.get(position).get("seatNum"));
+        bundle.putString("seatPri",(String)mData.get(position).get("seatPri"));
 
         /*bundle.putString("seatMes",(String)mData.get(position).get("seatMes1"));
         bundle.putString("seatNum",(String)mData.get(position).get("seatNum1"));

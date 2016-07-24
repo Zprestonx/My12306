@@ -1,78 +1,98 @@
 package com.zpreston.my12306.activity.ticket;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.ListView;
 
 import com.zpreston.my12306.R;
-import com.zpreston.my12306.activity.mine.ContactAddActivity;
-import com.zpreston.my12306.fragment.TicketFragment;
+import com.zpreston.my12306.adapter.Ticket3Adapter;
+import com.zpreston.my12306.adapter.Ticket3AddAdapter;
+import com.zpreston.my12306.bean.Contact;
+import com.zpreston.my12306.bean.Passenger;
+import com.zpreston.my12306.dao.ContactDao;
+import com.zpreston.my12306.daoImpl.ContactDaoImpl;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Ticket3_AddActivity extends AppCompatActivity {
+    public static ArrayList<Activity> activityD = new ArrayList<Activity>();
+    private ListView lvContact;
+    List<Map<String, Object>> mData;
+
     private Button q;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ticket3__add);
+        setContentView(R.layout.activity_ticket3_add);
         /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);*/
+
+        mData=getData();
+        lvContact = (ListView) findViewById(R.id.listView5);
+        final Ticket3AddAdapter ticket3AddAdapter=new Ticket3AddAdapter(this,mData);
+        lvContact.setAdapter(ticket3AddAdapter);
 
         q = (Button) this.findViewById(R.id.button6);
         q.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Ticket3_AddActivity.this, Ticket3Activity.class);
-                startActivity(intent);
-                for (Activity activity : Ticket3Activity.activityD) { //将多出的车票预定3的Activity Finish掉
-                    activity.finish();
+            public void onClick(View v) {         //点击添加联系人功能实现
+                List<Map<String,Object>> list=ticket3AddAdapter.getList();
+                Intent intent = getIntent();
+                Bundle bundle = new Bundle();
+                bundle.putInt("size",list.size());
+                for (int i=0;i<list.size();i++){
+                    Map map=list.get(i);
+                    Passenger passenger=new Passenger();
+                    passenger.setTvContactName(map.get("1").toString());
+                    passenger.setTvIdCard(map.get("2").toString());
+                    passenger.setTvPhone(map.get("3").toString());
+                    bundle.putSerializable(String.valueOf(i),passenger);
                 }
+
+
+                intent.putExtra("ticket",bundle);
+                Ticket3_AddActivity.this.setResult(RESULT_OK,intent);
+                /*for (Activity activity : Ticket3Activity.activityD) { //将多出的车票预定3的Activity Finish掉
+                    activity.finish();
+                }*/
                 finish();
             }
         });
-
     }
 
+    private List<Map<String,Object>> getData(){
+        /* 实现Map的数据构造 */
+        List<Map<String,Object>> data=new ArrayList<Map<String, Object>>();
+        Map<String,Object> map=new HashMap<String,Object>();
 
+        ContactDao contactDao=new ContactDaoImpl(Ticket3_AddActivity.this);
+        List<Contact> contactList=contactDao.queryMyContacts("775079852@qq.com");
 
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // 使用inflate方法把布局文件中定义的菜单加载给第二个参数对应的menu对象
-        getMenuInflater().inflate(R.menu.mine_contact_menu1,menu);
-        return true;
-    }
+        String contactType = null;
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // 菜单栏选项点击事件
-        switch(item.getItemId()){
-            case R.id.edit_item:
-                Toast.makeText(this,"you clicked Edit", Toast.LENGTH_SHORT).show();
-                //编辑联系人——原先的编辑框均变为可编辑 *//**//*
-
-                break;
-            case R.id.remove_item:
-                Toast.makeText(this,"you clicked Remove",Toast.LENGTH_SHORT).show();
-                // 删除联系人——从数据库删除并更新联系人列表
-                Intent intent=new Intent().setClass(Ticket3_AddActivity.this,Ticket3Activity.class);
-                startActivity(intent);
-                break;
-
-            case R.id.add_item:
-                Toast.makeText(this,"you clicked Add", Toast.LENGTH_SHORT).show();
-
-            default:
-                Toast.makeText(Ticket3_AddActivity.this, "Error!", Toast.LENGTH_SHORT).show();
+        for(Contact contact:contactList){
+            if(contact.getContactState()==0){
+                contactType = "成人";
+            }else if(contact.getContactState()==1){
+                contactType = "学生";
+            }
+            map.put("tvContactName",contact.getContactName()+"("+contactType+")");
+            map.put("tvIdCard",contact.getContactCardId());
+            map.put("tvPhone",contact.getContactPhone());
+            data.add(map);
         }
-        return super.onOptionsItemSelected(item);
-    }*/
+        return data;
+    }
+
+
 }
