@@ -72,7 +72,7 @@ public class MyContactActivity extends AppCompatActivity {
                 intent.putExtra("contactType",contactType);
                 intent.putExtra("contactPhone",contact.getContactPhone());
                 startActivity(intent);
-                finish();
+                //finish();
             }
         });
     }
@@ -119,7 +119,7 @@ public class MyContactActivity extends AppCompatActivity {
             case R.id.add_item:
                 Intent intent=new Intent(MyContactActivity.this,ContactAddActivity.class);
                 startActivity(intent);
-                finish();
+                //finish();
                 Toast.makeText(MyContactActivity.this,"you clicked Add", Toast.LENGTH_SHORT).show();
                 break;
             default:

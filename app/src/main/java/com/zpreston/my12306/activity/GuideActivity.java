@@ -58,7 +58,7 @@ public class GuideActivity extends Activity implements View.OnClickListener, Vie
     }
     //开始使用，进入主页面
     private void startUse(){
-        Intent intent=new Intent(GuideActivity.this,MainActivity.class);
+        Intent intent=new Intent(GuideActivity.this,LoginActivity.class);
         startActivity(intent);
         finish();
     }
