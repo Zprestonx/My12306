@@ -12,7 +12,9 @@ import android.widget.Toast;
 import com.zpreston.my12306.R;
 import com.zpreston.my12306.adapter.optactAdapter;
 import com.zpreston.my12306.bean.Order;
+import com.zpreston.my12306.dao.ContactDao;
 import com.zpreston.my12306.dao.OrderDao;
+import com.zpreston.my12306.daoImpl.ContactDaoImpl;
 import com.zpreston.my12306.daoImpl.OrderDaoImpl;
 
 import java.util.ArrayList;
@@ -29,13 +31,15 @@ public class OrderActivity extends AppCompatActivity {
         List<Map<String, Object>> data=new ArrayList<Map<String, Object>>();
         //创建Map来存放数据
         OrderDao orderDao = new OrderDaoImpl(this);
+        ContactDao contactDao = new ContactDaoImpl(this);
         List<Order> list = orderDao.queryNotPaidOrders("775079852@qq.com");//查询未支付订单
-        Log.e("Tag-list size",String.valueOf(list.size()));
         for (Order order : list) {
             if (order.getOrderNo().equals(orderNo)) {//通过从点击条目获取的orderNo匹配list中的信息
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("orderNo", order.getOrderNo());
-                map.put("contactId", order.getContactId());
+                String contactName;
+                contactName = (contactDao.querySingleContactById("775079852@qq.com",order.getContactId())).getContactName();
+                map.put("contactName",contactName);
                 map.put("trainNo", order.getTrainNo());
                 map.put("orderTime",order.getOrderTime());
                 map.put("orderState",order.getOrderState());
@@ -43,21 +47,6 @@ public class OrderActivity extends AppCompatActivity {
             }
         }
         return data;
-        //第一个条目
-//        Map<String, Object> map=new HashMap<String,Object>();
-//        map.put("startDate","2016-07-08");
-//        map.put("trainNo","G108");
-//        map.put("trainSeat","1车2号");
-//        map.put("contactId","五五开");
-//        data.add(map);
-//        //第二个条目
-//        map=new HashMap<String,Object>();
-//        map.put("startDate","2016-08-08");
-//        map.put("trainSeat","1车1号");
-//        map.put("trainNo","G108");
-//        map.put("contactId","周杰伦");
-//        data.add(map);
-//        return data;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +62,7 @@ public class OrderActivity extends AppCompatActivity {
         final OrderDao orderDao = new OrderDaoImpl(OrderActivity.this);
         //获得数据
         mData = getData();
-        lvOpt.setAdapter(new optactAdapter(getData(),this));
+        lvOpt.setAdapter(new optactAdapter(getData(),this,orderNo));
 
         cancelOrder.setOnClickListener(new View.OnClickListener() {
             @Override
