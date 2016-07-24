@@ -61,6 +61,7 @@ public class OrderFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        //initView();
     }
     @Override
     public void onResume() {
@@ -73,9 +74,9 @@ public class OrderFragment extends Fragment {
         mData=getData();
         //获得数据
         final TextView tv1 = (TextView) getActivity().findViewById(R.id.tv1);
-        final TextView tv2 = (TextView) getActivity().findViewById(R.id.tv2);
+        final TextView tv3 = (TextView) getActivity().findViewById(R.id.tv3);
         final optAdapter opt = new optAdapter(mData, getActivity());
-        tv2.setBackgroundColor(getContext().getResources().getColor(R.color.lightblue));
+        tv3.setBackgroundColor(getContext().getResources().getColor(R.color.lightblue));
         tv1.setBackgroundColor(getContext().getResources().getColor(R.color.gray));
         lvOpt.setAdapter(opt);
         //点击待支付
@@ -87,18 +88,19 @@ public class OrderFragment extends Fragment {
                 opt.notifyDataSetChanged();
                 //修改颜色
                 tv1.setBackgroundColor(getContext().getResources().getColor(R.color.lightblue));
-                tv2.setBackgroundColor(getContext().getResources().getColor(R.color.gray));
+                tv3.setBackgroundColor(getContext().getResources().getColor(R.color.gray));
+
             }
         });
         //点击全部订单
-        tv2.setOnClickListener(new View.OnClickListener() {
+        tv3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//全部订单
                 mData=getData();
                 opt.setmData(mData);
                 opt.notifyDataSetChanged();
                 tv1.setBackgroundColor(getContext().getResources().getColor(R.color.gray));
-                tv2.setBackgroundColor(getContext().getResources().getColor(R.color.lightblue));
+                tv3.setBackgroundColor(getContext().getResources().getColor(R.color.lightblue));
             }
         });
 //响应条目的点击事件

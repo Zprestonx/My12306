@@ -16,8 +16,6 @@
         android:clickable="true"
         android:gravity="center"
         android:id="@+id/tv1"
-        android:background="@color/gray"
-        android:onClick="unpayOrder"
         android:textColor="@color/white"
        />
     <TextView
@@ -27,9 +25,7 @@
         android:text="全部订单"
         android:layout_height="50dp"
         android:gravity="center"
-        android:id="@+id/tv2"
-        android:background="@color/lightblue"
-        android:onClick="allOrder"
+        android:id="@+id/tv3"
         android:textColor="@color/white"/>
 </TableRow>
 </TableLayout>
