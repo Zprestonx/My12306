@@ -13,21 +13,38 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="25"
+        android:layout_weight="30"
         android:id="@+id/lvAccount" />
 
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="保存修改"
-        android:id="@+id/btnSaveAccount" />
+        android:orientation="horizontal">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:layout_weight="1"
-        android:text="退出我的账户"
-        android:id="@+id/btnExitAccount" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:text="保存"
+            android:background="@color/cornflowerblue"
+            android:id="@+id/btnSaveAccount" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:background="@color/cornflowerblue"
+            android:textColor="@color/white"
+            android:text="退出账户"
+            android:id="@+id/btnExitAccount" />
+
+
+
+
+
+    </LinearLayout>
+
+
 </LinearLayout>
