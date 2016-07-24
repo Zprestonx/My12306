@@ -24,7 +24,9 @@ import com.zpreston.my12306.activity.order.OrderActivity;
 import com.zpreston.my12306.adapter.optAdapter;
 import com.zpreston.my12306.bean.Order;
 import com.zpreston.my12306.dao.OrderDao;
+import com.zpreston.my12306.dao.TrainDao;
 import com.zpreston.my12306.daoImpl.OrderDaoImpl;
+import com.zpreston.my12306.daoImpl.TrainDaoImpl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -156,6 +158,9 @@ public class OrderFragment extends Fragment {
         int orderState[] = new int[count];
         String trainNo[] = new String[count];
         Double Price[] = new Double[count];
+        String startStation[]=new String[count];
+        String endStation[]=new String[count];
+        TrainDao trainDao = new TrainDaoImpl(getActivity());
        for(int i=0;i<list1.size();i++){
            Num[i]=0;
            Price[i]=0.0;
@@ -163,12 +168,17 @@ public class OrderFragment extends Fragment {
         for (Order order : list) {
             for (int i = 0; i < list1.size(); i++) {
                 if (order.getOrderNo().equals( list1.get(i))) {
+                    List<String> stationList = new ArrayList<>();
+                    stationList=trainDao.getStartEndStationByTrainNo(order.getTrainNo());
                     Num[i]++;
                     Price[i] += order.getOrderPrice();
                     orderTime[i] = order.getOrderTime();
                     orderState[i] = order.getOrderState();
                     trainNo[i] = order.getTrainNo();
                     Log.e("Tag", String.valueOf(Num[i]));
+                    startStation[i]=stationList.get(0);
+                    endStation[i]=stationList.get(1);
+
                 }
             }
         }
@@ -179,7 +189,7 @@ public class OrderFragment extends Fragment {
             map.put("orderTime", orderTime[i]);
             map.put("orderState", orderState[i]);
             map.put("trainNo", trainNo[i]);
-            map.put("trainMes", "广州->北京");
+            map.put("trainMes", startStation[i]+"->"+endStation[i]);
             map.put("contactNum", Num[i]+"人");
             map.put("orderPrice", Price[i]+"元");
             data.add(map);
@@ -226,7 +236,9 @@ public class OrderFragment extends Fragment {
             List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
             //创建Map来存放数据
             OrderDao orderDao = new OrderDaoImpl(getActivity());
+            TrainDao trainDao = new TrainDaoImpl(getActivity());
             List<Order> list = orderDao.queryNotPaidOrders("775079852@qq.com");
+
             Set set = new HashSet();
             for (Order order : list) {
                 set.add(order.getOrderNo());
@@ -238,6 +250,8 @@ public class OrderFragment extends Fragment {
             int orderState[] = new int[count];
             String trainNo[] = new String[count];
             Double Price[] = new Double[count];
+            String startStation[]=new String[count];
+            String endStation[]=new String[count];
             for(int i=0;i<list1.size();i++){
                 Num[i]=0;
                 Price[i]=0.0;
@@ -245,11 +259,16 @@ public class OrderFragment extends Fragment {
             for (Order order : list) {
                 for (int i = 0; i < list1.size(); i++) {
                     if (order.getOrderNo().equals( list1.get(i))) {
+                        List<String> stationList = new ArrayList<>();
+                        stationList=trainDao.getStartEndStationByTrainNo(order.getTrainNo());
                         Num[i]++;
                         Price[i] += order.getOrderPrice();
                         orderTime[i] = order.getOrderTime();
                         orderState[i] = order.getOrderState();
                         trainNo[i] = order.getTrainNo();
+                        startStation[i]=stationList.get(0);
+                        endStation[i]=stationList.get(1);
+
                     }
                 }
             }
@@ -260,9 +279,9 @@ public class OrderFragment extends Fragment {
                 map.put("orderTime", orderTime[i]);
                 map.put("orderState", orderState[i]);
                 map.put("trainNo", trainNo[i]);
-                map.put("trainMes", "广州->北京");
-                map.put("contactNum", Num[i]);
-                map.put("orderPrice", Price[i]);
+                map.put("trainMes", startStation[i]+"->"+endStation[i]);
+                map.put("contactNum", Num[i]+"人");
+                map.put("orderPrice", Price[i]+"元");
                 data.add(map);
 
             }

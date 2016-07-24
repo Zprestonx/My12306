@@ -1,6 +1,7 @@
 package com.zpreston.my12306.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -28,6 +29,7 @@ public class optactAdapter extends BaseAdapter {
     }
     public void setmData(List<Map<String, Object>> mData) {
         this.mData = mData;
+        Log.e("TAG-setData","***");
     }
     @Override
     public void notifyDataSetChanged() {
@@ -74,4 +76,10 @@ public class optactAdapter extends BaseAdapter {
     viewHolder.orderSeat.setText((String)mData.get(position).get("orderSeat"));
     return convertView;
 }
+
+    @Override
+    public void notifyDataSetInvalidated() {
+        super.notifyDataSetInvalidated();
+    }
+
 }
