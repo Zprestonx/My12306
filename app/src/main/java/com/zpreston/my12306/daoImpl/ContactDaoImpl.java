@@ -124,6 +124,35 @@ public class ContactDaoImpl implements ContactDao {
     入参：email用户邮箱，contactId联系人id
     出参：Contact 对象
     * */
+    public Contact querySingleContactById(String email, int contactId) {
+        //获取只读数据库对象
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        //SQL语句
+        String sql = "select * from Contact where contactId=? and uid = " +
+                "(select uid from User where email = ?)";
+        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(contactId), email});
+
+        if(cursor.moveToNext())
+        {
+            //Contact bean 的结构
+            int userId = cursor.getInt(cursor.getColumnIndex("uid"));
+            int newContactId = cursor.getInt(cursor.getColumnIndex("contactId"));
+            String newContactName = cursor.getString(cursor.getColumnIndex("contactName"));
+            String contactCardId = cursor.getString(cursor.getColumnIndex("contactCardId"));
+            String contactPhone = cursor.getString(cursor.getColumnIndex("contactPhone"));
+            int contactState = cursor.getInt(cursor.getColumnIndex("contactState"));
+
+            Contact contact = new Contact(userId, newContactId, newContactName, contactCardId, contactPhone, contactState);
+            cursor.close();
+            return contact;
+        }
+        else
+        {
+            cursor.close();
+            return null;
+        }
+    }
+
     public Contact querySingleContact(String email, String contactName) {
         //获取只读数据库对象
         SQLiteDatabase db = dbHelper.getReadableDatabase();

@@ -44,5 +44,12 @@ public interface ContactDao {
     入参：email用户邮箱，contactId联系人id
     出参：Contact 对象
     * */
+    Contact querySingleContactById(String email, int contactId);
+
+    /*
+    查询单个联系人
+    入参：email用户邮箱，contactName联系人姓名
+    出参：Contact 对象
+    * */
     Contact querySingleContact(String email, String contactName);
 }
