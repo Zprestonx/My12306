@@ -77,7 +77,7 @@ public class OrderFragment extends Fragment {
         final TextView tv3 = (TextView) getActivity().findViewById(R.id.tv3);
         final optAdapter opt = new optAdapter(mData, getActivity());
         tv3.setBackgroundColor(getContext().getResources().getColor(R.color.lightblue));
-        tv1.setBackgroundColor(getContext().getResources().getColor(R.color.gray));
+        tv1.setBackgroundColor(getContext().getResources().getColor(android.R.color.darker_gray));
         lvOpt.setAdapter(opt);
         //点击待支付
         tv1.setOnClickListener(new View.OnClickListener() {

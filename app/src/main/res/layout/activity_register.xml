@@ -105,7 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:hint="请选择性别"
+            android:hint="男或女"
             android:id="@+id/edtRgender" />
 
     </LinearLayout>
@@ -126,7 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:hint="请选择证件类型"
+            android:hint="二代身份证或护照"
             android:id="@+id/edtRidType" />
 
     </LinearLayout>
@@ -189,7 +189,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:hint="请选择旅客类型"
+            android:hint="成人或学生"
             android:id="@+id/edtRpersonType" />
 
     </LinearLayout>
