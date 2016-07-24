@@ -67,7 +67,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         list.add(mineFragment);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(new MainFragmentAdapter(getSupportFragmentManager(),list));
-        viewPager.setCurrentItem(1);
+        viewPager.setCurrentItem(0);
         //viewPager.setCurrentItem(0);
     }
 
