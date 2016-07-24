@@ -33,7 +33,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="广州"
+        android:text="北京"
         android:textSize="18sp"
         android:id="@+id/BeginCity"
         android:textColor="@color/lightsalmon"
@@ -44,7 +44,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="珠海"
+        android:text="广州"
         android:textSize="18sp"
         android:textColor="@color/lightseagreen"
         android:id="@+id/EndCity"

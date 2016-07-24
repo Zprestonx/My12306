@@ -1,5 +1,6 @@
 package com.zpreston.my12306.activity.mine;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class ContactAddActivity extends AppCompatActivity {
     List<Map<String, Object>> mData;
     private ContactAddAdapter adapter;
     private Button btnAddContact;
+    private Button btnReturn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,27 +39,51 @@ public class ContactAddActivity extends AppCompatActivity {
         mData=getData();
         lvContactAdd = (ListView) findViewById(R.id.lvContactAdd);
         btnAddContact= (Button) findViewById(R.id.btnAddContact);
+        btnReturn= (Button) findViewById(R.id.btnReturn);
+
         lvContactAdd.setDivider(null);
 
         adapter=new ContactAddAdapter(this,mData);
         lvContactAdd.setAdapter(adapter);
 
+        btnReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ContactAddActivity.this,MyContactActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         btnAddContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                /*AlertDialog dialog=new AlertDialog()*/
+                /* 添加温馨提示对话框 */
+                AlertDialog.Builder builder = new AlertDialog.Builder(ContactAddActivity.this);
+                builder.setTitle("温馨提示");
+                builder.setMessage("    为避免对乘客造成不必要的困扰，请务必填写真实信息！");
+                builder.setIcon(android.R.drawable.btn_star);
+                /*builder.setCancelable(false);*/
+                builder.setPositiveButton("知道了", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent=new Intent(ContactAddActivity.this,MyContactActivity.class);
+                        startActivity(intent);
+                        dialog.dismiss();
+                    }
+                });
+                builder.setNegativeButton("再确认一下", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
 
-                Intent intent=new Intent(ContactAddActivity.this,MyContactActivity.class);
-                startActivity(intent);
-
-
-/*
-                Contact contact=new Contact();
+                /*Contact contact=new Contact();
                 ContactDao contactDao=new ContactDaoImpl(ContactAddActivity.this);
                 contactDao.addContact(contact);*/
-
-
             }
         });
     }

@@ -77,39 +77,92 @@ public class DbHelper extends SQLiteOpenHelper{
         //插入一些数据
         //User表
         sql = "insert into User(email,password,userName,gender,certificateType,idCard,passengerType,phone,lastLoginTime,userStatus) " +
-                "values('775079852@qq.com','123','xhs','1',0,'440982199410082894',0,'15627860619','2016-07-21 23:40', 1)";
+                "values('775079852@qq.com','123','曾华生','1',0,'440982199410082894',0,'15627860619','2016-07-21 23:40', 1)";
         db.execSQL(sql);
         sql = "insert into User(email,password,userName,gender,certificateType,idCard,passengerType,phone,lastLoginTime,userStatus) values" +
-                "('15627860619@qq.com','666','zpx','1',0,'440982199408218897',0,'15627860613','2016-07-21 11:40', 2)";
+                "('Zprestonx@gmail.com','666','郑佩鑫','1',0,'440982199408218897',0,'15627863613','2016-07-21 11:40', 2)";
         db.execSQL(sql);
 
         //Contact表
-        sql = "insert into Contact(uid,contactId,contactName,contactCardId,contactPhone,contactState) values(1,1,'xhs','440982199410082894','15627860619',1)";
+        sql = "insert into Contact(uid,contactId,contactName,contactCardId,contactPhone,contactState) values(1,1,'曾华生','440982199410082894','15627860619',1)";
         db.execSQL(sql);
-        sql = "insert into Contact(uid,contactId,contactName,contactCardId,contactPhone,contactState) values(1,2,'rgl','440982199403216822','15627860614',2)";
+        sql = "insert into Contact(uid,contactId,contactName,contactCardId,contactPhone,contactState) values(1,2,'马丽豪','440982199402129312','15627863502',1)";
+        db.execSQL(sql);
+        sql = "insert into Contact(uid,contactId,contactName,contactCardId,contactPhone,contactState) values(1,3,'钟淼君','440982199412229316','15627864521',1)";
+        db.execSQL(sql);
+        sql = "insert into Contact(uid,contactId,contactName,contactCardId,contactPhone,contactState) values(1,4,'王露敷','440982199411829317','15627868509',1)";
+        db.execSQL(sql);
+        sql = "insert into Contact(uid,contactId,contactName,contactCardId,contactPhone,contactState) values(1,5,'蔡文达','440982199410889316','15627868512',1)";
+        db.execSQL(sql);
+        sql = "insert into Contact(uid,contactId,contactName,contactCardId,contactPhone,contactState) values(1,6,'卢学森','440982199407029319','15627863201',1)";
+        db.execSQL(sql);
+        sql = "insert into Contact(uid,contactId,contactName,contactCardId,contactPhone,contactState) values(2,1,'郑佩鑫','440982199403216822','15627860614',0)";
+        db.execSQL(sql);
+        sql = "insert into Contact(uid,contactId,contactName,contactCardId,contactPhone,contactState) values(2,2,'木木木','440982199403388382','15627824383',0)";
         db.execSQL(sql);
 
         //Train表
-        sql = "insert into Train(trainNo,startStationName,endStationName,startTime,arriveTime,startDate,seats,price) values('G507','北京','广州','23:47','05:06','2016-08-21',51,255.5)";
+        sql = "insert into Train(trainNo,startStationName,endStationName,startTime,arriveTime,startDate,seats,price) values('G507','北京','广州','23:47','05:06','2016-07-25',51,255.5)";
         db.execSQL(sql);
-        sql = "insert into Train(trainNo,startStationName,endStationName,startTime,arriveTime,startDate,seats,price) values('G2312','武汉','云南','12:07','08:21','2016-08-11',11,155.0)";
+        sql = "insert into Train(trainNo,startStationName,endStationName,startTime,arriveTime,startDate,seats,price) values('G2312','广州','北京','12:07','08:21','2016-07-28',11,155.0)";
+        db.execSQL(sql);
+        sql = "insert into Train(trainNo,startStationName,endStationName,startTime,arriveTime,startDate,seats,price) values('K666','广州','北京','11:01','15:21','2016-07-26',18,355.0)";
+        db.execSQL(sql);
+        sql = "insert into Train(trainNo,startStationName,endStationName,startTime,arriveTime,startDate,seats,price) values('K599','北京','广州','05:14','11:12','2016-07-27',9,255.0)";
+        db.execSQL(sql);
+        sql = "insert into Train(trainNo,startStationName,endStationName,startTime,arriveTime,startDate,seats,price) values('G71','北京','广州','07:40','17:14','2016-07-27',19,285.0)";
+        db.execSQL(sql);
+        sql = "insert into Train(trainNo,startStationName,endStationName,startTime,arriveTime,startDate,seats,price) values('G72','广州','北京','08:27','18:21','2016-07-27',0,235.0)";
+        db.execSQL(sql);
+        sql = "insert into Train(trainNo,startStationName,endStationName,startTime,arriveTime,startDate,seats,price) values('Z202','广州','北京','08:50','06:40','2016-07-27',8,218.0)";
+        db.execSQL(sql);
+        sql = "insert into Train(trainNo,startStationName,endStationName,startTime,arriveTime,startDate,seats,price) values('K528','广州','上海','07:48','04:14','2016-07-27',8,208.0)";
+        db.execSQL(sql);
+        sql = "insert into Train(trainNo,startStationName,endStationName,startTime,arriveTime,startDate,seats,price) values('G86','广州','上海','08:00','14:50','2016-07-27',7,218.0)";
+        db.execSQL(sql);
+        sql = "insert into Train(trainNo,startStationName,endStationName,startTime,arriveTime,startDate,seats,price) values('G1302','广州','上海','11:23','19:58','2016-07-26',19,198.0)";
+        db.execSQL(sql);
+        sql = "insert into Train(trainNo,startStationName,endStationName,startTime,arriveTime,startDate,seats,price) values('K4160','广州','上海','14:35','08:40','2016-07-28',58,236.0)";
+        db.execSQL(sql);
+        sql = "insert into Train(trainNo,startStationName,endStationName,startTime,arriveTime,startDate,seats,price) values('G85','上海','广州','08:00','14:51','2016-07-27',9,248.0)";
+        db.execSQL(sql);
+        sql = "insert into Train(trainNo,startStationName,endStationName,startTime,arriveTime,startDate,seats,price) values('T169','上海','广州','10:23','06:40','2016-07-27',8,212.0)";
+        db.execSQL(sql);
+        sql = "insert into Train(trainNo,startStationName,endStationName,startTime,arriveTime,startDate,seats,price) values('G1303','上海','广州','14:10','19:03','2016-07-26',8,251.0)";
+        db.execSQL(sql);
+        sql = "insert into Train(trainNo,startStationName,endStationName,startTime,arriveTime,startDate,seats,price) values('K4150','上海','广州','15:25','05:30','2016-07-28',8,201.0)";
+        db.execSQL(sql);
+        sql = "insert into Train(trainNo,startStationName,endStationName,startTime,arriveTime,startDate,seats,price) values('G1305','上海','广州','14:40','22:55','2016-07-28',8,286.0)";
         db.execSQL(sql);
 
+
+
         //OrderForm
-        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,'201607212350',1,'G507',511,1,'2016-07-21 12:50')";
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,'201607212350',1,'G507',255.5,0,'2016-07-21 12:50')";
         db.execSQL(sql);
-        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218129',1,'G507',217,1,'2016-07-31 11:32')";
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218129',1,'G507',255.5,1,'2016-07-31 11:32')";
         db.execSQL(sql);
-        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218129',2,'G507',217,1,'2016-07-31 11:32')";
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218129',2,'G507',255.5,1,'2016-07-31 11:32')";
         db.execSQL(sql);
-        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218130',3,'G507',250,0,'2016-07-31 11:32')";
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,'201607218130',3,'G507',255.5,0,'2016-07-31 11:32')";
         db.execSQL(sql);
-        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218131',5,'G508',150,0,'2016-07-30 10:32')";
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218131',5,'G2312',155.0,0,'2016-07-30 10:32')";
         db.execSQL(sql);
-        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218131',6,'G508',150,0,'2016-07-30 10:32')";
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218131',6,'G2312',155.0,0,'2016-07-30 10:32')";
         db.execSQL(sql);
-        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(2,'201607218132',4,'G505',300,1,'2016-07-31 11:32')";
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,'201607218132',4,'K666',355.0,1,'2016-07-31 11:32')";
         db.execSQL(sql);
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,'201607222350',1,'G507',235.5,0,'2016-07-22 12:50')";
+        db.execSQL(sql);
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,'201607222350',2,'G2312',256,1,'2016-07-24 10:12')";
+        db.execSQL(sql);
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,'201607222350',3,'K666',288,0,'2016-07-21 12:10')";
+        db.execSQL(sql);
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,'201607222350',4,'G71',221,1,'2016-07-22 12:50')";
+        db.execSQL(sql);
+        sql = "insert into OrderForm(uid, orderNo,contactId,trainNo,orderPrice,orderState,orderTime) values(1,'201607222350',5,'G72',289,0,'2016-07-21 12:38')";
+        db.execSQL(sql);
+
     }
 
     @Override

@@ -39,6 +39,7 @@
                 android:layout_height="38sp"
                 android:gravity="center"
                 android:text="2016-7-21 周四"
+                android:id="@+id/date1"
                 android:textColor="@color/black"
                 android:textSize="18sp"/>
 
@@ -66,6 +67,7 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:id="@+id/listView2"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/linearLayout" />

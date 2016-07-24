@@ -21,8 +21,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_marginBottom="50dp"
         android:text="添加联系人"
         android:id="@+id/btnAddContact" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginBottom="50dp"
+        android:text="返回"
+        android:id="@+id/btnReturn" />
 
 </LinearLayout>
