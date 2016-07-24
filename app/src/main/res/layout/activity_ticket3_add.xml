@@ -22,7 +22,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="添加联系人"
-        android:background="@color/cornflowerblue"
+        android:background="@drawable/button_style"
         android:textColor="@color/white"
         android:onClick="add"
         android:id="@+id/button6" />
