@@ -3,6 +3,8 @@ package com.zpreston.my12306.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import com.zpreston.my12306.R;
 import com.zpreston.my12306.bean.Contact;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +27,11 @@ public class ContactAddAdapter extends BaseAdapter{
     public ContactAddAdapter(Context context,List<Map<String, Object>> mData) {
         this.context = context;
         this.mData = mData;
+    }
+
+    private Map<String,Object> map=new HashMap<String,Object>();
+    public Map<String,Object> getMap(){
+        return map;
     }
 
 
@@ -54,10 +62,8 @@ public class ContactAddAdapter extends BaseAdapter{
 
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder viewHolder;
-
-        Contact contact=new Contact();
 
         if(convertView==null){
             viewHolder=new ViewHolder();
@@ -70,10 +76,7 @@ public class ContactAddAdapter extends BaseAdapter{
             viewHolder.edtContactAdd.setText(mData.get(position).get("content").toString());
 
             /* 用户名，乘客类型，电话可编辑 */
-            if(position==0){
-                contact.setContactName(viewHolder.edtContactAdd.getText().toString());
-            }
-            else if(position==1){
+            if(position==1){
                 viewHolder.edtContactAdd.setEnabled(true);
                 viewHolder.edtContactAdd.setFocusable(false);
                 viewHolder.edtContactAdd.setFocusableInTouchMode(false);
@@ -94,14 +97,7 @@ public class ContactAddAdapter extends BaseAdapter{
                     }
                 });
 
-                //////////////////////
-                contact.setContactState(0);
             }
-
-            else if(position==2){
-                contact.setContactCardId(viewHolder.edtContactAdd.getText().toString());
-            }
-
             else if(position==3){
                 viewHolder.edtContactAdd.setEnabled(true);
                 viewHolder.edtContactAdd.setFocusable(false);
@@ -122,14 +118,23 @@ public class ContactAddAdapter extends BaseAdapter{
                         builder.create().show();
                     }
                 });
-
-                contact.setContactState(0);
             }
+            viewHolder.edtContactAdd.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            else if(position==4){
-                contact.setContactPhone(viewHolder.edtContactAdd.getText().toString());
-            }
+                }
 
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    map.put(String.valueOf(position),viewHolder.edtContactAdd.getText().toString());
+                }
+            });
             convertView.setTag(viewHolder);
         }else {
             viewHolder=(ViewHolder)convertView.getTag();

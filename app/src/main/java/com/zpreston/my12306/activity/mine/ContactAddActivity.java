@@ -49,8 +49,9 @@ public class ContactAddActivity extends AppCompatActivity {
         btnReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(ContactAddActivity.this,MyContactActivity.class);
-                startActivity(intent);
+
+                /*Intent intent=new Intent(ContactAddActivity.this,MyContactActivity.class);
+                startActivity(intent);*/
                 finish();
             }
         });
@@ -58,6 +59,7 @@ public class ContactAddActivity extends AppCompatActivity {
         btnAddContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
                 /* 添加温馨提示对话框 */
                 AlertDialog.Builder builder = new AlertDialog.Builder(ContactAddActivity.this);
@@ -68,6 +70,13 @@ public class ContactAddActivity extends AppCompatActivity {
                 builder.setPositiveButton("知道了", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Map map=adapter.getMap();
+                        int i=1;
+                        if(map.get("3").toString().equals("0")) i=0;
+                        Contact contact=new Contact(0,0,map.get("0").toString(),map.get("2").toString(),
+                                map.get("4").toString(),i);
+                        ContactDao contactDao=new ContactDaoImpl(ContactAddActivity.this);
+                        contactDao.addContact("775079852@qq.com",contact);
                         Intent intent=new Intent(ContactAddActivity.this,MyContactActivity.class);
                         startActivity(intent);
                         dialog.dismiss();

@@ -53,14 +53,15 @@ public class MyContactActivity extends AppCompatActivity {
                 ContactDao contactDao=new ContactDaoImpl(MyContactActivity.this);
                 Toast.makeText(MyContactActivity.this, "点击了联系人" + position, Toast.LENGTH_SHORT).show();
 
-                Contact contact=contactDao.querySingleContact("775079852@qq.com",2);
+                Contact contact=contactDao.querySingleContact("775079852@qq.com",
+                        myContactAdapter.getContactName(position));
                 Log.e("tag",contact.toString());
                 String contactType=null;
                 Log.e("TAG",String.valueOf(contact.getContactState()));
 
-                if(contact.getContactState()==1){
+                if(contact.getContactState()==0){
                     contactType="成人";
-                }else if(contact.getContactState()==2){
+                }else if(contact.getContactState()==1){
                     contactType="学生";
                 }
 
@@ -71,7 +72,7 @@ public class MyContactActivity extends AppCompatActivity {
                 intent.putExtra("contactType",contactType);
                 intent.putExtra("contactPhone",contact.getContactPhone());
                 startActivity(intent);
-
+                finish();
             }
         });
     }
@@ -79,7 +80,6 @@ public class MyContactActivity extends AppCompatActivity {
     private List<Map<String,Object>> getData(){
         /* 实现Map的数据构造 */
         List<Map<String,Object>> data=new ArrayList<Map<String, Object>>();
-        Map<String,Object> map=new HashMap<String,Object>();
 
         ContactDao contactDao=new ContactDaoImpl(MyContactActivity.this);
         List<Contact> contactList=contactDao.queryMyContacts("775079852@qq.com");
@@ -92,8 +92,9 @@ public class MyContactActivity extends AppCompatActivity {
             }else if(contact.getContactState()==1){
                 contactType = "学生";
             }
-
-            map.put("tvContactName",contact.getContactName()+"("+contactType+")");
+            Map<String,Object> map=new HashMap<String,Object>();
+            map.put("contactType",contactType);
+            map.put("tvContactName",contact.getContactName());
             map.put("tvIdCard","身份证："+contact.getContactCardId());
             map.put("tvPhone","电话："+contact.getContactPhone());
             map.put("imForward",R.drawable.forward_icon);
@@ -118,6 +119,7 @@ public class MyContactActivity extends AppCompatActivity {
             case R.id.add_item:
                 Intent intent=new Intent(MyContactActivity.this,ContactAddActivity.class);
                 startActivity(intent);
+                finish();
                 Toast.makeText(MyContactActivity.this,"you clicked Add", Toast.LENGTH_SHORT).show();
                 break;
             default:

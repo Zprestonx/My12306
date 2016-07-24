@@ -3,6 +3,8 @@ package com.zpreston.my12306.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 
 import com.zpreston.my12306.R;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +25,11 @@ import java.util.Map;
 public class ContactShowAdapter extends BaseAdapter {
     private boolean editFlag=false;
     private Context context;
+
+    private Map<String,Object> map=new HashMap<String,Object>();
+    public Map<String,Object> getMap(){
+        return map;
+    }
 
 
     private List<Map<String, Object>> mData;
@@ -61,7 +69,7 @@ public class ContactShowAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder viewHolder;
         if(convertView==null){
             viewHolder=new ViewHolder();
@@ -80,11 +88,12 @@ public class ContactShowAdapter extends BaseAdapter {
             viewHolder=(ViewHolder)convertView.getTag();
 
             /* 用户名，乘客类型，电话可编辑 */
-            if(editFlag && (position==0 || position==3 || position==4)){
+            if(editFlag && (position==3 || position==4)){
+                map.put(String.valueOf(position),viewHolder.edtContactShow.getText().toString());
                 if(position==3){
                     viewHolder.edtContactShow.setEnabled(true);
-                    viewHolder.edtContactShow.setFocusable(false);
-                    viewHolder.edtContactShow.setFocusableInTouchMode(false);
+                    viewHolder.edtContactShow.setFocusable(true);
+                    viewHolder.edtContactShow.setFocusableInTouchMode(true);
 
                     viewHolder.edtContactShow.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -101,13 +110,53 @@ public class ContactShowAdapter extends BaseAdapter {
                             builder.create().show();
                         }
                     });
+                    viewHolder.edtContactShow.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(map.containsKey("3")){
+                                map.remove("3");
+                            }
+                            map.put("3",viewHolder.edtContactShow.getText().toString());
+                        }
+                    });
                 }
                 /* 其他不可更改 */
                 else{
                     viewHolder.edtContactShow.setEnabled(true);
                     viewHolder.edtContactShow.setFocusable(true);
                     viewHolder.edtContactShow.setFocusableInTouchMode(true);
+                    viewHolder.edtContactShow.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(map.containsKey("4")){
+                                map.remove("4");
+                            }
+                            map.put("4",viewHolder.edtContactShow.getText().toString());
+                        }
+                    });
                 }
+            }else if(editFlag && position==0){
+                map.put("0",viewHolder.edtContactShow.getText().toString());
             }
         }
         return convertView;
