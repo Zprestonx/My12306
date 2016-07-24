@@ -32,7 +32,7 @@ public class AllOrderActivity extends AppCompatActivity {
         List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
 
         OrderDao orderDao = new OrderDaoImpl(this);
-        List<Order> list = orderDao.queryAlreadyPaidOrders("15627860619@qq.com");//查询已支付订单
+        List<Order> list = orderDao.queryAlreadyPaidOrders("775079852@qq.com");//查询已支付订单
         for (Order order : list) {
             Log.e("Tag-order",order.toString());
             if (order.getOrderNo().equals(orderNo)) {//通过从点击条目获取的orderNo匹配list中的信息
@@ -78,8 +78,6 @@ public class AllOrderActivity extends AppCompatActivity {
         TextView orderNo1=(TextView)this.findViewById(R.id.orderNo);
         orderNo1.setText(orderNo);
         lvOpt.setAdapter(new optactAdapter(mData,this));
-
-
                 bar_code.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -87,7 +85,6 @@ public class AllOrderActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-
         lvOpt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -101,7 +98,7 @@ public class AllOrderActivity extends AppCompatActivity {
                         // TODO Auto-generated method stub
                         String select_item = items[which].toString();
                         if(select_item=="0") {
-                            orderDao.returnTicket("15627860619@qq.com",(String)(mData.get(position).get("orederNo")),(int)mData.get(position).get("contactId"));
+                            orderDao.returnTicket("775079852@qq.com",(String)(mData.get(position).get("orederNo")),(int)mData.get(position).get("contactId"));
                         }//switch,0的话returnticket,1的话ordertckets
 
                         Toast.makeText(AllOrderActivity.this,"选择了---》" + select_item, Toast.LENGTH_SHORT).show();

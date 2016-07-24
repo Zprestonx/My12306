@@ -59,9 +59,14 @@ public class OrderFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initView();
+
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initView();
+    }
 
     //响应条目的点击事件
     private void initView() {
@@ -71,6 +76,8 @@ public class OrderFragment extends Fragment {
         final TextView tv1 = (TextView) getActivity().findViewById(R.id.tv1);
         final TextView tv2 = (TextView) getActivity().findViewById(R.id.tv2);
         final optAdapter opt = new optAdapter(mData, getActivity());
+        tv2.setBackgroundColor(getContext().getResources().getColor(R.color.lightblue));
+        tv1.setBackgroundColor(getContext().getResources().getColor(R.color.gray));
         lvOpt.setAdapter(opt);
         //点击待支付
         tv1.setOnClickListener(new View.OnClickListener() {
@@ -137,7 +144,7 @@ public class OrderFragment extends Fragment {
         List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
         //创建Map来存放数据
         OrderDao orderDao = new OrderDaoImpl(getActivity());
-        List<Order> list = orderDao.queryAllOrders("15627860619@qq.com");
+        List<Order> list = orderDao.queryAllOrders("775079852@qq.com");
         Set set = new HashSet();
         for (Order order : list) {
             set.add(order.getOrderNo());
@@ -219,7 +226,7 @@ public class OrderFragment extends Fragment {
             List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
             //创建Map来存放数据
             OrderDao orderDao = new OrderDaoImpl(getActivity());
-            List<Order> list = orderDao.queryNotPaidOrders("15627860619@qq.com");
+            List<Order> list = orderDao.queryNotPaidOrders("775079852@qq.com");
             Set set = new HashSet();
             for (Order order : list) {
                 set.add(order.getOrderNo());
