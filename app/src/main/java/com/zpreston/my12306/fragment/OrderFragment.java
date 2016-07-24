@@ -49,8 +49,6 @@ public class OrderFragment extends Fragment {
 
         // Required empty public constructor
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,15 +59,12 @@ public class OrderFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
     }
-
     @Override
     public void onResume() {
         super.onResume();
         initView();
     }
-
     //响应条目的点击事件
     private void initView() {
         lvOpt = (ListView) getActivity().findViewById(R.id.lvOpt);
@@ -125,7 +120,6 @@ public class OrderFragment extends Fragment {
             }
         });
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         //重写onActivityResult方法
@@ -184,7 +178,7 @@ public class OrderFragment extends Fragment {
         }
         for (int i = 0; i < list1.size(); i++) {
             Map<String, Object> map = new HashMap<String, Object>();
-            map.put("im", R.drawable.order_tes);
+            map.put("im", R.drawable.forward_icon);
             map.put("orderNo", list1.get(i));
             map.put("orderTime", orderTime[i]);
             map.put("orderState", orderState[i]);
@@ -196,40 +190,6 @@ public class OrderFragment extends Fragment {
         }
                 return data;
             }
-
-//            //第一个条目
-//            Map<String, Object> map = new HashMap<String, Object>();
-//            map.put("im", R.drawable.order_tes);
-//            map.put("orderNo", "123");
-//            map.put("orderTime", "2016-07-08");
-//            map.put("orderState", "0");
-//            map.put("trainNo", "G108");
-//            map.put("trainMes", "广州->北京 2人");
-//            map.put("orderPrice", "500");
-//            data.add(map);
-//            //第二个条目
-//            map = new HashMap<String, Object>();
-//            map.put("im", R.drawable.order_tes);
-//            map.put("orderNo", "234");
-//            map.put("orderTime", "2016-08-08");
-//            map.put("orderState", "1");
-//            map.put("trainNo", "G108");
-//            map.put("trainMes", "广州->上海 2人");
-//            map.put("orderPrice", "300");
-//            data.add(map);
-//            //第三个条目
-//            map = new HashMap<String, Object>();
-//            map.put("im", R.drawable.order_tes);
-//            map.put("orderNo", "3");
-//            map.put("orderTime", "2016-08-08");
-//            map.put("orderState", "0");
-//            map.put("trainNo", "G108");
-//            map.put("trainMes", "广州->南京 2人");
-//            map.put("orderPrice", "600");
-//            data.add(map);
-//            return data;
-//        }
-
         private List<Map<String, Object>> getData1 () {//实现Map的数据构造，获取待支付订单
             //创建一个ArrayList来存放Map
             //创建一个ArrayList来存放Map
@@ -268,13 +228,12 @@ public class OrderFragment extends Fragment {
                         trainNo[i] = order.getTrainNo();
                         startStation[i]=stationList.get(0);
                         endStation[i]=stationList.get(1);
-
                     }
                 }
             }
             for (int i = 0; i < list1.size(); i++) {
                 Map<String, Object> map = new HashMap<String, Object>();
-                map.put("im", R.drawable.order_tes);
+                map.put("im", R.drawable.forward_icon);
                 map.put("orderNo", list1.get(i));
                 map.put("orderTime", orderTime[i]);
                 map.put("orderState", orderState[i]);
@@ -283,7 +242,6 @@ public class OrderFragment extends Fragment {
                 map.put("contactNum", Num[i]+"人");
                 map.put("orderPrice", Price[i]+"元");
                 data.add(map);
-
             }
             return data;
         }
