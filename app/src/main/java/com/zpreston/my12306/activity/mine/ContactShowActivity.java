@@ -133,10 +133,10 @@ public class ContactShowActivity extends AppCompatActivity {
                 Toast.makeText(this,"you clicked Edit", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.remove_item:
-                Log.e("before","***");
-                ContactDao contactDao=new ContactDaoImpl(ContactShowActivity.this);
-                Toast.makeText(this,"you clicked Remove",Toast.LENGTH_SHORT).show();
 
+                ContactDao contactDao=new ContactDaoImpl(ContactShowActivity.this);
+                //Toast.makeText(ContactShowActivity.this,"you clicked Remove",Toast.LENGTH_SHORT).show();
+                Log.e("before","***");
                 Map<String,Object> map=adapter.getMap();
                 Log.e("deleteBefore",map.get("0").toString());
                 contactDao.deleteContact("775079852@qq.com",map.get("0").toString());

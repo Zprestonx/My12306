@@ -99,7 +99,6 @@ public class TicketFragment extends Fragment {
                     intent.putExtra("month",month);
                     intent.putExtra("day",day);
                     startActivity(intent);
-                    getActivity().finish();
                 }
             }
         });
@@ -191,6 +190,7 @@ public class TicketFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        TicketFragment.activityS.add(getActivity());
         return inflater.inflate(R.layout.fragment_ticket, container, false);
     }
 

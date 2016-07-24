@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
             Toast.makeText(LoginActivity.this,"自动登录中....",Toast.LENGTH_SHORT);
             startActivity(intent);
+            finish();
         }
 
         setContentView(R.layout.activity_login);

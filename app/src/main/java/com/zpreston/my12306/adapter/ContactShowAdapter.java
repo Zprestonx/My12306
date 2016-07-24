@@ -28,6 +28,7 @@ public class ContactShowAdapter extends BaseAdapter {
 
     private Map<String,Object> map=new HashMap<String,Object>();
     public Map<String,Object> getMap(){
+        Log.e("getMap",String.valueOf(map.size()));
         return map;
     }
 
@@ -71,6 +72,7 @@ public class ContactShowAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder viewHolder;
+
         if(convertView==null){
             viewHolder=new ViewHolder();
             convertView=View.inflate(context, R.layout.contact_lvshow_item,null);
@@ -83,10 +85,13 @@ public class ContactShowAdapter extends BaseAdapter {
             viewHolder.edtContactShow.setClickable(false);
             viewHolder.edtContactShow.setEnabled(false);
 
+            map.put("0",viewHolder.edtContactShow.getText().toString());
+
             convertView.setTag(viewHolder);
         }else {
             viewHolder=(ViewHolder)convertView.getTag();
-
+            viewHolder.edtContactShow.setText(mData.get(position).get("content").toString());
+            viewHolder.tvContactShow.setText(mData.get(position).get("label").toString());
             /* 用户名，乘客类型，电话可编辑 */
             if(editFlag && (position==3 || position==4)){
                 map.put(String.valueOf(position),viewHolder.edtContactShow.getText().toString());
@@ -126,6 +131,7 @@ public class ContactShowAdapter extends BaseAdapter {
                             if(map.containsKey("3")){
                                 map.remove("3");
                             }
+                            Log.e("getMap",viewHolder.edtContactShow.getText().toString());
                             map.put("3",viewHolder.edtContactShow.getText().toString());
                         }
                     });
@@ -151,12 +157,14 @@ public class ContactShowAdapter extends BaseAdapter {
                             if(map.containsKey("4")){
                                 map.remove("4");
                             }
+                            Log.e("getMap",viewHolder.edtContactShow.getText().toString());
                             map.put("4",viewHolder.edtContactShow.getText().toString());
                         }
                     });
                 }
             }else if(editFlag && position==0){
-                map.put("0",viewHolder.edtContactShow.getText().toString());
+                Log.e("getMap",viewHolder.edtContactShow.getText().toString());
+
             }
         }
         return convertView;

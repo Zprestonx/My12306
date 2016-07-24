@@ -21,16 +21,18 @@ import java.util.Map;
 /**
  * Created by 小m on 2016/7/22.
  */
-public class ContactAddAdapter extends BaseAdapter{
+public class ContactAddAdapter extends BaseAdapter {
     private Context context;
     private List<Map<String, Object>> mData;
-    public ContactAddAdapter(Context context,List<Map<String, Object>> mData) {
+
+    public ContactAddAdapter(Context context, List<Map<String, Object>> mData) {
         this.context = context;
         this.mData = mData;
     }
 
-    private Map<String,Object> map=new HashMap<String,Object>();
-    public Map<String,Object> getMap(){
+    private Map<String, Object> map = new HashMap<String, Object>();
+
+    public Map<String, Object> getMap() {
         return map;
     }
 
@@ -41,8 +43,8 @@ public class ContactAddAdapter extends BaseAdapter{
     }
 
     /* 获取数据 */
-    public void setData(List<Map<String,Object>> data){
-        this.mData=data;
+    public void setData(List<Map<String, Object>> data) {
+        this.mData = data;
     }
 
     @Override
@@ -75,7 +77,7 @@ public class ContactAddAdapter extends BaseAdapter{
             viewHolder.tvContactAdd.setText(mData.get(position).get("label").toString());
             viewHolder.edtContactAdd.setText(mData.get(position).get("content").toString());
 
-            /* 用户名，乘客类型，电话可编辑 */
+             //用户名，乘客类型，电话可编辑
             if(position==1){
                 viewHolder.edtContactAdd.setEnabled(true);
                 viewHolder.edtContactAdd.setFocusable(false);
@@ -138,8 +140,8 @@ public class ContactAddAdapter extends BaseAdapter{
             convertView.setTag(viewHolder);
         }else {
             viewHolder=(ViewHolder)convertView.getTag();
+            viewHolder.tvContactAdd.setText(mData.get(position).get("label").toString());
         }
-
         return convertView;
     }
 }
