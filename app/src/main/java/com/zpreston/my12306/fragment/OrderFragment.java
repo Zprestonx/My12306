@@ -27,6 +27,7 @@ import com.zpreston.my12306.dao.OrderDao;
 import com.zpreston.my12306.dao.TrainDao;
 import com.zpreston.my12306.daoImpl.OrderDaoImpl;
 import com.zpreston.my12306.daoImpl.TrainDaoImpl;
+import com.zpreston.my12306.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,6 +45,7 @@ import java.util.Set;
 public class OrderFragment extends Fragment {
     private ListView lvOpt;
     private List<Map<String, Object>> mData, nData;
+     Util util=new Util(getActivity());
     final optAdapter opt = new optAdapter(mData, getActivity());
     public OrderFragment() {
 
@@ -138,9 +140,10 @@ public class OrderFragment extends Fragment {
     private List<Map<String, Object>> getData() {//实现Map的数据构造，获取已支付订单
         //创建一个ArrayList来存放Map
         List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
+        Util util = new Util(getContext());
         //创建Map来存放数据
         OrderDao orderDao = new OrderDaoImpl(getActivity());
-        List<Order> list = orderDao.queryAllOrders("775079852@qq.com");
+        List<Order> list = orderDao.queryAllOrders(util.getEmail());
         Set set = new HashSet();
         for (Order order : list) {
             set.add(order.getOrderNo());
@@ -197,7 +200,8 @@ public class OrderFragment extends Fragment {
             //创建Map来存放数据
             OrderDao orderDao = new OrderDaoImpl(getActivity());
             TrainDao trainDao = new TrainDaoImpl(getActivity());
-            List<Order> list = orderDao.queryNotPaidOrders("775079852@qq.com");
+            Util util = new Util(getContext());
+            List<Order> list = orderDao.queryNotPaidOrders(util.getEmail());
 
             Set set = new HashSet();
             for (Order order : list) {

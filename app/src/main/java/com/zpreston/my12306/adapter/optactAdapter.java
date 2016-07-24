@@ -19,6 +19,7 @@ import com.zpreston.my12306.dao.ContactDao;
 import com.zpreston.my12306.dao.OrderDao;
 import com.zpreston.my12306.daoImpl.ContactDaoImpl;
 import com.zpreston.my12306.daoImpl.OrderDaoImpl;
+import com.zpreston.my12306.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +32,7 @@ import java.util.Map;
 public class optactAdapter extends BaseAdapter {
         private List<Map<String, Object>> mData;
         private Context context;
+    Util util =new Util(context);
     private String orderNo;
         public class ViewHolder {
             public TextView orderTime;
@@ -121,8 +123,9 @@ public class optactAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 List<Map<String,Object>> data=getData();
+                Util util = new Util(context);
                 OrderDao orderDao=new OrderDaoImpl(context);
-                orderDao.returnTicket("775079852@qq.com",orderNo,(int)data.get(position).get("contactId"));
+                orderDao.returnTicket(util.getEmail(),orderNo,(int)data.get(position).get("contactId"));
                 data=getData();
                 setmData(data);
                 notifyDataSetChanged();
@@ -140,16 +143,17 @@ public class optactAdapter extends BaseAdapter {
     private List<Map<String, Object>> getData() {//实现Map的数据构造
         //创建一个ArrayList来存放Map
         List<Map<String, Object>> data=new ArrayList<Map<String, Object>>();
+        Util util = new Util(context);
         //创建Map来存放数据
         OrderDao orderDao = new OrderDaoImpl(context);
         ContactDao contactDao = new ContactDaoImpl(context);
-        List<Order> list = orderDao.queryAllOrders("775079852@qq.com");//查询全部
+        List<Order> list = orderDao.queryAllOrders(util.getEmail());//查询全部
         for (Order order : list) {
             if (order.getOrderNo().equals(orderNo)) {//通过从点击条目获取的orderNo匹配list中的信息
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("orderNo", order.getOrderNo());
                 String contactName;
-                contactName = (contactDao.querySingleContactById("775079852@qq.com",order.getContactId())).getContactName();
+                contactName = (contactDao.querySingleContactById(util.getEmail(),order.getContactId())).getContactName();
                 map.put("contactName",contactName);
                 map.put("trainNo", order.getTrainNo());
                 map.put("orderTime",order.getOrderTime());

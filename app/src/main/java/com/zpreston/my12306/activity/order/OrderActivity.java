@@ -16,6 +16,7 @@ import com.zpreston.my12306.dao.ContactDao;
 import com.zpreston.my12306.dao.OrderDao;
 import com.zpreston.my12306.daoImpl.ContactDaoImpl;
 import com.zpreston.my12306.daoImpl.OrderDaoImpl;
+import com.zpreston.my12306.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ import java.util.Map;
 public class OrderActivity extends AppCompatActivity {
     private ListView lvOpt;
     private String orderNo;
+    Util util=new Util(this);
     private List<Map<String, Object>> mData;
     private List<Map<String, Object>> getData() {//实现Map的数据构造
         //创建一个ArrayList来存放Map，获取点击的条目的信息，日期，车次？，座位，联系人 for i=0 i<=n i++ contactId[i]赋值给contactId
@@ -32,13 +34,13 @@ public class OrderActivity extends AppCompatActivity {
         //创建Map来存放数据
         OrderDao orderDao = new OrderDaoImpl(this);
         ContactDao contactDao = new ContactDaoImpl(this);
-        List<Order> list = orderDao.queryNotPaidOrders("775079852@qq.com");//查询未支付订单
+        List<Order> list = orderDao.queryNotPaidOrders(util.getEmail());//查询未支付订单
         for (Order order : list) {
             if (order.getOrderNo().equals(orderNo)) {//通过从点击条目获取的orderNo匹配list中的信息
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("orderNo", order.getOrderNo());
                 String contactName;
-                contactName = (contactDao.querySingleContactById("775079852@qq.com",order.getContactId())).getContactName();
+                contactName = (contactDao.querySingleContactById(util.getEmail(),order.getContactId())).getContactName();
                 map.put("contactName",contactName);
                 map.put("trainNo", order.getTrainNo());
                 map.put("orderTime",order.getOrderTime());
@@ -67,7 +69,7 @@ public class OrderActivity extends AppCompatActivity {
         cancelOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//点击取消订单,从数据库删除订单
-                orderDao.cancelOrder("775079852@qq.com",orderNo);
+                orderDao.cancelOrder(util.getEmail(),orderNo);
                 cancelOrder.setBackgroundColor(OrderActivity.this.getResources().getColor(R.color.lightblue));
                 Intent intent = new Intent();
                 OrderActivity.this.setResult(RESULT_OK,intent);
@@ -77,7 +79,7 @@ public class OrderActivity extends AppCompatActivity {
         con_firmOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//点击确认订单，订单状态改成1，已支付，finish
-                orderDao.payForOrder("775079852@qq.com",orderNo);
+                orderDao.payForOrder(util.getEmail(),orderNo);
                 con_firmOrder.setBackgroundColor(OrderActivity.this.getResources().getColor(R.color.lightblue));
                 Intent intent = new Intent();
                 OrderActivity.this.setResult(RESULT_OK,intent);
