@@ -32,7 +32,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     private FragmentTabHost mTabHost;
     private LayoutInflater layoutInflater;
     private Class fragmentArray[]={TicketFragment.class, OrderFragment.class, MineFragment.class};
-    private int imageViewArray[]={R.drawable.tickets,R.drawable.ticket_reserved,R.drawable.my12306};
+    private int imageViewArray[]={R.drawable.ticket,R.drawable.booking,R.drawable.my12306};
     private String textViewArray[]={"火车票","车票预定","我的12306"};
     private List<Fragment> list=new ArrayList<Fragment>();
     private ViewPager viewPager;

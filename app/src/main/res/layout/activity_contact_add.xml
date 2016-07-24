@@ -17,21 +17,33 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="25" />
 
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/cornflowerblue"
-        android:layout_weight="1"
-        android:text="添加联系人"
-        android:id="@+id/btnAddContact" />
+        android:orientation="horizontal">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/cornflowerblue"
-        android:layout_weight="1"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="返回"
-        android:id="@+id/btnReturn" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/cornflowerblue"
+            android:layout_weight="1"
+            android:text="添加"
+            android:textColor="@color/white"
+            android:id="@+id/btnAddContact" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/cornflowerblue"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:text="返回"
+            android:textColor="@color/white"
+            android:id="@+id/btnReturn" />
+
+
+    </LinearLayout>
+
+
 
 </LinearLayout>

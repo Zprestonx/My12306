@@ -28,9 +28,11 @@
 
         <ImageView
             android:id="@+id/user_imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:background="@drawable/login_user"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
             android:contentDescription="loginId_image" />
 
         <EditText
@@ -38,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请输入邮箱"
-            android:paddingLeft="40dp" />
+            android:paddingLeft="60dp" />
 
     </RelativeLayout>
 
@@ -53,6 +55,8 @@
             android:id="@+id/password_imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
             android:background="@drawable/login_pwd"
             android:contentDescription="password_image" />
 
@@ -62,7 +66,7 @@
             android:layout_height="wrap_content"
             android:hint="请输入密码"
             android:inputType="textPassword"
-            android:paddingLeft="40dp" />
+            android:paddingLeft="50dp" />
 
     </RelativeLayout>
 
@@ -74,6 +78,7 @@
         android:paddingEnd="@dimen/activity_vertical_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="50dp"
         android:layout_gravity="center_horizontal">
 
         <Button
@@ -82,16 +87,18 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:background="@color/colorPrimary"
-            android:text="登录"/>
+            android:background="@drawable/button_style"
+            android:text="登录"
+            android:textColor="@color/white"/>
 
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:text="注册" />
+            android:background="@drawable/button_style"
+            android:text="注册"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 

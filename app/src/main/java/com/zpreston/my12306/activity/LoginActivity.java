@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.zpreston.my12306.R;
 import com.zpreston.my12306.dao.UserDao;
 import com.zpreston.my12306.daoImpl.UserDaoImpl;
+import com.zpreston.my12306.util.Util;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText edtUser;
@@ -32,6 +33,14 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Util util=new Util(LoginActivity.this);
+        if(!util.getPassword().equals("")){
+            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+            Toast.makeText(LoginActivity.this,"自动登录中....",Toast.LENGTH_SHORT);
+            startActivity(intent);
+        }
+
         setContentView(R.layout.activity_login);
 
         edtUser = (EditText) findViewById(R.id.edtUser);
