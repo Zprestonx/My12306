@@ -1,5 +1,6 @@
 package com.zpreston.my12306.activity;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
@@ -35,6 +36,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     private String textViewArray[]={"火车票","车票预定","我的12306"};
     private List<Fragment> list=new ArrayList<Fragment>();
     private ViewPager viewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,4 +107,5 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         int position=mTabHost.getCurrentTab();
         viewPager.setCurrentItem(position);
     }
+
 }

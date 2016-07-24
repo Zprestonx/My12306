@@ -70,17 +70,19 @@ public class AllOrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_all_order);
         lvOpt= (ListView) this.findViewById(R.id.lvOpt);
         Intent intent =getIntent();
+        final OrderDao orderDao = new OrderDaoImpl(AllOrderActivity.this);
         orderNo=intent.getStringExtra("orderNo");
         final TextView bar_code=(TextView)this.findViewById(R.id.bar_code);
         //获得数据
         mData = getData();
+        TextView orderNo1=(TextView)this.findViewById(R.id.orderNo);
+        orderNo1.setText(orderNo);
         lvOpt.setAdapter(new optactAdapter(mData,this));
 
 
                 bar_code.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        bar_code.setBackgroundColor(AllOrderActivity.this.getResources().getColor(R.color.lightblue));
                         Intent intent = new Intent(AllOrderActivity.this, QRCodeActivity.class);
                         startActivity(intent);
                     }
@@ -92,7 +94,6 @@ public class AllOrderActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(AllOrderActivity.this);
                 builder.setTitle("请选择操作");
                 final String items[]={"退票","改签"};
-                final OrderDao orderDao = new OrderDaoImpl(AllOrderActivity.this);
                 //items使用全局的finalCharSequenece数组声明
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
@@ -101,7 +102,6 @@ public class AllOrderActivity extends AppCompatActivity {
                         String select_item = items[which].toString();
                         if(select_item=="0") {
                             orderDao.returnTicket("15627860619@qq.com",(String)(mData.get(position).get("orederNo")),(int)mData.get(position).get("contactId"));
-
                         }//switch,0的话returnticket,1的话ordertckets
 
                         Toast.makeText(AllOrderActivity.this,"选择了---》" + select_item, Toast.LENGTH_SHORT).show();

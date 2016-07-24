@@ -66,16 +66,23 @@ public class OrderActivity extends AppCompatActivity {
             lvOpt= (ListView) this.findViewById(R.id.lvOpt);
         Intent intent =getIntent();
         orderNo=intent.getStringExtra("orderNo");
+        TextView orderNo1=(TextView)this.findViewById(R.id.orderNo);
+        orderNo1.setText(orderNo);
         final TextView cancelOrder=(TextView)this.findViewById(R.id.cancelOrder);
         final TextView con_firmOrder=(TextView)this.findViewById(R.id.con_firmOrder);
+        final OrderDao orderDao = new OrderDaoImpl(OrderActivity.this);
         //获得数据
         mData = getData();
         lvOpt.setAdapter(new optactAdapter(getData(),this));
         cancelOrder.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {//点击取消订单,订单状态改成2，已取消,finish
+            public void onClick(View v) {//点击取消订单,从数据库删除订单
+
+                orderDao.cancelOrder("15627860619@qq.com",orderNo);
                 cancelOrder.setBackgroundColor(OrderActivity.this.getResources().getColor(R.color.lightblue));
-            finish();
+                Intent intent = new Intent();
+                OrderActivity.this.setResult(RESULT_OK,intent);
+                OrderActivity.this.finish();
             }
         });
         con_firmOrder.setOnClickListener(new View.OnClickListener() {

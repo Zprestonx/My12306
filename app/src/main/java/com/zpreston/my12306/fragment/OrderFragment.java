@@ -1,5 +1,8 @@
 package com.zpreston.my12306.fragment;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.nfc.Tag;
@@ -39,11 +42,12 @@ import java.util.Set;
 public class OrderFragment extends Fragment {
     private ListView lvOpt;
     private List<Map<String, Object>> mData, nData;
-
+    final optAdapter opt = new optAdapter(mData, getActivity());
     public OrderFragment() {
 
         // Required empty public constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,6 +61,7 @@ public class OrderFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         initView();
     }
+
 
     //响应条目的点击事件
     private void initView() {
@@ -74,7 +79,6 @@ public class OrderFragment extends Fragment {
                 mData=getData1();
                 opt.setmData(mData);
                 opt.notifyDataSetChanged();
-                Toast.makeText(getActivity(), "click tv1", Toast.LENGTH_LONG).show();
                 //修改颜色
                 tv1.setBackgroundColor(getContext().getResources().getColor(R.color.lightblue));
                 tv2.setBackgroundColor(getContext().getResources().getColor(R.color.gray));
@@ -87,7 +91,6 @@ public class OrderFragment extends Fragment {
                 mData=getData();
                 opt.setmData(mData);
                 opt.notifyDataSetChanged();
-                Toast.makeText(getActivity(), "click tv2", Toast.LENGTH_LONG).show();
                 tv1.setBackgroundColor(getContext().getResources().getColor(R.color.gray));
                 tv2.setBackgroundColor(getContext().getResources().getColor(R.color.lightblue));
             }
@@ -102,7 +105,7 @@ public class OrderFragment extends Fragment {
                     Intent intent = new Intent(getActivity(), OrderActivity.class);
                     intent.putExtra("orderNo",orderNo);
                     //启动activity
-                    startActivity(intent);
+                    startActivityForResult(intent,1);
                 } else {
                     String orderNo=(String) (mData.get(position).get("orderNo"));
                     Intent intent = new Intent(getActivity(), AllOrderActivity.class);
@@ -114,8 +117,22 @@ public class OrderFragment extends Fragment {
         });
     }
 
-    private List<Map<String, Object>> getData() {//实现Map的数据构造，获取已支付订单
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //重写onActivityResult方法
+            switch (requestCode){
+                case 1:
+                    if(resultCode==Activity.RESULT_OK){
+                        Log.e("Tag","***************");
+                        opt.setmData(getData1());
+                        opt.notifyDataSetChanged();
+                    }
+                    break;
+                default:
+        }
+    }
 
+    private List<Map<String, Object>> getData() {//实现Map的数据构造，获取已支付订单
         //创建一个ArrayList来存放Map
         List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
         //创建Map来存放数据
@@ -156,11 +173,9 @@ public class OrderFragment extends Fragment {
             map.put("orderState", orderState[i]);
             map.put("trainNo", trainNo[i]);
             map.put("trainMes", "广州->北京");
-            map.put("contactNum", Num[i]);
-            map.put("orderPrice", Price[i]);
-
+            map.put("contactNum", Num[i]+"人");
+            map.put("orderPrice", Price[i]+"元");
             data.add(map);
-
         }
                 return data;
             }
