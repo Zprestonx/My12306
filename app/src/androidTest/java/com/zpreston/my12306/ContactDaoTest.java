@@ -80,7 +80,7 @@ public class ContactDaoTest extends ApplicationTestCase<Application> {
         String contactName = "lgx";
         String contactCardId = "440982199410082894";
         String contactPhone = "15627860619";
-        int contactState = 3;
+        int contactState = 0;
         Contact contact = new Contact(uid, contactId, contactName, contactCardId,contactPhone,contactState);
 
         ContactDao contactDao = new ContactDaoImpl(getContext());
