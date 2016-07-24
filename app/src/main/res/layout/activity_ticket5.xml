@@ -34,7 +34,7 @@
         android:id="@+id/cancel"
         android:textSize="18sp"
         android:onClick="back"
-        android:background="@color/cornflowerblue"
+        android:background="@drawable/button_style"
         android:textColor="@color/white"
         android:layout_below="@+id/imageView3"
         android:layout_alignParentEnd="true" />

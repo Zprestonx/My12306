@@ -209,7 +209,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/cornflowerblue"
+            android:background="@drawable/button_style"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:text="注册"
             android:textColor="@color/white"
@@ -219,7 +219,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/cornflowerblue"
+            android:background="@drawable/button_style"
             android:text="返回"
             android:textColor="@color/white"
             android:id="@+id/btnRback" />

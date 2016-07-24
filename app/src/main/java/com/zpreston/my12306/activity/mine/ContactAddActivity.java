@@ -59,13 +59,11 @@ public class ContactAddActivity extends AppCompatActivity {
         btnAddContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 /* 添加温馨提示对话框 */
                 AlertDialog.Builder builder = new AlertDialog.Builder(ContactAddActivity.this);
                 builder.setTitle("温馨提示");
                 builder.setMessage("    为避免对乘客造成不必要的困扰，请务必填写真实信息！");
-                builder.setIcon(android.R.drawable.btn_star);
+                builder.setIcon(R.drawable.tip);
                 /*builder.setCancelable(false);*/
                 builder.setPositiveButton("知道了", new DialogInterface.OnClickListener() {
                     @Override

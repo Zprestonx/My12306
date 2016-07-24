@@ -100,7 +100,7 @@ public class MineFragment extends Fragment {
     private void pwd_dialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("请输入原密码");
-        builder.setIcon(android.R.drawable.btn_star);
+        builder.setIcon(R.drawable.pwd_bell);
 
         final EditText edtPwdO=new EditText(getActivity());
         final UserDao pwdDialog=new UserDaoImpl(getActivity());

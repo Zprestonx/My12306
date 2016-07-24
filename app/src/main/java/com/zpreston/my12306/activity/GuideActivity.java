@@ -3,7 +3,6 @@ package com.zpreston.my12306.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,8 +22,8 @@ public class GuideActivity extends Activity implements View.OnClickListener, Vie
     private ViewPager viewPager;
     private ArrayList<View> views = new ArrayList<View>();
     //引导页显示的图片资源id
-    private static final int[] images = {R.drawable.home, R.drawable.travel,
-            R.drawable.go, R.drawable.one};
+    private static final int[] images = {R.drawable.guide_home, R.drawable.guide_travel,
+            R.drawable.guide_go, R.drawable.guide_welcome};
     private ImageView[] dots;
     private int currentIndex;
 

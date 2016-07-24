@@ -27,7 +27,7 @@
             android:layout_weight="1"
             android:textColor="@color/white"
             android:text="保存"
-            android:background="@color/cornflowerblue"
+            android:background="@drawable/button_style"
             android:id="@+id/btnSaveAccount" />
 
         <Button
@@ -35,14 +35,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:background="@color/cornflowerblue"
+            android:background="@drawable/button_style"
             android:textColor="@color/white"
             android:text="退出账户"
             android:id="@+id/btnExitAccount" />
-
-
-
-
 
     </LinearLayout>
 

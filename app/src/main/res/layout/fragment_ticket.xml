@@ -50,8 +50,8 @@
         android:layout_alignStart="@+id/tv2" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:id="@+id/imageView"
         android:background="@drawable/exchange"
         android:layout_alignBottom="@+id/BeginCity"
@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:text="查询"
         android:textSize="18sp"
-        android:background="@color/cornflowerblue"
+        android:background="@drawable/button_style"
         android:textColor="@color/white"
         android:id="@+id/query"
         android:layout_below="@+id/textView"
@@ -105,7 +105,5 @@
         android:id="@+id/listView"
         android:layout_alignTop="@+id/textView2"
         android:layout_toEndOf="@+id/textView2" />
-
-
 
 </RelativeLayout>
