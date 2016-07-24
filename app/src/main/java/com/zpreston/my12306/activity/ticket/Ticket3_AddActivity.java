@@ -16,6 +16,7 @@ import com.zpreston.my12306.bean.Contact;
 import com.zpreston.my12306.bean.Passenger;
 import com.zpreston.my12306.dao.ContactDao;
 import com.zpreston.my12306.daoImpl.ContactDaoImpl;
+import com.zpreston.my12306.util.Util;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import java.util.Map;
 
 public class Ticket3_AddActivity extends AppCompatActivity {
     public static ArrayList<Activity> activityD = new ArrayList<Activity>();
+    Util util=new Util(this);
     private ListView lvContact;
     List<Map<String, Object>> mData;
 
@@ -73,10 +75,11 @@ public class Ticket3_AddActivity extends AppCompatActivity {
     private List<Map<String,Object>> getData(){
         /* 实现Map的数据构造 */
         List<Map<String,Object>> data=new ArrayList<Map<String, Object>>();
-        Map<String,Object> map=new HashMap<String,Object>();
 
         ContactDao contactDao=new ContactDaoImpl(Ticket3_AddActivity.this);
-        List<Contact> contactList=contactDao.queryMyContacts("775079852@qq.com");
+        Util util=new Util(this);
+        List<Contact> contactList=contactDao.queryMyContacts(util.getEmail());
+        Log.e("email",util.getEmail());
 
         String contactType = null;
 
@@ -86,6 +89,7 @@ public class Ticket3_AddActivity extends AppCompatActivity {
             }else if(contact.getContactState()==1){
                 contactType = "学生";
             }
+            Map<String,Object> map=new HashMap<String,Object>();
             map.put("tvContactName",contact.getContactName()+"("+contactType+")");
             map.put("tvIdCard",contact.getContactCardId());
             map.put("tvPhone",contact.getContactPhone());

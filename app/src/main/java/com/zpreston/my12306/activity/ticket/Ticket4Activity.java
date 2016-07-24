@@ -20,6 +20,7 @@ import com.zpreston.my12306.daoImpl.ContactDaoImpl;
 import com.zpreston.my12306.daoImpl.OrderDaoImpl;
 import com.zpreston.my12306.fragment.OrderFragment;
 import com.zpreston.my12306.fragment.TicketFragment;
+import com.zpreston.my12306.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Ticket4Activity extends AppCompatActivity {
+    Util util=new Util(this);
     String startTime;
     String trainNo_;
 
@@ -70,7 +72,8 @@ public class Ticket4Activity extends AppCompatActivity {
 
     public void yes(View view) { //确认支付按钮跳转
         OrderDao orderDao = new OrderDaoImpl(this);
-        orderDao.payForOrder("775079852@qq.com",orderNo);
+        Util util=new Util(this);
+        orderDao.payForOrder(util.getEmail(),orderNo);
         Intent intent=new Intent(this,Ticket5Activity.class);
         startActivity(intent);
     }
@@ -82,13 +85,14 @@ public class Ticket4Activity extends AppCompatActivity {
         //创建Map来存放数据
         OrderDao orderDao = new OrderDaoImpl(this);
         ContactDao contactDao = new ContactDaoImpl(this);
-        List<Order> list = orderDao.queryNotPaidOrders("775079852@qq.com");//查询未支付订单
+        Util util=new Util(this);
+        List<Order> list = orderDao.queryNotPaidOrders(util.getEmail());//查询未支付订单
         for (Order order : list) {
             if (order.getOrderNo().equals(orderNo)) {//通过从点击条目获取的orderNo匹配list中的信息
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("orderNo", order.getOrderNo());
                 String contactName;
-                contactName = (contactDao.querySingleContactById("775079852@qq.com",order.getContactId())).getContactName();
+                contactName = (contactDao.querySingleContactById(util.getEmail(),order.getContactId())).getContactName();
                 map.put("contactName",contactName);
                 map.put("trainNo", order.getTrainNo());
                 map.put("orderTime",order.getOrderTime());

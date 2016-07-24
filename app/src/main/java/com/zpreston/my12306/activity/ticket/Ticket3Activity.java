@@ -22,6 +22,7 @@ import com.zpreston.my12306.daoImpl.ContactDaoImpl;
 import com.zpreston.my12306.daoImpl.OrderDaoImpl;
 import com.zpreston.my12306.daoImpl.TrainDaoImpl;
 import com.zpreston.my12306.fragment.TicketFragment;
+import com.zpreston.my12306.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +32,7 @@ import java.util.Map;
 public class Ticket3Activity extends AppCompatActivity {
     Ticket3Adapter ticket3Adapter;
     public static ArrayList<Activity> activityD = new ArrayList<Activity>();
+    Util util=new Util(this);
     private ListView lvContact;
     List<Map<String, Object>> mData;
 
@@ -134,7 +136,7 @@ public class Ticket3Activity extends AppCompatActivity {
         Map<String, Object> map = new HashMap<String, Object>();
 
         ContactDao contactDao = new ContactDaoImpl(Ticket3Activity.this);
-        List<Contact> contactList = contactDao.queryMyContacts("775079852@qq.com");
+        List<Contact> contactList = contactDao.queryMyContacts(util.getEmail());
 
         String contactType = null;
 
@@ -192,10 +194,11 @@ public class Ticket3Activity extends AppCompatActivity {
                     OrderDao orderDao = new OrderDaoImpl(this);
                     List<Contact> contact = new ArrayList<Contact>();
                     int size1 = bundle.getInt("size", 0);
+                    Util util=new Util(this);
                     for (int j = 0; j < size1; j++) {
                         Passenger passenger = (Passenger) bundle.getSerializable(String.valueOf(j));
                         String name[] = passenger.getTvContactName().split("\\(");
-                        Contact contact1 = contactDao.querySingleContact("775079852@qq.com", name[0]);
+                        Contact contact1 = contactDao.querySingleContact(util.getEmail(), name[0]);
                         contact.add(contact1);
                     }
                     orderNo = orderDao.orderTickets(contact, train);

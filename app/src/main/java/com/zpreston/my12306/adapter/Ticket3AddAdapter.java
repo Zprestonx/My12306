@@ -77,11 +77,11 @@ public class Ticket3AddAdapter extends BaseAdapter {
                     map.put("2", mData.get(position).get("tvIdCard").toString());
                     map.put("3", mData.get(position).get("tvPhone").toString());
                     if (isChecked) {
-                        //if (!list.contains(map)) {
+                        if (!list.contains(map)) {
                             list.add(map);
-                        //}
+                        }
                     } else {
-                        //if (list.contains(map))
+                        if (list.contains(map))
                             list.remove(map);
                     }
                 }
