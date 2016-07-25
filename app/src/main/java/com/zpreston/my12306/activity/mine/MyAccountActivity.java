@@ -23,6 +23,7 @@ import com.zpreston.my12306.adapter.MyAccountAdapter;
 import com.zpreston.my12306.bean.User;
 import com.zpreston.my12306.dao.UserDao;
 import com.zpreston.my12306.daoImpl.UserDaoImpl;
+import com.zpreston.my12306.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -79,7 +80,7 @@ public class MyAccountActivity extends AppCompatActivity {
 
         String userType = null;
         UserDao userDao=new UserDaoImpl(MyAccountActivity.this);
-        User user=userDao.getUserInfo("775079852@qq.com");
+        User user=userDao.getUserInfo(new Util(MyAccountActivity.this).getEmail());
 
         if(user.getPassengerType()==0){
             userType="成人";
@@ -88,7 +89,7 @@ public class MyAccountActivity extends AppCompatActivity {
         }
 
         map.put("label","用户名");
-        map.put("content",user.getEmail());
+        map.put("content","775079852@qq.com");
         data.add(map);
 
         map=new HashMap<String,Object>();

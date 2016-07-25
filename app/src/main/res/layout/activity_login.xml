@@ -113,7 +113,7 @@
             android:id="@+id/ckAuto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
+            android:checked="false"
             android:text="自动登录"
             android:textSize="18sp"
             android:enabled="true"

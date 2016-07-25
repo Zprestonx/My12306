@@ -136,14 +136,16 @@ public class ContactShowActivity extends AppCompatActivity {
 
                 ContactDao contactDao=new ContactDaoImpl(ContactShowActivity.this);
                 //Toast.makeText(ContactShowActivity.this,"you clicked Remove",Toast.LENGTH_SHORT).show();
-                Log.e("before","***");
+                //Log.e("before","***");
                 Map<String,Object> map=adapter.getMap();
-                Log.e("deleteBefore",map.get("0").toString());
+                //Log.e("deleteBefore",map.get("0").toString());
+                Util util=new Util(ContactShowActivity.this);
+                String userEmail=util.getEmail();
                 contactDao.deleteContact("775079852@qq.com",map.get("0").toString());
                 Log.e("deleteAfter",map.get("0").toString());
                 Intent intent=new Intent(ContactShowActivity.this,MyContactActivity.class);
                 startActivity(intent);
-                //finish();
+                finish();
                 break;
             default:
                 Toast.makeText(ContactShowActivity.this, "Error!", Toast.LENGTH_SHORT).show();

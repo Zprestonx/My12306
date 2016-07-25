@@ -1,5 +1,6 @@
 package com.zpreston.my12306.activity.mine;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +18,7 @@ import com.zpreston.my12306.activity.MainActivity;
 import com.zpreston.my12306.bean.User;
 import com.zpreston.my12306.daoImpl.UserDaoImpl;
 import com.zpreston.my12306.fragment.MineFragment;
+import com.zpreston.my12306.util.Util;
 
 public class MyPasswordActivity extends AppCompatActivity {
     private EditText edtPwdF;
@@ -38,8 +40,8 @@ public class MyPasswordActivity extends AppCompatActivity {
         btnPst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String pwd1=edtPwdF.getText().toString();
-                String pwd2=edtPwdS.getText().toString();
+                final String pwd1=edtPwdF.getText().toString();
+                final String pwd2=edtPwdS.getText().toString();
 
                 if(TextUtils.isEmpty(pwd1)){
                     edtPwdF.setError("密码不能为空");
@@ -54,11 +56,29 @@ public class MyPasswordActivity extends AppCompatActivity {
                 }
                 else if(pwd1.equals(pwd2)){
                     /* 如果密码相同，点击确定则保存密码 */
-                    Toast.makeText(MyPasswordActivity.this,"保存新密码....",Toast.LENGTH_LONG).show();
-                    UserDaoImpl userDI=new UserDaoImpl(MyPasswordActivity.this);
-                    int rt=userDI.modifyPassword("775079852@qq.com",pwd1,pwd2);
-                    Toast.makeText(MyPasswordActivity.this,"保存新密码返回值为:"+rt,Toast.LENGTH_LONG).show();
-                    finish();
+                    final ProgressDialog progressDialog=new ProgressDialog(MyPasswordActivity.this);
+                    progressDialog.setTitle("保存密码");
+                    progressDialog.show();
+                    new Thread(){
+                        @Override
+                        public void run() {
+                            try{
+                                Thread.sleep(500);
+                            }catch (Exception e){
+
+                            }
+                            //Toast.makeText(MyPasswordActivity.this,"保存新密码....",Toast.LENGTH_LONG).show();
+                            UserDaoImpl userDI=new UserDaoImpl(MyPasswordActivity.this);
+                            String userEmail=new Util(MyPasswordActivity.this).getEmail();
+                            int rt=userDI.modifyPassword("775079852@qq.com",pwd1,pwd2);
+                            //Toast.makeText(MyPasswordActivity.this,"保存新密码返回值为:"+rt,Toast.LENGTH_LONG).show();
+                            finish();
+                            progressDialog.dismiss();
+
+                        }
+                    }.start();
+
+
                 }
             }
         });

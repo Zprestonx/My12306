@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.zpreston.my12306.activity.mine.MyPasswordActivity;
 import com.zpreston.my12306.dao.UserDao;
 import com.zpreston.my12306.daoImpl.UserDaoImpl;
 
+import java.security.KeyRep;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -103,6 +105,7 @@ public class MineFragment extends Fragment {
         builder.setIcon(R.drawable.pwd_bell);
 
         final EditText edtPwdO=new EditText(getActivity());
+        edtPwdO.setTransformationMethod(PasswordTransformationMethod.getInstance());
         final UserDao pwdDialog=new UserDaoImpl(getActivity());
 
         builder.setView(edtPwdO);
@@ -114,10 +117,10 @@ public class MineFragment extends Fragment {
                 int rt = pwdDialog.verifyPassword("775079852@qq.com", pwd);
 
                 /* 输入原密码正确，进入修改密码页面 */
-                Toast.makeText(getActivity(), "返回值为:" + rt, Toast.LENGTH_SHORT).show();
+
                 if (rt == 1) {
                     try {
-                    Toast.makeText(getActivity(), "返回值为:" + rt, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "返回值为:" + rt, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity(), MyPasswordActivity.class);
                     startActivity(intent);
                     dialog.dismiss();
@@ -126,6 +129,7 @@ public class MineFragment extends Fragment {
                     }
                 } else if (rt == 0) {
                     try {
+                        Toast.makeText(getActivity(), "密码错误!", Toast.LENGTH_SHORT).show();
                         edtPwdO.setError("原密码输入不正确，请重新输入！");
                         edtPwdO.requestFocus();
                     } catch (Exception e) {

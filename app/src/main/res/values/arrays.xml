@@ -2,6 +2,7 @@
 <resources>
 
     <string-array name="date">
+        <item>广州</item>
         <item>乌鲁木齐</item>
         <item>拉萨</item>
         <item>青海</item>

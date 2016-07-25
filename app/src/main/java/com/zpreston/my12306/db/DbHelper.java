@@ -84,7 +84,7 @@ public class DbHelper extends SQLiteOpenHelper{
         db.execSQL(sql);
 
         //Contact表
-        sql = "insert into Contact(uid,contactId,contactName,contactCardId,contactPhone,contactState) values(1,1,'曾华生','440982199410082894','15627860619',1)";
+        sql = "insert into Contact(uid,contactId,contactName,contactCardId,contactPhone,contactState) values(1,1,'123','123','123',1)";
         db.execSQL(sql);
         sql = "insert into Contact(uid,contactId,contactName,contactCardId,contactPhone,contactState) values(1,2,'马丽豪','440982199402129312','15627863502',1)";
         db.execSQL(sql);

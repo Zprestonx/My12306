@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +54,7 @@ public class TicketFragment extends Fragment {
     private TextView time;
     private TextView beginCity,endCity;
     private ListView listView;
+    private ImageView imageView;
 
     public TicketFragment(){
 
@@ -81,6 +84,15 @@ public class TicketFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent=new Intent(getActivity(),QueryCity.class);
                 startActivityForResult(intent,END_CITY_CODE);
+            }
+        });
+        imageView=(ImageView)getActivity().findViewById(R.id.imageView);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String city=beginCity.getText().toString();
+                beginCity.setText(endCity.getText().toString());
+                endCity.setText(city);
             }
         });
         query = (Button) getActivity().findViewById(R.id.query);

@@ -18,6 +18,7 @@ import com.zpreston.my12306.adapter.ContactShowAdapter;
 import com.zpreston.my12306.bean.Contact;
 import com.zpreston.my12306.dao.ContactDao;
 import com.zpreston.my12306.daoImpl.ContactDaoImpl;
+import com.zpreston.my12306.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,6 +70,8 @@ public class ContactAddActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Map map=adapter.getMap();
+                        Util util=new Util(ContactAddActivity.this);
+                        String userEmail=util.getEmail();
                         int i=1;
                         if(map.get("3").toString().equals("0")) i=0;
                         Contact contact=new Contact(0,0,map.get("0").toString(),map.get("2").toString(),
@@ -77,6 +80,7 @@ public class ContactAddActivity extends AppCompatActivity {
                         contactDao.addContact("775079852@qq.com",contact);
                         Intent intent=new Intent(ContactAddActivity.this,MyContactActivity.class);
                         startActivity(intent);
+                        finish();
                         dialog.dismiss();
                     }
                 });

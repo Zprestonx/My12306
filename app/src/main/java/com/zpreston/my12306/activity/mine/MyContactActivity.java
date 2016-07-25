@@ -21,6 +21,7 @@ import com.zpreston.my12306.dao.ContactDao;
 import com.zpreston.my12306.dao.UserDao;
 import com.zpreston.my12306.daoImpl.ContactDaoImpl;
 import com.zpreston.my12306.daoImpl.UserDaoImpl;
+import com.zpreston.my12306.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,8 +53,8 @@ public class MyContactActivity extends AppCompatActivity {
 
                 ContactDao contactDao=new ContactDaoImpl(MyContactActivity.this);
                 Toast.makeText(MyContactActivity.this, "点击了联系人" + position, Toast.LENGTH_SHORT).show();
-
-                Contact contact=contactDao.querySingleContact("775079852@qq.com",
+                String userEmail=new Util(MyContactActivity.this).getEmail();
+                Contact contact=contactDao.querySingleContact(userEmail,
                         myContactAdapter.getContactName(position));
                 Log.e("tag",contact.toString());
                 String contactType=null;
@@ -72,7 +73,7 @@ public class MyContactActivity extends AppCompatActivity {
                 intent.putExtra("contactType",contactType);
                 intent.putExtra("contactPhone",contact.getContactPhone());
                 startActivity(intent);
-                //finish();
+                finish();
             }
         });
     }
@@ -119,7 +120,7 @@ public class MyContactActivity extends AppCompatActivity {
             case R.id.add_item:
                 Intent intent=new Intent(MyContactActivity.this,ContactAddActivity.class);
                 startActivity(intent);
-                //finish();
+                finish();
                 Toast.makeText(MyContactActivity.this,"you clicked Add", Toast.LENGTH_SHORT).show();
                 break;
             default:
